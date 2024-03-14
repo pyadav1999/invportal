@@ -1,0 +1,269 @@
+﻿@model AVEGIC.Entity_Models.UserProfile
+@if (Model.role == 1)
+{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+else
+{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UsersLayout.cshtml";
+}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/js/InformationSheet.js"></script>
+<style>
+    .master-head, .action-btns {
+        text-align: center;
+    }
+
+    .title {
+        color: #8860D0;
+    }
+
+    .sub-title {
+        color: white;
+        font-size: 20px;
+    }
+
+    .report, .templates, .search {
+        background-color: #FFFFFF;
+        width: 96%;
+        height: 100%;
+        margin: 5em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+
+    .template {
+        background-color: #FFFFFF;
+        width: 96%;
+        height: 100%;
+        margin: 7em auto;
+        border-radius: 0.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+
+    .row {
+        margin-top: 10px !important;
+    }
+</style>
+<div class="master-head">
+    <h2 class="title">Information Sheet</h2>
+    <p class="sub-title">Create Your WorkBooks</p>
+</div>
+<div class="action-btns">
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary " id="SubmitReportData">Submit</button>
+        <button type="button" class="btn btn-primary" id="UpdateReportData">Update</button>
+        <button type="button" class="btn btn-danger actionDivbtn" id="">Delete</button>
+        <button type="button" class="btn btn-primary actionDivbtn" id="">Search</button>
+        @*<button type="button" class="btn btn-primary actionDivbtn" id="">Print</button>*@
+    </div>
+</div>
+
+<section class="search" id="searchDiv">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header searchhead">Search/Delete Sheet</div>
+                    <div class="card-body">
+                        <form name="my-form">
+                            <div class="form-group row">
+                                <label for="year" class="col-md-2 col-form-label text-md-right">Sheet.No</label>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <select id="searchagency" class="form-control" name="agency">
+                                                <option value="0" selected>Select Agency &#9662;</option>
+                                                @foreach (var item in ViewBag.Agency)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Abbreviation</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select id="searchinsurer" class="form-control" name="insurer">
+                                                <option value="0" selected>Select Insurer &#9662;</option>
+                                                @foreach (var item in ViewBag.Insurer)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" id="Searchsheet" class="form-control" name="Searchsheet">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select id="Searchyear" class="form-control" name="Searchyear">
+                                                <option selected value="0">Select Year &#9662;</option>
+                                                @foreach (var item in ViewBag.Year)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.year</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary" id="searchReport" type="button"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-primary" id="printreport" href="" type="button"><i class="fa fa-print"></i></button>
+                                    <button class="btn btn-primary" id="deleteReport" type="button"><i class="fa fa-trash"></i></button>
+                                    <button type="button" id="closeSearchdiv" class="btn btn-danger"><i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="report">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Create Information Sheet</div>
+                    <div class="card-body">
+                        <form name="my-form">
+                            <div class="form-group row">
+                                <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Agency</label>
+                                <div class="col-md-6">
+                                    <select id="agencyId" class="form-control" name="agencyId">
+                                        <option value="0" selected>Select &#9662;</option>
+                                        @foreach (var item in ViewBag.Agency)
+                                        {
+                                            if (item.IsDeleted == false)
+                                            {
+                                                <option value="@item.Id">@item.Abbreviation</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Insurer</label>
+                                <div class="col-md-6">
+                                    <select id="searchinsurer" class="form-control" name="insurer">
+                                        <option value="0" selected>Select Insurer &#9662;</option>
+                                        @foreach (var item in ViewBag.Insurer)
+                                        {
+                                            if (item.IsDeleted == false)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="agencyId" class="col-md-4 col-form-label text-md-right">Sheet No</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="insurer" class="form-control" name="insurer">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Year</label>
+                                <div class="col-md-6">
+                                    <select id="Searchyear" class="form-control" name="Searchyear">
+                                        <option selected value="0">Select Year &#9662;</option>
+                                        @foreach (var item in ViewBag.Year)
+                                        {
+                                            if (item.IsDeleted == false)
+                                            {
+                                                <option value="@item.Id">@item.year</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row reportType">
+                                <label for="reporttypeId" class="col-md-4 col-form-label text-md-right">Select Sheet Type</label>
+                                <div class="col-md-6">
+                                    <select id="reporttypeId" class="form-control" name="reporttypeId">
+                                        <option value="0">Select &#9662;</option>
+                                        @foreach (var item in ViewBag.ReportType)
+                                        {
+                                            if (item.IsDeleted == false)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row reportType">
+                                <label for="id" class="col-md-4 col-form-label text-md-right">Date</label>
+                                <div class="col-md-6">
+                                    <input type="date" id="date" class="form-control" name="daet">
+                                </div>
+                            </div>
+                            <div class="form-group row reportType">
+                                <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Templates</label>
+                                <div class="col-md-6 yeardrop">
+                                    <select id="templateId" class="form-control" name="templateId">
+                                        <option selected value="0">Select &#9662;</option>
+                                        @foreach (var item in ViewBag.Templates)
+                                        {
+                                            <option value="@item.Id" class="tempOptions">@item.TemplateName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row reportType">
+                                <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Dynamic Table</label>
+                                <div class="col-md-6 yeardrop">
+                                    <select id="dynamicTableId" class="form-control" name="templateId">
+                                        <option selected value="0">Select &#9662;</option>
+                                        @foreach (var item in ViewBag.DynamicTable)
+                                        {
+                                            <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row reportType">
+                                <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Calculation Templates</label>
+                                <div class="col-md-6 yeardrop">
+                                    <select id="calctblId" class="form-control" name="calctblId">
+                                        <option selected value="0">Select &#9662;</option>
+                                        @foreach (var item in ViewBag.Calc)
+                                        {
+                                            <option value="@item.CalcId" class="calcOptions">@item.CalcName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="temp"></div>

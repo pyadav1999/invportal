@@ -1,0 +1,234 @@
+﻿@model AVEGIC.Dto.UserDto
+
+@{
+    ViewData["Title"] = "EditUserDetails";
+    Layout = "~/Views/Shared/_UsersLayout.cshtml";
+}
+<style>
+    .user_details {
+        background-color: #FFFFFF;
+        width: 96%;
+        height: 100%;
+        margin: 5em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+</style>
+<script src="~/js/users.js"></script>
+@*<div class="sidebar">
+    <a href="javascript:void(0)" ><i class="fa fa-desktop "></i>&nbsp;Basic Details</a>
+    <a ><i class="fa-1x fas fa-building "></i>&nbsp;Letter Head Details</a>
+    <a ><i class="fa-1x fas fa-paint-roller"></i>&nbsp;Bill Letter Head Details</a>
+</div>*@
+<div class="masterHead">
+    <div class="masterNav  d-flex align-items-center">
+        <div class="header">
+            <h2 class="logo-dashboard m-0">User Details</h2>
+        </div>
+        <ul class="nav nav-pills">
+            <li class="nav-item masterActive">
+                <a class="nav-link link-body-emphasis active-sidebar" id="basicDetailsBtn"  aria-current="page" href="javascript:void(0);">
+                    Basic Details
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-body-emphasis" href="#letterHead" id="letterHeadBtn">
+                    Letter Head Details
+                </a>
+            </li>
+            <li class="nav-item actionDivbtn">
+                <a class="nav-link link-body-emphasis" aria-current="page" href="#billLetterHead" id="billLetterHeadBtn">
+                    Bill Letter Head Details
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="masterContent">
+    <section class="user_details" id="basicDetails">
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Basic Details</div>
+                        <div class="card-body">
+                            <div class="form1" style="text-align:initial;">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="name" placeholder="name@example.com" value="@Model.name">
+                                    <label for="investigator_name">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="company_name" placeholder="Password" value="@Model.firmName">
+                                    <label for="investigator_company_name">Company Profile/Company Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="abbrevation" placeholder="Password" value="@Model.abbrevation">
+                                    <label for="investigator_company_name">Abbrevation</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="mobile" placeholder="Password" value="@Model.mobileNo">
+                                    <label for="investigator_mobile">Mobile No.</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" placeholder="name@example.com" value="@Model.email">
+                                    <label for="investigator_email">Email address</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @* <label for="investigator_StateId">State</label>*@
+                                    <select id="investigator_StateId" class="form-control stateselect" disId="investigator_districtPoliceId" classId="investigator_district" name="investigator_StateId">
+                                        <option selected value="0">State &#9662;</option>
+                                        @foreach (var item in ViewBag.State)
+                                        {
+                                            if (item.IsDeleted == false)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @*<label for="investigator_districtPoliceId">District</label>*@
+                                    <select id="investigator_districtPoliceId" class="form-control investigator_district" name="investigator_districtPoliceId">
+                                        <option selected id="districtPoliceSelected" value="0">District &#9662;</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="address" placeholder="name@example.com" value="@Model.address">
+                                    <label for="investigator_address">Address</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="letterHead_pan" placeholder="PAN NUMBER" value="@Model.panNo">
+                                    <label for="letterHead_pan">Pan No</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="gstNo" placeholder="GST NUMBER" value="@Model.gstNo">
+                                    <label for="letterHead_gst">Gst No</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="bankName" placeholder="Bank Name" value="@Model.bankName">
+                                    <label for="billLeterHead_BankName">Bank Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="accountNumber" placeholder="Account Number" value="@Model.accountNo">
+                                    <label for="billLeterHead_AccountNumber">Account Number</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="ifscCode" placeholder="IFSC Code" value="@Model.ifscCode">
+                                    <label for="billLeterHead_IFSC">IFSC Code</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <btn class="btn btn-primary float-end" id="saveBasicDetailsBtn">Save</btn>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="user_details" id="letterHead">
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Letter Head</div>
+                        <div class="card-body">
+                            <div class="form1" style="text-align:initial;">
+                                <div class="form-floating mb-3">
+                                    @* <label for="investigator_StateId">State</label>*@
+                                    <select id="letterHead_template " class="form-control dynamicTable" disId="" classId="renderLetterHeadTemps" name="letterHead_template">
+                                        <option selected value="0">Letter Head Template &#9662;</option>
+                                        @foreach (var item in ViewBag.letterHeadNames)
+                                        {
+                                            <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="renderLetterHeadTemps form-floating mb-3"></div>
+                                <div id="stage2editDynLetterHead" class="table-responsive form-floating mb-3"></div>
+                                <div class="form-floating mb-3">
+                                    <btn class="btn btn-success editDynTemplate" id="saveBillLetterHeadBtn" divId="stage2editDynLetterHead">Edit</btn>
+                                    <btn class="btn btn-primary float-end saveAgencyHead" data-Id="1" id="saveLetterHeadBtn">Save</btn>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="user_details" id="billLetterHead">
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Bill Letter Head</div>
+                        <div class="card-body">
+                            <div class="form1" style="text-align:initial;">
+                                <div class="form-floating mb-3">
+                                    @* <label for="investigator_StateId">State</label>*@
+                                    <select id="billLeterHead_template" class="form-control dynamicTable" disId="" classId="renderBillLetterHeadTemps" name="billLeterHead_template">
+                                        <option selected value="0">Bill Letter Head Template &#9662;</option>
+                                        @foreach (var item in ViewBag.billLetterHeadNames)
+                                        {
+                                            <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="renderBillLetterHeadTemps form-floating mb-3"></div>
+                                <div id="stage2editDynBillLetterHead" class="table-responsive form-floating mb-3"></div>
+                                <div class="form-floating mb-3">
+                                    <btn class="btn btn-success editDynTemplate" id="saveBillLetterHeadBtn" divId="stage2editDynBillLetterHead">Edit</btn>
+                                    <btn class="btn btn-primary float-end saveAgencyHead" data-Id="2" id="saveBillLetterHeadBtn">Save</btn>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#billLetterHead').hide();
+        $('#letterHead').hide();
+
+        $('#basicDetailsBtn').on("click", function () {
+            $('#basicDetails').show();
+            $('#billLetterHead').hide();
+            $('#letterHead').hide();
+            $('#basicDetailsBtn').parent().addClass("masterActive");
+            $('#letterHeadBtn').parent().removeClass("masterActive");
+            $('#billLetterHeadBtn').parent().removeClass("masterActive");
+        });
+        $('#letterHeadBtn').on("click", function () {
+            $('#basicDetails').hide();
+            $('#billLetterHead').hide();
+            $('#letterHead').show();
+            $('#letterHeadBtn').parent().addClass("masterActive");
+            $('#billLetterHeadBtn').parent().removeClass("masterActive");
+            $('#basicDetailsBtn').parent().removeClass("masterActive");
+        });
+        $('#billLetterHeadBtn').on("click", function () {
+            $('#basicDetails').hide();
+            $('#billLetterHead').show();
+            $('#letterHead').hide();
+            $('#billLetterHeadBtn').parent().addClass("masterActive");
+            $('#letterHeadBtn').parent().removeClass("masterActive");
+            $('#basicDetailsBtn').parent().removeClass("masterActive");
+        });
+    });
+</script>

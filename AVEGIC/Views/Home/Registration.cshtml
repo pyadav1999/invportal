@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Registration";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<meta name="viewport" content="width=device-width" />
+<title>Registration</title>
+<script src="~/js/Registeration.js"></script>
+<div class="container">
+    <div class="card my-5">
+        <div class="header d-flex justify-content-center mt-2">
+            <h2 class="logo">AVE</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="header d-flex justify-content-center mt-4">
+                    <h2 class="login">Sign Up</h2>
+                </div>
+                <div class="form px-5">
+                    <form>
+                        <div id="basicDetails">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="fullName" placeholder="">
+                                <label for="fullName">Full Name</label>
+                            </div>
+                            <div class="form-floating  mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="email">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating  mb-3">
+                                <input type="text" class="form-control" id="phone" placeholder="phone">
+                                <label for="phone">Phone</label>
+                            </div>
+                            <div class="form-floating  mb-3">
+                                <input type="password" class="form-control" id="password" placeholder="phone">
+                                <label for="phone">Password</label>
+                            </div>
+                            <div class="d-flex justify-content-center  mb-2">
+                                <button class="btn btn-secondary signInBtn" onclick="mysubmit(true,'CONTINUE')"
+                                        type="button">
+                                    Continue
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-center  mb-2">
+                                <button class="btn btn-danger cancelBtn" onclick="mysubmit(false,'CONTINUE')"
+                                        type="button">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                        <div id="accountType">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="userType" aria-label="Default select example">
+                                    <option selected value="-1">Register As</option>
+                                    <option value="2">Advocate</option>
+                                    <option value="3">Insurer</option>
+                                    <option value="4">Investigator</option>
+                                </select>
+                            </div>
+                            <div class="form-floating  mb-3 d-none">
+                                <input type="text" class="form-control" id="company" placeholder="Company">
+                                <label for="company"><span>Company</span> Name</label>
+                            </div>
+                            <div class="form-floating  mb-3 d-none">
+                                <input type="text" class="form-control" id="firm" placeholder="firm">
+                                <label for="firm"><span>Firm</span> Name</label>
+                            </div>
+                            <div class="form-floating mb-3 d-none">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Head Office</option>
+                                    <option value="1">National Insurence</option>
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3 d-none">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Branch</option>
+                                    <option value="1">Legal Verical Delhi</option>
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select stateselect" id="userState" disId="investigator_district" classId="investigator_district" name="investigator_StateId" aria-label="Default select example">
+                                    <option selected value="-1">State</option>
+                                    @foreach (var item in ViewBag.State)
+                                    {
+                                        if (item.IsDeleted == false)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select investigator_district" id="investigator_district" aria-labe="Default select example">
+                                    <option selected value="-1">District</option>
+                                </select>
+                            </div>
+                            <div class="form-floating  mb-3">
+                                <input type="text" class="form-control" id="address" placeholder="address">
+                                <label for="address">Address</label>
+                            </div>
+                            <div class="d-flex justify-content-center  mb-2">
+                                <button class="btn btn-secondary signInBtn" onclick="mysubmit(true,'SUBMIT')"
+                                        type="button">
+                                    Submit
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-center  mb-2">
+                                <button class="btn btn-danger cancelBtn" onclick="mysubmit(false,'SUBMIT')"
+                                        type="button">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end  mb-2">
+                            <a class="registerLink" href="@Url.Action("Login","Home")">Already have an Account? SigIn</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="loginBanner px-3 py-3">
+                    <img src="~/images/login.jpg" width="80%">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
