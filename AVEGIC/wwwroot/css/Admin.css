@@ -1,0 +1,68 @@
+﻿body {
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    font-family: 'Ubuntu', sans-serif;
+}
+/*navbar*/
+ul {
+    padding: 0;
+    list-style: none;
+    background-color: #FFFFFF;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    text-align:center;
+}
+
+    ul li {
+        display: inline-block;
+        position: relative;
+        line-height: 2em;
+        text-align: left;
+    }
+
+        ul li a {
+            display: block;
+            padding: 8px 25px;
+            color: #162ec9;
+            text-decoration: none;
+        }
+
+            ul li a:hover {
+                background-color: #8EC5FC;
+                background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+                color: #FFFFFF;
+            }
+
+        ul li ul.dropdown {
+            min-width: 100%;
+            background-color: #FFFFFF;
+            display: none;
+            position: absolute;
+            z-index: 9999;
+            left: 0;
+        }
+
+        ul li:hover ul.dropdown {
+            display: block;
+        }
+
+        ul li ul.dropdown li {
+            display: block;
+        }
+
+            ul li ul.dropdown li ul.Subdropdown {
+                min-width: 100%;
+                background-color: #FFFFFF;
+                display: none;
+                position: absolute;
+                z-index: 9999;
+                left: 100%;
+                top:0;
+            }
+
+        ul li ul.dropdown li:hover ul.Subdropdown {
+            display: block;
+        }
+
+            ul li ul.dropdown li ul.Subdropdown li {
+                display: block;
+            }

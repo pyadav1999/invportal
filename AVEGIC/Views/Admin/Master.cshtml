@@ -1,0 +1,2171 @@
+﻿@model AVEGIC.Entity_Models.LocationDropdown
+@{
+    ViewData["Title"] = "Master";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>*@
+<script src="~/js/Master.js"></script>
+<style>
+
+    .agency, .company, .branch, .year, .advocate, .Location, .report, .department, .dynamic-table, .render, .state, .district, .policeStation {
+        background-color: #FFFFFF;
+        width: 96%;
+        height: 100%;
+        margin: 7em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+
+    .template {
+        background-color: #FFFFFF;
+        width: 96%;
+        height: 100%;
+        margin: 7em auto;
+        border-radius: 0.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+
+    .row {
+        margin-top: 10px !important;
+    }
+
+    textarea.form-control {
+        min-height: 0;
+    }
+
+</style>
+<div class="masterHead">
+    <div class="masterNav  d-flex align-items-center">
+        <div class="header">
+            <h2 class="logo-dashboard m-0">Master</h2>
+        </div>
+        <ul class="nav nav-pills">
+            <li class="nav-item masterActive">
+                <a class="nav-link link-body-emphasis  tabsBtn" aria-current="page" href="javascript:void(0);" id="companyBtn" tabClass="companyContent">
+                    Company
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="yearBtn" tabClass="yearContent">
+                    Year
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="locationBtn" tabClass="locationContent">
+                    Location
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="reportBtn" tabClass="reportTypeContent">
+                    Report Type
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="departmentBtn" tabClass="departmentContent">
+                    Department
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="templateBtn" tabClass="templateContent">
+                    Template
+                </a>
+            </li>
+
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="dyanmicBtn" tabClass="dynamicContent">
+                    Dynamic Template
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="calculationBtn" tabClass="calculationContent">
+                    Calculation Template
+                </a>
+            </li>
+            <li>
+                <a class="nav-link link-body-emphasis tabsBtn" href="javascript:void(0);" id="conclusionBtn" tabClass="conclusionContent">
+                    Conclusion Set
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="masterContent">
+    <div class="agencyContent" id="agency">
+        <section class="agency">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Agency Details</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Agency Id</label>
+                                        <div class="col-md-6 agencydrop">
+                                            <select id="agencyId" class="form-control" name="agencyId">
+                                                <option value="0" selected>Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Agency)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="agencyname" class="form-control" name="name">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="abbreviation" class="col-md-4 col-form-label text-md-right">Abbreviation</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="abbreviation" class="form-control" name="abbreviation">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="profile" class="col-md-4 col-form-label text-md-right">Profile</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="profile" class="form-control" name="profile">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="addressLine1" class="col-md-4 col-form-label text-md-right">Address Line1</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="addressLine1" class="form-control" name="addressLine1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="addressLine2" class="col-md-4 col-form-label text-md-right">Address Line2</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="addressLine2" class="form-control" name="addressLine2">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="mobile" class="form-control" name="mobile">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="email" class="form-control" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="website" class="col-md-4 col-form-label text-md-right">Website</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="website" class="form-control" name="website">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="pan" class="col-md-4 col-form-label text-md-right">PAN No</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="pan" class="form-control" name="pan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="gst" class="col-md-4 col-form-label text-md-right">GST No</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="gst" class="form-control" name="gst">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Agencycolor" class="col-md-4 col-form-label text-md-right">Header Color</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="Agencycolor">
+                                                <option value="select" disabled selected>Select Text Color</option>
+                                                <option value="Red" style="background-color:red">Red</option>
+                                                <option value="Blue" style="background-color:blue">Blue</option>
+                                                <option value="Green" style="background-color:green">Green</option>
+                                                <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                                <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                                <option value="Brown" style="background-color:brown">Brown</option>
+                                                <option value="Black" style="background-color:black">Black</option>
+                                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                                <option value="deafult" style="background-color:deafult">Deafult</option>
+                                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Agencybgcolor" class="col-md-4 col-form-label text-md-right">Header BgColor</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="Agencybgcolor">
+                                                <option value="select" disabled selected>Select Bg-Color</option>
+                                                <option value="Red" style="background-color:red">Red</option>
+                                                <option value="Blue" style="background-color:blue">Blue</option>
+                                                <option value="Green" style="background-color:green">Green</option>
+                                                <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                                <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                                <option value="Brown" style="background-color:brown">Brown</option>
+                                                <option value="Black" style="background-color:black">Black</option>
+                                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                                <option value="deafult" style="background-color:deafult">Deafult</option>
+                                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Agencyfontfamily" class="col-md-4 col-form-label text-md-right">Header FontFamily</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="Agencyfontfamily">
+                                                <option value="select" disabled selected>Select Font Family</option>
+                                                <option value="Book Antiqua">Book Antiqua</option>
+                                                <option value="Arial">Arial</option>
+                                                <option value="Times New Roman">Times New Roman</option>
+                                                <option value="Comic Sans MS">Comic Sans MS</option>
+                                                <option value="Century">Century</option>
+                                                <option value="Lucida Console">Lucida Console</option>
+                                                <option value="kruti dev">kruti dev</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="AgencyfontWeight" class="col-md-4 col-form-label text-md-right">Header FontWeight</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="AgencyfontWeight">
+                                                <option value="select" disabled selected>Select Font Weight</option>
+                                                <option value="400">400</option>
+                                                <option value="600">600</option>
+                                                <option value="800">800</option>
+                                                <option value="Bold">Bold</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="AgencyfontSize" class="col-md-4 col-form-label text-md-right">Header FontSize</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="AgencyfontSize">
+                                                <option value="select" disabled selected>Select Font Size</option>
+                                                <option value="10">10</option>
+                                                <option value="12">12</option>
+                                                <option value="14">14</option>
+                                                <option value="18">18</option>
+                                                <option value="20">20</option>
+                                                <option value="22">22</option>
+                                                <option value="24">24</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="stampId" class="col-md-4 col-form-label text-md-right">Stamp</label>
+                                        <div class="col-md-6">
+                                            <input type="file" id="stampId" class="form-control" name="stampId" accept="image/png, image/gif, image/jpeg">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row savebtn">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveAgency" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row update-btns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateAgency" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteAgency" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="companyContent" id="company">
+        <section class="company">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add New Company Details</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="companyId" class="col-md-4 col-form-label text-md-right">Select Company Id</label>
+                                        <div class="col-md-6 headofficedrop">
+                                            <select id="companyId" class="form-control" name="companyId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.HeadOffice)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientName" class="col-md-4 col-form-label text-md-right">Client Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="headofficename" class="form-control" name="clientName">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row headofficeSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveHeadOffice" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row headofficeActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateHeadoffice" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteHeadoffice" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="branch">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add New Branch Details</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="companyId" class="col-md-4 col-form-label text-md-right">Select Company Id</label>
+                                        <div class="col-md-6 companybranchdrop">
+                                            <select id="companybranchId" class="form-control" name="companyId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.HeadOffice)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientId" class="col-md-4 col-form-label text-md-right">Select Client Id</label>
+                                        <div class="col-md-6 clientdrop">
+                                            <select id="clientId" class="form-control" name="clientId">
+                                                <option selected id="clientSelected" value="0">Select &#9662;</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="id" class="col-md-4 col-form-label text-md-right">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="id" class="form-control" disabled name="id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientName" class="col-md-4 col-form-label text-md-right">Client Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="clientName" class="form-control" name="clientName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientStateNameId" class="col-md-4 col-form-label text-md-right">Client State</label>
+                                        <div class="col-md-6 statedrop">
+                                            <select id="clientStateNameId" class="form-control" name="clientStateNameId">
+                                                <option selected value="0"></option>
+                                                @foreach (var item in ViewBag.State)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientDistrictId" class="col-md-4 col-form-label text-md-right">Client District</label>
+                                        <div class="col-md-6 districtdrop">
+                                            <select id="clientDistrictId" class="form-control" name="clientDistrictId">
+                                                <option selected id="districtSelected" value="0"></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="clientAddress" class="col-md-4 col-form-label text-md-right">Client Address</label>
+                                        <div class="col-md-6">
+                                            <textarea id="clientAddress" class="form-control" rows="3" name="clientAddress"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row branchSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveBranch" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row BranchActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateBranch" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteBranch" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="yearContent" id="year">
+        <section class="year">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Year Detail</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Year</label>
+                                        <div class="col-md-6 yeardrop">
+                                            <select id="yearId" class="form-control" name="yearId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Year)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.year</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="year" class="col-md-4 col-form-label text-md-right">Enter Year</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="year" class="form-control" name="year">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row YearSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveYear" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row YearActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateYear" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteYear" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="locationContent" id="location">
+        <section class="state">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add New Location</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="StateId" class="col-md-4 col-form-label text-md-right">Select State</label>
+                                        <div class="col-md-6 statedrop">
+                                            <select id="StateId" class="form-control" name="StateId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.State)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="stateName" class="col-md-4 col-form-label text-md-right">State Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="stateName" class="form-control" name="stateName">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row stateSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveState" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row stateActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateState" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteState" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="district">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add District</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="stateNameId" class="col-md-4 col-form-label text-md-right">Select State</label>
+                                        <div class="col-md-6 statedrop">
+                                            <select id="stateNameId" class="form-control" name="stateNameId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.State)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="districtId" class="col-md-4 col-form-label text-md-right">Select District</label>
+                                        <div class="col-md-6 districtdrop">
+                                            <select id="districtId" class="form-control" name="districtId">
+                                                <option selected id="districtSelected" value="0">Select &#9662;</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="district-id" class="col-md-4 col-form-label text-md-right">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="district-id" class="form-control" disabled name="district-id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="districtName" class="col-md-4 col-form-label text-md-right">District Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="districtName" class="form-control" name="districtName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row districtSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveDistrict" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row DistrictActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateDistrict" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteDistrict" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="policeStation">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add Police</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="StatePoliceId" class="col-md-4 col-form-label text-md-right">Select State</label>
+                                        <div class="col-md-6 statedrop">
+                                            <select id="StatePoliceId" class="form-control" name="StatePoliceId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.State)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="districtPoliceId" class="col-md-4 col-form-label text-md-right">Select District</label>
+                                        <div class="col-md-6 districtPolicedrop">
+                                            <select id="districtPoliceId" class="form-control" name="districtPoliceId">
+                                                <option selected id="districtPoliceSelected" value="0">Select &#9662;</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="PoliceId" class="col-md-4 col-form-label text-md-right">Select PoliceStation</label>
+                                        <div class="col-md-6 districtPolicedrop">
+                                            <select id="PoliceId" class="form-control" name="PoliceId">
+                                                <option selected id="districtPoliceSelected" value="0">Select &#9662;</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="police-id" class="col-md-4 col-form-label text-md-right">ID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="police-id" class="form-control" disabled name="police-id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="policeStationName" class="col-md-4 col-form-label text-md-right">Police Station Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="policeStationName" class="form-control" name="policeStationName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="policeStationAddress" class="col-md-4 col-form-label text-md-right">Police Station Address</label>
+                                        <div class="col-md-6">
+                                            <textarea id="policeStationAddress" class="form-control" name="policeStationAddress" rows="2"></textarea>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row policeSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="savePoliceStation" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row PoliceStationActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updatePoliceStation" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deletePoliceStation" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="reportTypeContent" id="reportType">
+        <section class="report">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Report Type Creation</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Report Type</label>
+                                        <div class="col-md-6 reportdrop">
+                                            <select id="reportTypeId" class="form-control" name="reportTypeyearId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.ReportType)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="year" class="col-md-4 col-form-label text-md-right">Enter Report Type</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="reportType" class="form-control" name="reportType">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Templates</label>
+                                        <div class="col-md-6 yeardrop">
+                                            <select id="reporttemplateId" class="form-control" name="reporttemplateId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Templates)
+                                                {
+                                                    <option value="@item.Id">@item.TemplateName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Dynamic Tables</label>
+                                        <div class="col-md-6 yeardrop">
+                                            <select id="reportdynamictblId" class="form-control" name="reportdynamictblId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.DynamicTable)
+                                                {
+                                                    <option value="@item.Id">@item.TableName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select CalcTables</label>
+                                        <div class="col-md-6 yeardrop">
+                                            <select id="reportcalctblId" class="form-control" name="reportcalctblId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Clac)
+                                                {
+                                                    <option value="@item.CalcId">@item.CalcName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="tempnames"></div>
+                                    <div class="form-group row ReportSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveReport" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ReportActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateReport" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteReport" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="departmentContent" id="department">
+        <section class="department">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Department Creation</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="departmentId" class="col-md-4 col-form-label text-md-right">Select Department</label>
+                                        <div class="col-md-6 departmentdrop">
+                                            <select id="departmentId" class="form-control" name="departmentId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Department)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="department" class="col-md-4 col-form-label text-md-right">Enter Department</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="department" class="form-control" name="department">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row departmentSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveDepartment" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row departmentActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateDepartment" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteDepartment" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="templateContent" id="template">
+        <section class="template">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Add Template</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="" style="padding:5px;">
+                                        <header>
+                                            <p style="color:red">*Please Enter Unique Name of Template and Click on Check button to see the Name is avilabel or not.</p>
+                                            <div class="input-group mb-3 col-5">
+                                                <span class="input-group-text">Template Name</span>
+                                                <input class="form-control txtquestions " id="templateName" type="text" value="">
+                                                <a class="btn btn-primary" id="checkName">Check</a>
+                                            </div>
+                                            <span id="resultName"></span>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                                        <div class="col-md-6">
+                                                            <select aria-label="Server" class="form-control" id="tempborder">
+                                                                <option value="select" disabled selected>Select</option>
+                                                                <option value="0">Full Border</option>
+                                                                <option value="1">Right Border</option>
+                                                                <option value="2">Left Border</option>
+                                                                <option value="3">Top Border</option>
+                                                                <option value="4">Bottom Border</option>
+                                                                <option value="5">No Border</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </header>
+                                        <div class="temp-body">
+                                            <div class="add">
+
+                                                <h4><a style="text-decoration:none;color:black" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="javascript:void(0)"> &plus; Add Questions</a></h4>
+                                            </div>
+                                        </div>
+                                        <footer>
+                                            <a class="btn btn-success" id="createtemp">Create</a>
+                                            <a class="btn btn-danger" id="removeFields" style="float:right">Clear Template</a>
+
+                                        </footer>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Add Questions</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Question</span>
+                                <input type="text" class="form-control" placeholder="" aria-label="Server" id="question">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Question Datatype</span>
+                                <select aria-label="Server" class="form-control" id="select-ques-datatype">
+                                    <option value="0">Text</option>
+                                    <option value="1">Dropdown</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3 question">
+                                <span class="input-group-text">Add Question Choice</span>
+                                <select aria-label="Server" class="form-control" id="select-ques-choice">
+                                </select>
+
+
+                            </div>
+                            <div class="input-group mb-3 question">
+                                <input type="text" class="form-control" placeholder="" aria-label="Server" id="txtoptionsQues">
+                                <span class="input-group-text"><a style="text-decoration:none;color:black" id="add-ques-choice" href="javascript:void(0)"> &plus; Add Options</a></span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Answer Datatype</span>
+                                <select aria-label="Server" class="form-control" id="select-datatype">
+                                    <option value="0">Number</option>
+                                    <option value="1">Text</option>
+                                    <option value="2">Long Text</option>
+                                    <option value="3">Date</option>
+                                    <option value="4">Dropdown Number</option>
+                                    <option value="5">Dropdown Text</option>
+                                    <option value="6">Checkbox</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3 answer">
+                                <span class="input-group-text">Add Answer Choice</span>
+                                <select aria-label="Server" class="form-control" id="select-choice">
+                                </select>
+
+
+                            </div>
+                            <div class="input-group mb-3 answer">
+                                <input type="text" class="form-control" placeholder="" aria-label="Server" id="txtoptions">
+                                <span class="input-group-text"><a style="text-decoration:none;color:black" id="add-choice" href="javascript:void(0)"> &plus; Add Options</a></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Q-Color</span>
+                                        <select aria-label="Server" class="form-control" id="select-Qcolor">
+                                            <option value="select" disabled selected>Text Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Q-BgColor</span>
+                                        <select aria-label="Server" class="form-control" id="select-Qbgcolor">
+                                            <option value="select" disabled selected>Bg-Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Q-Horizontal</span>
+                                        <select aria-label="Server" class="form-control" id="select-Qhorizontal">
+                                            <option value="select" disabled selected>Horizontal Alignment</option>
+                                            <option value="center">Center</option>
+                                            <option value="left">Left</option>
+                                            <option value="right">Right</option>
+                                            <option value="justify">Justify</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">QVerticle</span>
+                                        <select aria-label="Server" class="form-control" id="select-Qverticle">
+                                            <option value="select" disabled selected>Verticle Alignment</option>
+                                            <option value="center">Center</option>
+                                            <option value="top">Top</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Q-FontWeight</span>
+                                        <select aria-label="Server" class="form-control" id="select-QfontWeight">
+                                            <option value="select" disabled selected>Font Weight</option>
+                                            <option value="400">400</option>
+                                            <option value="600">600</option>
+                                            <option value="800">800</option>
+                                            <option value="Bold">Bold</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Q-FontFamily</span>
+                                        <select aria-label="Server" class="form-control" id="select-QfontStyle">
+                                            <option value="select" disabled selected>Font Family</option>
+                                            <option value="Book Antiqua">Book Antiqua</option>
+                                            <option value="Arial">Arial</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Comic Sans MS">Comic Sans MS</option>
+                                            <option value="Century">Century</option>
+                                            <option value="Lucida Console">Lucida Console</option>
+                                            <option value="kruti dev">kruti dev</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-Color</span>
+                                        <select aria-label="Server" class="form-control" id="select-Acolor">
+                                            <option value="select" disabled selected>Text Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-BgColor</span>
+                                        <select aria-label="Server" class="form-control" id="select-Abgcolor">
+                                            <option value="select" disabled selected>Bg-Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-Horizontal</span>
+                                        <select aria-label="Server" class="form-control" id="select-Ahorizontal">
+                                            <option value="select" disabled selected>Horizontal Alignment</option>
+                                            <option value="center">Center</option>
+                                            <option value="left">Left</option>
+                                            <option value="right">Right</option>
+                                            <option value="justify">Justify</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-Verticle</span>
+                                        <select aria-label="Server" class="form-control" id="select-Averticle">
+                                            <option value="select" disabled selected>Verticle Alignment</option>
+                                            <option value="center">Center</option>
+                                            <option value="top">Top</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-FontWeight</span>
+                                        <select aria-label="Server" class="form-control" id="select-AfontWeight">
+                                            <option value="select" disabled selected>Font Weight</option>
+                                            <option value="400">400</option>
+                                            <option value="600">600</option>
+                                            <option value="800">800</option>
+                                            <option value="Bold">Bold</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">A-FontFamily</span>
+                                        <select aria-label="Server" class="form-control" id="select-AfontStyle">
+                                            <option value="select" disabled selected>Font Family</option>
+                                            <option value="Book Antiqua">Book Antiqua</option>
+                                            <option value="Arial">Arial</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Comic Sans MS">Comic Sans MS</option>
+                                            <option value="Century">Century</option>
+                                            <option value="Lucida Console">Lucida Console</option>
+                                            <option value="kruti dev">kruti dev</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="add-ques">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="render">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Render and Edit Templates</div>
+                            <div class="card-body">
+                                <form name="my-form">
+
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Template</label>
+                                        <div class="col-md-6 editTempdrop">
+                                            <select id="tempId" class="form-control" name="tempId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Templates)
+                                                {
+                                                    <option value="@item.Id" class="tempOptions">@item.TemplateName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="tempEditborder">
+                                                <option value="select" disabled selected>Select</option>
+                                                <option value="0">Full Border</option>
+                                                <option value="1">Right Border</option>
+                                                <option value="2">Left Border</option>
+                                                <option value="3">Top Border</option>
+                                                <option value="4">Bottom Border</option>
+                                                <option value="5">No Border</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <br /><br />
+                                    <div class="renderTemps"></div>
+                                    <div id="stage2editTemp"></div>
+                                    <br /><br />
+                                    <footer style="text-align:center">
+                                        @* <a class="btn btn-primary" id="editTemplate">Edit</a>
+                                        <a class="btn btn-primary" id="saveChanges">SaveChanges</a>
+                                        <br /><br />*@
+                                        <a class="btn btn-success" id="updateTemplates" style="float:left">Update</a>
+                                        <a class="btn btn-danger" id="deleteTemplates" style="text-align:center">Delete</a>
+                                        <a class="btn btn-warning" id="clearTemplates" style="float:right">Clear Template</a>
+                                    </footer>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="dynamicContent" id="dynamic">
+        <section class="dynamic-table">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Dynamic Table Creation</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <header>
+                                                <p style="color:red">*Please Enter Unique Name of Template and Click on Check button to see the Name is avilabel or not.</p>
+                                                <div class="input-group mb-3 col-5">
+                                                    <span class="input-group-text">Template Name</span>
+                                                    <input class="form-control txtquestions " id="dynamictblName" type="text" value="">
+                                                    <a class="btn btn-primary" id="dynamictblcheckName">Check</a>
+                                                </div>
+                                                <span id="resultName"></span>
+                                            </header>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Enter Number Of Rows</label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" id="rows" class="form-control" name="rows">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                                        <div class="col-md-6">
+                                                            <select aria-label="Server" class="form-control" id="dynborder">
+                                                                <option value="select" disabled selected>Select</option>
+                                                                <option value="0">Full Border</option>
+                                                                <option value="1">Right Border</option>
+                                                                <option value="2">Left Border</option>
+                                                                <option value="3">Top Border</option>
+                                                                <option value="4">Bottom Border</option>
+                                                                <option value="5">No Border</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Display Table</label>
+                                                        <div class="col-md-6">
+                                                            <select aria-label="Server" class="form-control" id="dyndisplay">
+                                                                <option value="select" disabled selected>Select</option>
+                                                                <option value="0">Tabular</option>
+                                                                <option value="1">Inline</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <button type="button" id="createTable" class="btn btn-primary">Create Table</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div id="table-datatype" class="table-responsive">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div id="table-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" id="finishBtn" hidden type="button">Finish</button>
+                                        </div>
+                                    </div>
+                                    <footer>
+                                        <a class="btn btn-success" id="createdynamictbl">Create</a>
+                                        <a class="btn btn-danger" id="removedynamicFields" style="float:right">Clear Template</a>
+
+                                    </footer>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="render">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Render and Edit Dynamic Templates</div>
+                            <div class="card-body">
+                                <form name="my-form">
+
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Dynamic Template</label>
+                                        <div class="col-md-6 editDynTempdrop">
+                                            <select id="dynamicTableId" class="form-control" name="templateId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.DynamicTable)
+                                                {
+                                                    <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="form-group row">
+                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="dynEditborder">
+                                                <option value="select" disabled selected>Select</option>
+                                                <option value="0">Full Border</option>
+                                                <option value="1">Right Border</option>
+                                                <option value="2">Left Border</option>
+                                                <option value="3">Top Border</option>
+                                                <option value="4">Bottom Border</option>
+                                                <option value="5">No Border</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="form-group row">
+                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Display Table</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="dynEditdisplay">
+                                                <option value="select" disabled selected>Select</option>
+                                                <option value="0">Tabular</option>
+                                                <option value="1">Inline</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <br /><br />
+                                    <div class="renderDynTemps"></div>
+                                    <div id="stage2editDyn" class="table-responsive"></div>
+                                    <br /><br />
+                                    <a class="btn btn-secondary" id="addrows" style="text-align:center">Add Row</a>
+                                    <br />
+                                    <div id="addRow" hidden>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="Editrows" class="col-md-4 col-form-label text-md-right">Enter Number Of Rows</label>
+                                                    <div class="col-md-6">
+                                                        <input type="number" id="Editrows" class="form-control" name="Editrows">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <button type="button" id="EditTable" class="btn btn-primary">Create Table</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div id="Edit-table-datatype" class="table-responsive">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div id="Edit-table-content">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary" id="EditfinishBtn" hidden type="button">Finish</button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <br />
+                                    <footer style="text-align:center">
+                                        <a class="btn btn-primary" id="editDynTemplate" style="float:left">Edit</a>
+                                        <a class="btn btn-primary" id="saveChangesDyn" style="float:right;display:none">SaveChanges</a>
+                                        <br /><br />
+                                        <a class="btn btn-success" id="updateDynTemplates" style="float:left">Update</a>
+                                        <a class="btn btn-danger" id="deleteDynTemplates" style="text-align:center">Delete</a>
+                                        <a class="btn btn-warning" id="clearDynTemplates" style="float:right">Clear Template</a>
+                                    </footer>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" hidden data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modalBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="createtable">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="edittable">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="calculationContent" id="calculation">
+        <section class="dynamic-table">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Calculation Table Creation</div>
+                            <header>
+                                <p style="color:red">*Please Enter Unique Name of Template and Click on Check button to see the Name is avilabel or not.</p>
+                                <div class="input-group mb-3 col-5">
+                                    <span class="input-group-text">Template Name</span>
+                                    <input class="form-control txtquestions " id="calctblName" type="text" value="">
+                                    <a class="btn btn-primary" id="calctblcheckName">Check</a>
+                                </div>
+                                <span id="resultName"></span>
+                            </header>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Enter Number Of Rows</label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" id="calcrows" class="form-control" name="rows">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                                <div class="col-md-6">
+                                                    <select aria-label="Server" class="form-control" id="calcborder">
+                                                        <option value="select" selected>Select</option>
+                                                        <option value="0">Full Border</option>
+                                                        <option value="1">Right Border</option>
+                                                        <option value="2">Left Border</option>
+                                                        <option value="3">Top Border</option>
+                                                        <option value="4">Bottom Border</option>
+                                                        <option value="5">No Border</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="rows" class="col-md-4 col-form-label text-md-right">Select Bill Type</label>
+                                                <div class="col-md-6">
+                                                    <select aria-label="Server" class="form-control" id="calcBill">
+                                                        <option value="select" selected>Select</option>
+                                                        <option value="0">Hospital Bill</option>
+                                                        <option value="1">Professional Bill</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <button type="button" id="createCalcTable" class="btn btn-primary">Create Table</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div id="calc-table-datatype" class="table-responsive">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div id="calc-table-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" id="calc-finishBtn" hidden type="button">Finish</button>
+                                            <br />
+                                            <br />
+                                            <button type="button" id="operations" hidden class="btn btn-secondary" data-toggle="modal" data-target="#operationsModal">Add Operations</button>
+                                            <br />
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <footer>
+                                        <a class="btn btn-success" id="createcalctbl">Create</a>
+                                        <a class="btn btn-danger" id="removecalcFields" style="float:right">Clear Template</a>
+
+                                    </footer>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="render">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Render and Edit Calculation Templates</div>
+                            <div class="card-body">
+                                <form name="my-form">
+
+                                    <div class="form-group row">
+                                        <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Claculation Template</label>
+                                        <div class="col-md-6 editCalcTempdrop">
+                                            <select id="calctblId" class="form-control" name="calctblId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Clac)
+                                                {
+                                                    <option value="@item.CalcId" class="calcOptions">@item.CalcName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="form-group row">
+                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Border Type</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="calcEditborder">
+                                                <option value="select" selected>Select</option>
+                                                <option value="0">Full Border</option>
+                                                <option value="1">Right Border</option>
+                                                <option value="2">Left Border</option>
+                                                <option value="3">Top Border</option>
+                                                <option value="4">Bottom Border</option>
+                                                <option value="5">No Border</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="rows" class="col-md-4 col-form-label text-md-right">Select Bill Type</label>
+                                        <div class="col-md-6">
+                                            <select aria-label="Server" class="form-control" id="calcEditbill">
+                                                <option value="select" selected>Select</option>
+                                                <option value="0">Hospital Bill</option>
+                                                <option value="1">Professional Bill</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br /><br />
+                                    <div class="renderCalTemps"></div>
+                                    <div id="stage2editCal" class="table-responsive"></div>
+                                    <br /><br />
+                                    <a class="btn btn-secondary" id="addCalcrows" style="text-align:center">Add Row</a>
+                                    <br />
+                                    <div id="addCalcRow" hidden>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="Editrows" class="col-md-4 col-form-label text-md-right">Enter Number Of Rows</label>
+                                                    <div class="col-md-6">
+                                                        <input type="number" id="EditCalcrows" class="form-control" name="Editrows">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <button type="button" id="EditCalcTable" class="btn btn-primary">Create Table</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div id="Edit-Calctable-datatype" class="table-responsive">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div id="Edit-Calctable-content">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary" id="EditCalcfinishBtn" hidden type="button">Finish</button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <br />
+                                    <button type="button" id="operations" class="btn btn-secondary" data-toggle="modal" data-target="#operationsModal">Add Operations</button>
+                                    <br /><br />
+                                    <footer style="text-align:center">
+                                        <a class="btn btn-primary" id="editCalTemplate" style="float:left">Edit</a>
+                                        <a class="btn btn-primary" id="saveChangesCal" style="float:right; display:none">SaveChanges</a>
+                                        <br /><br />
+                                        <a class="btn btn-success" id="updateCalTemplates" style="float:left">Update</a>
+                                        <a class="btn btn-danger" id="deleteCalTemplates" style="text-align:center">Delete</a>
+                                        <a class="btn btn-warning" id="clearCalTemplates" style="float:right">Clear Template</a>
+                                    </footer>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <button type="button" class="btn btn-primary" hidden data-toggle="modal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="calcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modalCalcBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="createcalctable">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="editcalctable">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*operations*@
+        <div class="modal fade" id="operationsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Operations</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body operationsBody">
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Addition</span>
+                            </div>
+                            <input type="text" id="addition" class="form-control">
+                        </div>
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Multiplication</span>
+                            </div>
+                            <input type="text" id="multiplication" class="form-control">
+                        </div>
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Subtraction</span>
+                            </div>
+                            <input type="text" id="subtraction" class="form-control">
+                        </div>
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Division</span>
+                            </div>
+                            <input type="text" id="division" class="form-control">
+                        </div>
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Percentage</span>
+                            </div>
+                            <input type="text" id="percentage" class="form-control">
+                        </div>
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="">Single Column Addition</span>
+                            </div>
+                            <input type="text" id="singleAddition" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="addOperations">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Edit and Render Templates*@
+
+        <!-- Button trigger modal -->
+        <!--Edit Template Modal -->
+        <div class="modal fade" id="editTemp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-4">Question</div>
+                            <div class="col-lg-8">
+                                <input type="text" id="editQuestionName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row quesEditDrop">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Question Choice</span>
+                                <select aria-label="Server" class="form-control" id="edit-ques-choice">
+                                </select>
+                            </div>
+                            <div class="input-group mb-3 ">
+                                <input type="text" class="form-control" placeholder="" aria-label="Server" id="EdittxtoptionsQues">
+                                <span class="input-group-text"><a style="text-decoration:none;color:black" id="edit-Addques-choice" href="javascript:void(0)"> &plus; Add Options</a></span>
+                            </div>
+                        </div>
+                        <div class="row ansEditDrop">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Answer Choice</span>
+                                <select aria-label="Server" class="form-control" id="edit-ans-choice">
+                                </select>
+
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="" aria-label="Server" id="Edittxtoptions">
+                                <span class="input-group-text"><a style="text-decoration:none;color:black" id="edit-Addans-choice" href="javascript:void(0)"> &plus; Add Options</a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q-Color</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Qcolor">
+                                        <option value="select" disabled selected>Text Color</option>
+                                        <option value="Red" style="background-color:red">Red</option>
+                                        <option value="Blue" style="background-color:blue">Blue</option>
+                                        <option value="Green" style="background-color:green">Green</option>
+                                        <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                        <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                        <option value="Brown" style="background-color:brown">Brown</option>
+                                        <option value="Black" style="background-color:black">Black</option>
+                                        <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                        <option value="deafult" style="background-color:deafult">Deafult</option>
+                                        <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                        <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                        <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q-BgColor</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Qbgcolor">
+                                        <option value="select" disabled selected>Bg-Color</option>
+                                        <option value="Red" style="background-color:red">Red</option>
+                                        <option value="Blue" style="background-color:blue">Blue</option>
+                                        <option value="Green" style="background-color:green">Green</option>
+                                        <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                        <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                        <option value="Brown" style="background-color:brown">Brown</option>
+                                        <option value="Black" style="background-color:black">Black</option>
+                                        <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                        <option value="deafult" style="background-color:deafult">Deafult</option>
+                                        <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                        <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                        <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q-Horizontal</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Qhorizontal">
+                                        <option value="select" disabled selected>Horizontal Alignment</option>
+                                        <option value="center">Center</option>
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                        <option value="justify">Justify</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">QVerticle</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Qverticle">
+                                        <option value="select" disabled selected>Verticle Alignment</option>
+                                        <option value="center">Center</option>
+                                        <option value="top">Top</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q-FontWeight</span>
+                                    <select aria-label="Server" class="form-control" id="edit-QfontWeight">
+                                        <option value="select" disabled selected>Font Weight</option>
+                                        <option value="400">400</option>
+                                        <option value="600">600</option>
+                                        <option value="800">800</option>
+                                        <option value="Bold">Bold</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Q-FontFamily</span>
+                                    <select aria-label="Server" class="form-control" id="edit-QfontStyle">
+                                        <option value="select" disabled selected>Font Family</option>
+                                        <option value="Book Antiqua">Book Antiqua</option>
+                                        <option value="Arial">Arial</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Comic Sans MS">Comic Sans MS</option>
+                                        <option value="Century">Century</option>
+                                        <option value="Lucida Console">Lucida Console</option>
+                                        <option value="kruti dev">kruti dev</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-Color</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Acolor">
+                                        <option value="select" disabled selected>Text Color</option>
+                                        <option value="Red" style="background-color:red">Red</option>
+                                        <option value="Blue" style="background-color:blue">Blue</option>
+                                        <option value="Green" style="background-color:green">Green</option>
+                                        <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                        <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                        <option value="Brown" style="background-color:brown">Brown</option>
+                                        <option value="Black" style="background-color:black">Black</option>
+                                        <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                        <option value="deafult" style="background-color:deafult">Deafult</option>
+                                        <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                        <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                        <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-BgColor</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Abgcolor">
+                                        <option value="select" disabled selected>Bg-Color</option>
+                                        <option value="Red" style="background-color:red">Red</option>
+                                        <option value="Blue" style="background-color:blue">Blue</option>
+                                        <option value="Green" style="background-color:green">Green</option>
+                                        <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                        <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                        <option value="Brown" style="background-color:brown">Brown</option>
+                                        <option value="Black" style="background-color:black">Black</option>
+                                        <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                        <option value="deafult" style="background-color:deafult">Deafult</option>
+                                        <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                        <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                        <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-Horizontal</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Ahorizontal">
+                                        <option value="select" disabled selected>Horizontal Alignment</option>
+                                        <option value="center">Center</option>
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                        <option value="justify">Justify</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-Verticle</span>
+                                    <select aria-label="Server" class="form-control" id="edit-Averticle">
+                                        <option value="select" disabled selected>Verticle Alignment</option>
+                                        <option value="center">Center</option>
+                                        <option value="top">Top</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-FontWeight</span>
+                                    <select aria-label="Server" class="form-control" id="edit-AfontWeight">
+                                        <option value="select" disabled selected>Font Weight</option>
+                                        <option value="400">400</option>
+                                        <option value="600">600</option>
+                                        <option value="800">800</option>
+                                        <option value="Bold">Bold</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">A-FontFamily</span>
+                                    <select aria-label="Server" class="form-control" id="edit-AfontStyle">
+                                        <option value="select" disabled selected>Font Family</option>
+                                        <option value="Book Antiqua">Book Antiqua</option>
+                                        <option value="Arial">Arial</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Comic Sans MS">Comic Sans MS</option>
+                                        <option value="Century">Century</option>
+                                        <option value="Lucida Console">Lucida Console</option>
+                                        <option value="kruti dev">kruti dev</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="Templaterowedit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="conclusionContent" id="conclusion">
+        <section class="year">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Conclusion Set</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="conclusionsetId" class="col-md-4 col-form-label text-md-right">Select set</label>
+                                        <div class="col-md-6 conclusiondrop">
+                                            <select id="conclusionsetId" class="form-control" name="conclusionsetId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.ConclusionSet)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="year" class="col-md-4 col-form-label text-md-right">Enter Conclusion Set Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="conclusionSetName" class="form-control" name="conclusionSet">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="year" class="col-md-4 col-form-label text-md-right">Add you Statement</label>
+                                        <div class="col-md-6">
+                                            <textarea type="text" rows="1" id="setItem" class="form-control" name="setItem"></textarea>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" id="addSetItems" class="btn btn-warning">Add Set Item</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="year" class="col-md-4 col-form-label text-md-right">Your Satements</label>
+                                        <div class="col-md-6" id="statements">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ConclusionSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveConclusion" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ConclusionActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateConclusion" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteConclusion" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="advocateContent" id="advocate">
+        <section class="advocate">
+            <div class="cotainer">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Advocate</div>
+                            <div class="card-body">
+                                <form name="my-form">
+                                    <div class="form-group row">
+                                        <label for="advocateId" class="col-md-4 col-form-label text-md-right">Select Advocate</label>
+                                        <div class="col-md-6 advocatedrop">
+                                            <select id="advocateId" class="form-control" name="advocateId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Advocate)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="advocatename" class="form-control" name="name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userId" class="col-md-4 col-form-label text-md-right">EmailID</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="emailId" class="form-control" name="emailId">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-md-4 col-form-label text-md-right">PhoneNo.</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="advophone" class="form-control" name="advophone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-md-4 col-form-label text-md-right">Location</label>
+                                        <div class="col-md-6">
+                                            <select id="advoStateId" class="form-control stateselect" name="advoStateId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.State)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                            <select id="advodistrict" class="form-control districtselect" name="advodistrict">
+                                                <option selected id="advodistrictselect" value="0">Select &#9662;</option>
+
+                                            </select>
+                                            <select id="advopolice" class="form-control" name="advopolice">
+                                                <option selected id="advopoliceselect" value="0">Select &#9662;</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="addressId" class="col-md-4 col-form-label text-md-right">Address</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="addressId" class="form-control" name="adressId">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="advopassword" class="col-md-4 col-form-label text-md-right">Password</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="advopassword" class="form-control" name="advopassword">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row AdvocateSavebtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="saveAdvocate" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row AdvocateActionbtns">
+                                        <div class="col-md-6">
+                                            <button type="button" id="updateAdvocate" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" id="deleteAdvocate" class="btn btn-danger" style="float:right">Delete</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
