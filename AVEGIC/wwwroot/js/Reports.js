@@ -1498,7 +1498,7 @@
         var statelist = JSON.parse(statel.json);
 
         var agencyr = await getAgency();
-        var agencylist = JSON.parse(agencyr.json);
+       // var agencylist = JSON.parse(agencyr.json);
 
         var insurerr = await getInsurer();
         var insurerlist = JSON.parse(insurerr.json);
@@ -1826,14 +1826,10 @@
                                     });
                                 }
                                 if (format[tblid][i][j].datatype == 10) {
-                                    $.each(agencylist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#agency${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
+                                    var id = agencyr.model.userId;
+                                    var optval = String(id)
+                                    var name = agencyr.model.abbrevation;
+                                    $(`#agency${dynid}`).append(`<option value="${optval}">${name}</option>`);
                                 }
                                 if (format[tblid][i][j].datatype == 11) {
                                     //$.each(insurerlist, function (index, element) {
@@ -1865,14 +1861,10 @@
                                 }
                                 if (format[tblid][i][j].datatype == 15) {
 
-                                    $.each(agencylist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Abbreviation;
-                                        $(`#av${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
+                                    var id = agencyr.model.userId;
+                                    var optval = String(id)
+                                    var name = agencyr.model.abbrevation;
+                                    $(`#av${dynid}`).append(`<option value="${optval}">${name}</option>`)
                                     $.each(yearlist, function (index, element) {
 
                                         var id = element.Id;

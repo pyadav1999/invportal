@@ -1,6 +1,7 @@
 ﻿using AVEGIC.Entity_Models;
 using AVEGIC.Repository.Interface;
 using AVEGIC.Repository.Repository;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
@@ -30,10 +31,11 @@ namespace AVEGIC.Controllers
         private readonly PoliceStationInterface _policeStationInterface;
         private readonly IAdvocateRepository _advocateRepository;
         private readonly IUserProfile _userProfile;
+        private readonly IUserDetails _userDetails;
 
         public AdminController(IAgencyRepository agencyRepository, ITemplatesRepository templatesRepository, IHeadOfficeRepository headOfficeRepository,
             IBranchRepository branchRepository, IYearRepository yearRepository, IReportTypeRepository reportTypeRepository, IDepartmentRepository departmentRepository,
-            IDynamicTemplateRepository dynamicTemplateRepository, IDynamicTable dynamicTable, ICalc calc, IConclusionSet conclusionSet, LocationInterface locationInterface, DistrictInterface districtInterface, PoliceStationInterface policeStationInterface, IAdvocateRepository advocateRepository, IUserProfile userProfile)  
+            IDynamicTemplateRepository dynamicTemplateRepository, IDynamicTable dynamicTable, ICalc calc, IConclusionSet conclusionSet, LocationInterface locationInterface, DistrictInterface districtInterface, PoliceStationInterface policeStationInterface, IAdvocateRepository advocateRepository, IUserProfile userProfile,IUserDetails userDetails)  
         {
             _agencyRepository = agencyRepository;
             _templatesRepository = templatesRepository;
@@ -51,6 +53,7 @@ namespace AVEGIC.Controllers
             _policeStationInterface = policeStationInterface;
             _advocateRepository = advocateRepository;
             _userProfile = userProfile;
+            _userDetails = userDetails;
         }
         public IActionResult Index()
         {
@@ -167,12 +170,16 @@ namespace AVEGIC.Controllers
         {
             bool status = false;
             string jsn = "";
-            List<Agency> model = new List<Agency>();
+            UserDetails model = new UserDetails();
             try
             {
-
-                model = _agencyRepository.GetAllAgency().OrderBy(x => x.Name).ToList();
-                jsn = JsonConvert.SerializeObject(model);
+                if (!User.Identity.IsAuthenticated)
+                { return RedirectToAction("LogOut", "Home"); }
+                string userName = User.Identity.GetUserName();
+                UserProfile userProfile = _userProfile.FindByEmail(userName);
+                model = _userDetails.GetByUserId(userProfile.userId);
+                //model = _agencyRepository.GetAllAgency().OrderBy(x => x.Name).ToList();
+                //jsn = JsonConvert.SerializeObject(model);
                 status = true;
 
             }
@@ -181,7 +188,7 @@ namespace AVEGIC.Controllers
                 status = false;
                 throw ex;
             }
-            return Json(new { Status = status, Json = jsn });
+            return Json(new { Status = status, Model = model });
         }
         [HttpPost]
         public IActionResult CreateHeadOffice(HeadOffice model)
