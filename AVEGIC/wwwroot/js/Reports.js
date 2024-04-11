@@ -182,7 +182,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-right"><a class="removeTemplates" href="javascript:void(0)"  name="${name}" style="color:red;text-decoration:none;cursor:pointer">X</a></div>
+                    <div class="card-header d-flex justify-content-right"><a class="removeTemplates" href="javascript:void(0)"  name="${result.model.templateName}" style="color:red;text-decoration:none;cursor:pointer">X</a></div>
                     <div class="card-body">
                         <form name="my-form" class="${result.model.templateName} tempForm">
                         </form>
@@ -1535,7 +1535,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between w-100"><a class="removeTemplates" href="javascript:void(0)"  name="${name}" style="color:red;text-decoration:none;cursor:pointer">X</a></div>
+                    <div class="card-header d-flex justify-content-between w-100"><p class="removeTemplates"   name="${tblname}" style="color:red;text-decoration:none;cursor:pointer">X</p></div>
                     <div class="card-body">
                         <form name="my-form" >
                         <fieldset class="${tblname}">
@@ -2012,12 +2012,12 @@
         $(this).val('Select').prop('selected', true);
     });
     $(document).on("click", ".removeTemplates", function () {
-
+        debugger
         var name = $(this).attr("name");
-        var tblname = name.replace(/[^\w\s]/gi, '');
-        tblname = tblname.split(" ").join("");
+        //var tblname = name.replace(/[^\w\s]/gi, '');
+        //tblname = tblname.split(" ").join("");
         var key;
-        $(`#${tblname}`).remove();
+        $(`#${name}`).remove();
         for (var k in sequence) {
             if (sequence[k] == name) {
                 key = k;
@@ -2119,7 +2119,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-right"><a class="removeTemplates" href="javascript:void(0)"  name="${name}" style="color:red;text-decoration:none;cursor:pointer">X</a></div>
+                    <div class="card-header d-flex justify-content-right"><a class="removeTemplates" href="javascript:void(0)"  name="${tblname}" style="color:red;text-decoration:none;cursor:pointer">X</a></div>
                     <div class="card-body">
                         
                         <br>

@@ -1,6 +1,12 @@
 ﻿@model AVEGIC.Dto.UserDto
 
-@{
+@if (Model.role == 1)
+{
+    ViewData["Title"] = "EditUserDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+else
+{
     ViewData["Title"] = "EditUserDetails";
     Layout = "~/Views/Shared/_UsersLayout.cshtml";
 }
