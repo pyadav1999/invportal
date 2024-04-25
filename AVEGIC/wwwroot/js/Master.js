@@ -1831,7 +1831,6 @@ $(document).ready(function () {
         }
     }
     $(document).on("click", "#createTable", function () {
-        ;
         var nr = $('#rows').val();
         createTable1(nr);
         $('#edittable').hide();
@@ -4523,26 +4522,31 @@ $(document).ready(function () {
                                 if (format[tblid][i][j].datatype == '0') {
                                     table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" colId="" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '1') {
                                     table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea class="form-control" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '2') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="date" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '3') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="checkbox" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-check"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '4') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="number" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '5') {
@@ -4553,11 +4557,13 @@ $(document).ready(function () {
                                                <select id="list2${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                                <option value="select" selected>Select</option>
                                                </select>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '6') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="file" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '7') {
@@ -4567,6 +4573,7 @@ $(document).ready(function () {
                                         <option value="0" selected>State</option>
                                        </select>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '8') {
@@ -4581,6 +4588,7 @@ $(document).ready(function () {
                                       <option value="0" selected>District</option>
                                        </select>`;
                                     table_body += `</div>`
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '9') {
@@ -4598,6 +4606,7 @@ $(document).ready(function () {
                                        <option value="0" selected>Poilce</option>
                                        </select>`;
                                     table_body += `</div>`
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '10') {
@@ -4607,6 +4616,7 @@ $(document).ready(function () {
                                         <option value="0" selected>Agency</option>
                                        </select>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '11') {
@@ -4627,11 +4637,13 @@ $(document).ready(function () {
                                        </select>`;
                                     table_body += `<textarea class="branch-address form-control" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '12') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00"  id="dyn${dynid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '13') {
@@ -4639,6 +4651,7 @@ $(document).ready(function () {
                                     table_body += `<textarea type="text" id="dyn${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"></textarea>
                                                <select id="con${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                         </select>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '14') {
@@ -4650,6 +4663,7 @@ $(document).ready(function () {
                                        </select>`;
 
                                     table_body += `</div>`
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '15') {
@@ -4664,6 +4678,7 @@ $(document).ready(function () {
                                        <option value="0" selected>Year</option>
                                        </select>`;
                                     table_body += `</div>`
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '16') {
@@ -4672,6 +4687,7 @@ $(document).ready(function () {
                                     table_body += `<select id="advo${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                         <option value="0" selected>Advocate</option>
                                        </select>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
 
                                     table_body += '</td>';
                                 }
@@ -4682,6 +4698,7 @@ $(document).ready(function () {
                                         <option value="0" selected>Department</option>
                                        </select>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '18') {
@@ -4691,6 +4708,7 @@ $(document).ready(function () {
                                        <option value="0" selected>Year</option>
                                        </select>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                             }
@@ -5520,22 +5538,25 @@ $(document).ready(function () {
                                 if (format[tblid][i][j].datatype == '0') {
                                     table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" id="calc${calid}" rowNo="${i}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" class="form-control"> `;
-
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '1') {
                                     table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea class="form-control" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '2') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="date" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '3') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="checkbox" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-check"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '4') {
@@ -5544,6 +5565,7 @@ $(document).ready(function () {
                                     if (row_no == rowcount) {
                                         table_body += `<input type="checkbox" class="checksum">`
                                     }
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '5') {
@@ -5554,11 +5576,13 @@ $(document).ready(function () {
                                                <select id="list2${calid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' class="form-control selectTeaxtarea">
                                         </select>`;
 
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '6') {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="file" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '7') {
@@ -5567,6 +5591,7 @@ $(document).ready(function () {
                                     if (row_no == rowcount) {
                                         table_body += `<input type="checkbox" class="checksum">`
                                     }
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == 8) {
@@ -5574,6 +5599,7 @@ $(document).ready(function () {
                                     table_body += `<input type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">
                                                <datalist id="con${dynid}">
                                         </datalist>`;
+                                    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
 
@@ -7313,4 +7339,134 @@ $(document).ready(function () {
             });
         }
     });
+
+
+    //Edit Column wise
+
+    $(document).on("click", ".editDynCol", function () {
+        $('#editTableModal').modal('show');
+        var Id = $(this).attr('tbl') + $(this).attr('row') + $(this).attr('col');
+        var tblid = $(this).attr('tbl');
+        var i = $(this).attr('row');
+        var j = $(this).attr('col');
+        $('#saveEditCol').attr('tbl', tblid);
+        $('#saveEditCol').attr('row', i);
+        $('#saveEditCol').attr('col', j);
+        var tempname = EditTempName;
+        //var tbllength = Object.keys(temparray).length;
+        var dynid = EditTempName + Id;
+        //$(`#${colorId} option:contains(${EditGlobal[tblid][i][j].color})`).prop('selected', true);
+        if (EditGlobal[tblid][i][j].color != "undefine" && EditGlobal[tblid][i][j].color != null && EditGlobal[tblid][i][j].color != "")
+            $('#editColor').val(EditGlobal[tblid][i][j].color).prop('selected', true);
+        if (EditGlobal[tblid][i][j].backgroundcolor != "undefine" && EditGlobal[tblid][i][j].backgroundcolor != null && EditGlobal[tblid][i][j].backgroundcolor != "")
+            $('#editBgColor').val(EditGlobal[tblid][i][j].backgroundcolor).prop('selected', true);
+        if (EditGlobal[tblid][i][j].fontweight != "undefine" && EditGlobal[tblid][i][j].fontweight != null && EditGlobal[tblid][i][j].fontweight != "")
+            $('#editFontWeight').val(EditGlobal[tblid][i][j].fontweight).prop('selected', true);
+        if (EditGlobal[tblid][i][j].verticalalign != "undefine" && EditGlobal[tblid][i][j].verticalalign != null && EditGlobal[tblid][i][j].verticalalign != "")
+            $('#editVerticleAlignment').val(EditGlobal[tblid][i][j].verticalalign).prop('selected', true);
+        if (EditGlobal[tblid][i][j].textalign != "undefine" && EditGlobal[tblid][i][j].textalign != null && EditGlobal[tblid][i][j].textalign != "")
+            $('#editHorizontalAlignment').val(EditGlobal[tblid][i][j].textalign).prop('selected', true);
+        if (EditGlobal[tblid][i][j].fontfamily != "undefine" && EditGlobal[tblid][i][j].fontfamily != null && EditGlobal[tblid][i][j].fontfamily != "")
+            $('#editFontFamily').val(EditGlobal[tblid][i][j].fontfamily).prop('selected', true);
+        if (EditGlobal[tblid][i][j].height != "undefine" && EditGlobal[tblid][i][j].height != null && EditGlobal[tblid][i][j].height != "")
+            $('#editHeight').val(EditGlobal[tblid][i][j].height);
+        if (EditGlobal[tblid][i][j].width != "undefine" && EditGlobal[tblid][i][j].width != null && EditGlobal[tblid][i][j].width != "")
+            $('#editWidth').val(EditGlobal[tblid][i][j].width);
+        if (EditGlobal[tblid][i][j].cellborder != "undefine" && EditGlobal[tblid][i][j].cellborder != null && EditGlobal[tblid][i][j].cellborder != "")
+            $('#editBorder').val(EditGlobal[tblid][i][j].cellborder);
+        if (EditGlobal[tblid][i][j].fontsize != "undefine" && EditGlobal[tblid][i][j].fontsize != null && EditGlobal[tblid][i][j].fontsize != "")
+            $('#editFontSize').val(EditGlobal[tblid][i][j].fontsize);
+        if (EditGlobal[tblid][i][j].underline != "undefine" && EditGlobal[tblid][i][j].underline != null && EditGlobal[tblid][i][j].underline != "")
+            $('#editTextDecoration').val(EditGlobal[tblid][i][j].underline);
+        if (EditGlobal[tblid][i][j].fontstyle != "undefine" && EditGlobal[tblid][i][j].fontstyle != null && EditGlobal[tblid][i][j].fontstyle != "")
+            $('#editFontStyle').val(EditGlobal[tblid][i][j].fontstyle);
+        if (EditGlobal[tblid][i][j].staticcol != "undefine" && EditGlobal[tblid][i][j].staticcol != null && EditGlobal[tblid][i][j].staticcol != "")
+            $('#editStaticColumn').val(EditGlobal[tblid][i][j].staticcol);
+        if (EditGlobal[tblid][i][j].fromtemp != "undefine" && EditGlobal[tblid][i][j].fromtemp != null && EditGlobal[tblid][i][j].fromtemp != "")
+            $('#editFromTemp').val(EditGlobal[tblid][i][j].fromtemp);
+        if (EditGlobal[tblid][i][j].totemp != "undefine" && EditGlobal[tblid][i][j].totemp != null && EditGlobal[tblid][i][j].totemp != "")
+            $('#editToTemp').val(EditGlobal[tblid][i][j].totemp);
+        if (EditGlobal[tblid][i][j].printshow != "undefine" && EditGlobal[tblid][i][j].printshow != null && EditGlobal[tblid][i][j].printshow != "")
+            $('#editPrintShow').val(EditGlobal[tblid][i][j].printshow);
+        if (EditGlobal[tblid][i][j].margintop != "undefine" && EditGlobal[tblid][i][j].margintop != null && EditGlobal[tblid][i][j].margintop != "")
+            $('#editMarginTop').val(EditGlobal[tblid][i][j].margintop);
+        if (EditGlobal[tblid][i][j].marginbottom != "undefine" && EditGlobal[tblid][i][j].marginbottom != null && EditGlobal[tblid][i][j].marginbottom != "")
+            $('#editMarginBottom').val(EditGlobal[tblid][i][j].marginbottom);
+        //edval++;
+
+    });
+    $(document).on('click', '#saveEditCol', function () {
+        console.log(EditTempName + EditGlobal);
+        var tblid = $(this).attr('tbl');
+        var i = $(this).attr('row');
+        var j = $(this).attr('col');
+        if ($('#editBgColor').val() != "undefine")
+            EditGlobal[tblid][i][j].backgroundcolor = $('#editBgColor').val();
+        if ($('#editColor').val() != "undefine")
+            EditGlobal[tblid][i][j].color = $('#editColor').val();
+        if ($('#editFontFamily').val() != "undefine")
+            EditGlobal[tblid][i][j].fontfamily = $('#editFontFamily').val();
+        if ($('#editFontWeight').val() != "undefine")
+            EditGlobal[tblid][i][j].fontweight = $('#editFontWeight').val();
+        if ($('#editHorizontalAlignment').val() != "undefine")
+            EditGlobal[tblid][i][j].textalign = $('#editHorizontalAlignment').val();
+        if ($('#editVerticleAlignment').val() != "undefine")
+            EditGlobal[tblid][i][j].verticalalign = $('#editVerticleAlignment').val();
+        if ($('#editHeight').val() != "undefine")
+            EditGlobal[tblid][i][j].height = $('#editHeight').val();
+        if ($('#editWidth').val() != "undefine")
+            EditGlobal[tblid][i][j].width = $('#editWidth').val();
+        if ($('#editBorder').val() != "undefine")
+            EditGlobal[tblid][i][j].cellborder = $('#editBorder').val();
+        if ($('#editFontSize').val() != "undefine")
+            EditGlobal[tblid][i][j].fontsize = $('#editFontSize').val();
+        if ($('#editTextDecoration').val() != "undefine")
+            EditGlobal[tblid][i][j].underline = $('#editTextDecoration').val();
+        if ($('#editFontStyle').val() != "undefine")
+            EditGlobal[tblid][i][j].fontstyle = $('#editFontStyle').val();
+        if ($('#editStaticColumn').val() != "undefine")
+            EditGlobal[tblid][i][j].staticcol = $('#editStaticColumn').val();
+        if ($('#editFromTemp').val() != "undefine")
+            EditGlobal[tblid][i][j].fromtemp = $('#editFromTemp').val();
+        if ($('#editToTemp').val() != "undefine")
+            EditGlobal[tblid][i][j].totemp = $('#editToTemp').val();
+        if ($('#editPrintShow').val() != "undefine")
+            EditGlobal[tblid][i][j].printshow = $('#editPrintShow').val();
+        if ($('#editMarginTop').val() != "undefine")
+            EditGlobal[tblid][i][j].margintop = $('#editMarginTop').val();
+        if ($('#editMarginBottom').val() != "undefine")
+            EditGlobal[tblid][i][j].marginbottom = $('#editMarginBottom').val();
+        var tblno= tblid.match(/\d+/);
+        var colIdText = 'dyn' + EditTempName + tblno + i + j;
+        $(`#${colIdText}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdYear = 'year' + EditTempName + tblno + i + j;
+        $(`#${colIdYear}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdYear = 'department' + EditTempName + tblno + i + j;
+        $(`#${colIdYear}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdav = 'av' + EditTempName + tblno + i + j;
+        $(`#${colIdav}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdhead = 'head' + EditTempName + tblno + i + j;
+        $(`#${colIdhead}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdadvo = 'advo' + EditTempName + tblno + i + j;
+        $(`#${colIdadvo}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdcon = 'con' + EditTempName + tblno + i + j;
+        $(`#${colIdcon}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdbranch = 'branch' + EditTempName + tblno + i + j;
+        $(`#${colIdbranch}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIddistrict = 'district' + EditTempName + tblno + i + j;
+        $(`#${colIddistrict}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdpolice = 'police' + EditTempName + tblno + i + j;
+        $(`#${colIdpolice}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdstate = 'state' + EditTempName + tblno + i + j;
+        $(`#${colIdstate}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdlist2 = 'list2' + EditTempName + tblno + i + j;
+        $(`#${colIdlist2}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdagency = 'agency' + EditTempName + tblno + i + j;
+        $(`#${colIdagency}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        var colIdcalc = 'calc' + EditTempName + tblno + i + j;
+        $(`#${colIdcalc}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
+        $('#editTableModal').modal('hide');
+        console.log(EditGlobal);
+    });
+    $(document).on('click', '.closeEditCol', function () { $('#editTableModal').modal('hide'); });
 });

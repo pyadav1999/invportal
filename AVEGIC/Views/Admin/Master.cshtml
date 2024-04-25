@@ -37,6 +37,11 @@
         min-height: 0;
     }
 
+    .editDynCol img {
+        width: 20px;
+        cursor: pointer;
+    }
+
 </style>
 <div class="masterHead">
     <div class="masterNav  d-flex align-items-center">
@@ -96,208 +101,208 @@
 
 
 <div class="masterContent">
-    <div class="agencyContent" id="agency">
-        <section class="agency">
-            <div class="cotainer">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">Agency Details</div>
-                            <div class="card-body">
-                                <form name="my-form">
-                                    <div class="form-group row">
-                                        <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Agency Id</label>
-                                        <div class="col-md-6 agencydrop">
-                                            <select id="agencyId" class="form-control" name="agencyId">
-                                                <option value="0" selected>Select &#9662;</option>
-                                                @foreach (var item in ViewBag.Agency)
-                                                {
-                                                    if (item.IsDeleted == false)
-                                                    {
-                                                        <option value="@item.Id">@item.Name</option>
-                                                    }
+    @*<div class="agencyContent" id="agency">
+    <section class="agency">
+    <div class="cotainer">
+    <div class="row justify-content-center">
+    <div class="col-md-12">
+    <div class="card">
+    <div class="card-header">Agency Details</div>
+    <div class="card-body">
+    <form name="my-form">
+    <div class="form-group row">
+    <label for="agencyId" class="col-md-4 col-form-label text-md-right">Select Agency Id</label>
+    <div class="col-md-6 agencydrop">
+    <select id="agencyId" class="form-control" name="agencyId">
+    <option value="0" selected>Select &#9662;</option>
+    @foreach (var item in ViewBag.Agency)
+    {
+    if (item.IsDeleted == false)
+    {
+    <option value="@item.Id">@item.Name</option>
+    }
 
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="agencyname" class="form-control" name="name">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="abbreviation" class="col-md-4 col-form-label text-md-right">Abbreviation</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="abbreviation" class="form-control" name="abbreviation">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="profile" class="col-md-4 col-form-label text-md-right">Profile</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="profile" class="form-control" name="profile">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="addressLine1" class="col-md-4 col-form-label text-md-right">Address Line1</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="addressLine1" class="form-control" name="addressLine1">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="addressLine2" class="col-md-4 col-form-label text-md-right">Address Line2</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="addressLine2" class="form-control" name="addressLine2">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="mobile" class="form-control" name="mobile">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="email" class="form-control" name="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="website" class="col-md-4 col-form-label text-md-right">Website</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="website" class="form-control" name="website">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="pan" class="col-md-4 col-form-label text-md-right">PAN No</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="pan" class="form-control" name="pan">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="gst" class="col-md-4 col-form-label text-md-right">GST No</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="gst" class="form-control" name="gst">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Agencycolor" class="col-md-4 col-form-label text-md-right">Header Color</label>
-                                        <div class="col-md-6">
-                                            <select aria-label="Server" class="form-control" id="Agencycolor">
-                                                <option value="select" disabled selected>Select Text Color</option>
-                                                <option value="Red" style="background-color:red">Red</option>
-                                                <option value="Blue" style="background-color:blue">Blue</option>
-                                                <option value="Green" style="background-color:green">Green</option>
-                                                <option value="Aqua" style="background-color:aqua">Aqua</option>
-                                                <option value="Yellow" style="background-color:yellow">Yellow</option>
-                                                <option value="Brown" style="background-color:brown">Brown</option>
-                                                <option value="Black" style="background-color:black">Black</option>
-                                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
-                                                <option value="deafult" style="background-color:deafult">Deafult</option>
-                                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
-                                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
-                                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Agencybgcolor" class="col-md-4 col-form-label text-md-right">Header BgColor</label>
-                                        <div class="col-md-6">
-                                            <select aria-label="Server" class="form-control" id="Agencybgcolor">
-                                                <option value="select" disabled selected>Select Bg-Color</option>
-                                                <option value="Red" style="background-color:red">Red</option>
-                                                <option value="Blue" style="background-color:blue">Blue</option>
-                                                <option value="Green" style="background-color:green">Green</option>
-                                                <option value="Aqua" style="background-color:aqua">Aqua</option>
-                                                <option value="Yellow" style="background-color:yellow">Yellow</option>
-                                                <option value="Brown" style="background-color:brown">Brown</option>
-                                                <option value="Black" style="background-color:black">Black</option>
-                                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
-                                                <option value="deafult" style="background-color:deafult">Deafult</option>
-                                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
-                                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
-                                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Agencyfontfamily" class="col-md-4 col-form-label text-md-right">Header FontFamily</label>
-                                        <div class="col-md-6">
-                                            <select aria-label="Server" class="form-control" id="Agencyfontfamily">
-                                                <option value="select" disabled selected>Select Font Family</option>
-                                                <option value="Book Antiqua">Book Antiqua</option>
-                                                <option value="Arial">Arial</option>
-                                                <option value="Times New Roman">Times New Roman</option>
-                                                <option value="Comic Sans MS">Comic Sans MS</option>
-                                                <option value="Century">Century</option>
-                                                <option value="Lucida Console">Lucida Console</option>
-                                                <option value="kruti dev">kruti dev</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="AgencyfontWeight" class="col-md-4 col-form-label text-md-right">Header FontWeight</label>
-                                        <div class="col-md-6">
-                                            <select aria-label="Server" class="form-control" id="AgencyfontWeight">
-                                                <option value="select" disabled selected>Select Font Weight</option>
-                                                <option value="400">400</option>
-                                                <option value="600">600</option>
-                                                <option value="800">800</option>
-                                                <option value="Bold">Bold</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="AgencyfontSize" class="col-md-4 col-form-label text-md-right">Header FontSize</label>
-                                        <div class="col-md-6">
-                                            <select aria-label="Server" class="form-control" id="AgencyfontSize">
-                                                <option value="select" disabled selected>Select Font Size</option>
-                                                <option value="10">10</option>
-                                                <option value="12">12</option>
-                                                <option value="14">14</option>
-                                                <option value="18">18</option>
-                                                <option value="20">20</option>
-                                                <option value="22">22</option>
-                                                <option value="24">24</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="stampId" class="col-md-4 col-form-label text-md-right">Stamp</label>
-                                        <div class="col-md-6">
-                                            <input type="file" id="stampId" class="form-control" name="stampId" accept="image/png, image/gif, image/jpeg">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row savebtn">
-                                        <div class="col-md-6">
-                                            <button type="button" id="saveAgency" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row update-btns">
-                                        <div class="col-md-6">
-                                            <button type="button" id="updateAgency" class="btn btn-success">Update</button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button type="button" id="deleteAgency" class="btn btn-danger" style="float:right">Delete</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    }
+    </select>
     </div>
+    </div>
+    <div class="form-group row">
+    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+    <div class="col-md-6">
+    <input type="text" id="agencyname" class="form-control" name="name">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="abbreviation" class="col-md-4 col-form-label text-md-right">Abbreviation</label>
+    <div class="col-md-6">
+    <input type="text" id="abbreviation" class="form-control" name="abbreviation">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="profile" class="col-md-4 col-form-label text-md-right">Profile</label>
+    <div class="col-md-6">
+    <input type="text" id="profile" class="form-control" name="profile">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="addressLine1" class="col-md-4 col-form-label text-md-right">Address Line1</label>
+    <div class="col-md-6">
+    <input type="text" id="addressLine1" class="form-control" name="addressLine1">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="addressLine2" class="col-md-4 col-form-label text-md-right">Address Line2</label>
+    <div class="col-md-6">
+    <input type="text" id="addressLine2" class="form-control" name="addressLine2">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
+    <div class="col-md-6">
+    <input type="text" id="mobile" class="form-control" name="mobile">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+    <div class="col-md-6">
+    <input type="text" id="email" class="form-control" name="email">
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="website" class="col-md-4 col-form-label text-md-right">Website</label>
+    <div class="col-md-6">
+    <input type="text" id="website" class="form-control" name="website">
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="pan" class="col-md-4 col-form-label text-md-right">PAN No</label>
+    <div class="col-md-6">
+    <input type="text" id="pan" class="form-control" name="pan">
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="gst" class="col-md-4 col-form-label text-md-right">GST No</label>
+    <div class="col-md-6">
+    <input type="text" id="gst" class="form-control" name="gst">
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="Agencycolor" class="col-md-4 col-form-label text-md-right">Header Color</label>
+    <div class="col-md-6">
+    <select aria-label="Server" class="form-control" id="Agencycolor">
+    <option value="select" disabled selected>Select Text Color</option>
+    <option value="Red" style="background-color:red">Red</option>
+    <option value="Blue" style="background-color:blue">Blue</option>
+    <option value="Green" style="background-color:green">Green</option>
+    <option value="Aqua" style="background-color:aqua">Aqua</option>
+    <option value="Yellow" style="background-color:yellow">Yellow</option>
+    <option value="Brown" style="background-color:brown">Brown</option>
+    <option value="Black" style="background-color:black">Black</option>
+    <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+    <option value="deafult" style="background-color:deafult">Deafult</option>
+    <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+    <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+    <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="Agencybgcolor" class="col-md-4 col-form-label text-md-right">Header BgColor</label>
+    <div class="col-md-6">
+    <select aria-label="Server" class="form-control" id="Agencybgcolor">
+    <option value="select" disabled selected>Select Bg-Color</option>
+    <option value="Red" style="background-color:red">Red</option>
+    <option value="Blue" style="background-color:blue">Blue</option>
+    <option value="Green" style="background-color:green">Green</option>
+    <option value="Aqua" style="background-color:aqua">Aqua</option>
+    <option value="Yellow" style="background-color:yellow">Yellow</option>
+    <option value="Brown" style="background-color:brown">Brown</option>
+    <option value="Black" style="background-color:black">Black</option>
+    <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+    <option value="deafult" style="background-color:deafult">Deafult</option>
+    <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+    <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+    <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="Agencyfontfamily" class="col-md-4 col-form-label text-md-right">Header FontFamily</label>
+    <div class="col-md-6">
+    <select aria-label="Server" class="form-control" id="Agencyfontfamily">
+    <option value="select" disabled selected>Select Font Family</option>
+    <option value="Book Antiqua">Book Antiqua</option>
+    <option value="Arial">Arial</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Comic Sans MS">Comic Sans MS</option>
+    <option value="Century">Century</option>
+    <option value="Lucida Console">Lucida Console</option>
+    <option value="kruti dev">kruti dev</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="AgencyfontWeight" class="col-md-4 col-form-label text-md-right">Header FontWeight</label>
+    <div class="col-md-6">
+    <select aria-label="Server" class="form-control" id="AgencyfontWeight">
+    <option value="select" disabled selected>Select Font Weight</option>
+    <option value="400">400</option>
+    <option value="600">600</option>
+    <option value="800">800</option>
+    <option value="Bold">Bold</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="AgencyfontSize" class="col-md-4 col-form-label text-md-right">Header FontSize</label>
+    <div class="col-md-6">
+    <select aria-label="Server" class="form-control" id="AgencyfontSize">
+    <option value="select" disabled selected>Select Font Size</option>
+    <option value="10">10</option>
+    <option value="12">12</option>
+    <option value="14">14</option>
+    <option value="18">18</option>
+    <option value="20">20</option>
+    <option value="22">22</option>
+    <option value="24">24</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label for="stampId" class="col-md-4 col-form-label text-md-right">Stamp</label>
+    <div class="col-md-6">
+    <input type="file" id="stampId" class="form-control" name="stampId" accept="image/png, image/gif, image/jpeg">
+    </div>
+    </div>
+    <div class="form-group row savebtn">
+    <div class="col-md-6">
+    <button type="button" id="saveAgency" class="btn btn-primary">Submit</button>
+    </div>
+    </div>
+    <div class="form-group row update-btns">
+    <div class="col-md-6">
+    <button type="button" id="updateAgency" class="btn btn-success">Update</button>
+    </div>
+    <div class="col-md-6">
+    <button type="button" id="deleteAgency" class="btn btn-danger" style="float:right">Delete</button>
+    </div>
+    </div>
+    </form>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    </div>*@
     <div class="companyContent" id="company">
         <section class="company">
             <div class="cotainer">
@@ -1438,7 +1443,7 @@
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -2167,5 +2172,200 @@
             </div>
         </section>
     </div>
-</div>
+
+    @* Edit for Dynamic, Calculation Tables*@
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editTableModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Column</h5>
+                    <button type="button" class="close closeEditCol" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modalBody editTblBody">
+                    <div class="row">
+                        <div class="col-6">
+                            <select id="editColor" class="form-select">
+                                <option value="select" selected>Text Color</option>
+                                <option value="Red" style="background-color:red">Red</option>
+                                <option value="Blue" style="background-color:blue">Blue</option>
+                                <option value="Green" style="background-color:green">Green</option>
+                                <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                <option value="Brown" style="background-color:brown">Brown</option>
+                                <option value="Black" style="background-color:black">Black</option>
+                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                <option value="deafult" style="background-color:transparent">Deafult</option>
+                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select id="editBgColor" class="form-select">
+                                <option value="select" selected>Bg-Color</option>
+                                <option value="Red" style="background-color:red">Red</option>
+                                <option value="Blue" style="background-color:blue">Blue</option>
+                                <option value="Green" style="background-color:green">Green</option>
+                                <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                <option value="Brown" style="background-color:brown">Brown</option>
+                                <option value="Black" style="background-color:black">Black</option>
+                                <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                <option value="deafult" style="background-color:transparent">Deafult</option>
+                                <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <select id="editVerticleAlignment" class="form-select">
+                                <option value="select" selected>Verticle Alignment</option>
+                                <option value="center">Center</option>
+                                <option value="top">Top</option>
+                                <option value="bottom">Bottom</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+
+                            <select id="editHorizontalAlignment" class="form-select">
+                                <option value="select" selected>Horizontal Alignment</option>
+                                <option value="center">Center</option>
+                                <option value="left">Left</option>
+                                <option value="right">Right</option>
+                                <option value="justify">Justify</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <select id="editFontWeight" class="form-select">
+                                <option value="select" selected>Font Weight</option>
+                                <option value="400">400</option>
+                                <option value="600">600</option>
+                                <option value="800">800</option>
+                                <option value="Bold">Bold</option>
+                            </select>
+                        </div>
+                        <div class="col-7">
+
+                            <select id="editFontFamily" class="form-select">
+                                <option value="select" selected>Font Family</option>
+                                <option value="Book Antiqua">Book Antiqua</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Comic Sans MS">Comic Sans MS</option>
+                                <option value="Century">Century</option>
+                                <option value="Lucida Console">Lucida Console</option>
+                                <option value="kruti dev">kruti dev</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="number" id="editWidth" class="form-control" placeholder="width% only">
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="editHeight" class="form-control" placeholder="height in em">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <select id="editBorder" class="form-select">
+                                <option value="select" selected>Border</option>
+                                <option value="border:1px solid black;">full border</option>
+                                <option value="border-right:1px solid black;">right-border</option>
+                                <option value="border-bottom:1px solid black;">bottom-border</option>
+                                <option value="border-left:1px solid black;">left-border</option>
+                                <option value="border-top:1px solid black;">top-border</option>
+                                <option value="border-top:1px solid black;border-bottom:1px solid black;">top bottom border</option>
+                                <option value="no-border">no border</option>
+
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select id="editFontStyle" class="form-select">
+                                <option value="select" selected>Font Style</option>
+                                <option value="normal">Normal</option>
+                                <option value="italic">Italic</option>
+                                <option value="oblique">Oblique</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <select id="editFontSize" class="form-select">
+                                <option value="select" selected>Font Size</option>
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="22">22</option>
+                                <option value="24">24</option>
+                                <option value="26">26</option>
+                                <option value="28">28</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+
+                            <select id="editTextDecoration" class="form-select">
+                                <option value="select" selected>Text Decoration</option>
+                                <option value="Overline">Overline</option>
+                                <option value="UnderLine">UnderLine</option>
+                                <option value="line-through">line-through</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" id="editFromTemp" class="form-control" placeholder="From (name#row#col)">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="editToTemp" class="form-control" placeholder="To (name#row#col)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <select id="editStaticColumn" class="form-select">
+                                <option value="select" selected>Static column</option>
+                                <option value="disabled">Static</option>
+                                <option value="visible">Dynamic</option>
+
+
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select id="editPrintShow" class="form-select">
+                                <option value="visible" selected>Print Show</option>
+                                <option value="visible">Show</option>
+                                <option value="hidden">Not Show</option>
+
+
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" id="editMarginTop" class="form-control" placeholder="margin top">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="editMarginBottom" class="form-control" placeholder="margin bottom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary closeEditCol"  data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveEditCol" col="" row="" tbl="">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 

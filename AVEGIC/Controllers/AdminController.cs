@@ -179,7 +179,7 @@ namespace AVEGIC.Controllers
                 UserProfile userProfile = _userProfile.FindByEmail(userName);
                 model = _userDetails.GetByUserId(userProfile.userId);
                 //model = _agencyRepository.GetAllAgency().OrderBy(x => x.Name).ToList();
-                //jsn = JsonConvert.SerializeObject(model);
+                jsn = JsonConvert.SerializeObject(model);
                 status = true;
 
             }
@@ -188,7 +188,7 @@ namespace AVEGIC.Controllers
                 status = false;
                 throw ex;
             }
-            return Json(new { Status = status, Model = model });
+            return Json(new { Status = status, Json = jsn });
         }
         [HttpPost]
         public IActionResult CreateHeadOffice(HeadOffice model)
@@ -1298,7 +1298,7 @@ namespace AVEGIC.Controllers
 
         public IActionResult Reloadmethods()
         {
-            ViewBag.Agency = _agencyRepository.GetAllAgency().OrderBy(x => x.Name).ToList();
+            //ViewBag.Agency = _agencyRepository.GetAllAgency().OrderBy(x => x.Name).ToList();
             ViewBag.HeadOffice = _headOfficeRepository.GetAllHeadOffice().OrderBy(x => x.Name).ToList();
             ViewBag.Year = _yearRepository.GetAllYear().OrderBy(x=>x.year).ToList();
             ViewBag.Templates = _templatesRepository.GetAllTemplates().OrderBy(x=>x.TemplateName).ToList();

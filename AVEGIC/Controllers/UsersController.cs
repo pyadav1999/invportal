@@ -86,52 +86,45 @@ namespace AVEGIC.Controllers
 
             Reloadmethods();
             List<DynamicTable> tableList = _dynamicTable.GetAllDynamicTable().OrderBy(x => x.TableName).ToList();
-            List<DynamicTable> letterHeadNames = new List<DynamicTable>();
-            List<DynamicTable> billLetterHeadNames = new List<DynamicTable>();
+            List<DynamicTable> letterHeadList = new List<DynamicTable>();
+            List<DynamicTable> billLetterHeadList = new List<DynamicTable>();
             DynamicTable dynamicTable = new DynamicTable();
             string letterheadname = "";
             string billletterheadname = "";
             foreach (var template in tableList)
             {
                 string templateName = template.TableName;
-                if (templateName.Length > 11)
+                if (templateName.Length > 11 && templateName.Substring(0, 10).ToLower()== "letterhead")
                 {
-                    letterheadname = templateName.Substring(0, 10).ToLower();
+                    letterHeadList.Add(template);
                 }
 
-                if (templateName.Length > 15)
+                if (templateName.Length > 15 && templateName.Substring(0, 14).ToLower()== "billletterhead")
                 {
-                    billletterheadname = templateName.Substring(0, 14).ToLower();
-                }
-
-                if (letterheadname == "letterhead")
-                {
-                    letterHeadNames.Add(template);
-                }
-                else if (billletterheadname == "billletterhead")
-                {
-                    billLetterHeadNames.Add(template);
+                    billLetterHeadList.Add(template);
                 }
             }
             if (userLetterHead != null)
             {
                 if (userLetterHead.letterHeadName != null && userLetterHead.letterHeadName != "")
                 {
+                    dynamicTable =new DynamicTable();
                     dynamicTable.TableName = userLetterHead.letterHeadName;
                     dynamicTable.TableFormat = userLetterHead.letterHeadData;
-                    letterHeadNames.Clear();
-                    letterHeadNames.Add(dynamicTable);
+                    letterHeadList.Clear();
+                    letterHeadList.Add(dynamicTable);
                 }
                 if (userLetterHead.billLetterHeadName != null && userLetterHead.billLetterHeadName != "")
                 {
+                    dynamicTable = new DynamicTable();
                     dynamicTable.TableName = userLetterHead.billLetterHeadName;
                     dynamicTable.TableFormat = userLetterHead.billLetterHeadData;
-                    billLetterHeadNames.Clear();
-                    billLetterHeadNames.Add(dynamicTable);
+                    billLetterHeadList.Clear();
+                    billLetterHeadList.Add(dynamicTable);
                 }
             }
-            ViewBag.letterHeadNames = letterHeadNames;
-            ViewBag.billLetterHeadNames = billLetterHeadNames;
+            ViewBag.letterHeadNames = letterHeadList;
+            ViewBag.billLetterHeadNames = billLetterHeadList;
             return View(userDto);
         }
 
