@@ -721,7 +721,11 @@ namespace AVEGIC.Controllers
        // [HttpPost]
         public IActionResult PrintReport(string RefId)
         {
-
+            if (!User.Identity.IsAuthenticated)
+            { return RedirectToAction("LogOut", "Home"); }
+            string userName = User.Identity.GetUserName();
+            UserProfile userProfile = _userProfile.FindByEmail(userName);
+            UserLetterHead userLetterHead=_userLetterHead.GetByUserId(userProfile.userId);
             dynamic model = new ExpandoObject();
             Dictionary<dynamic, dynamic> dec = new Dictionary<dynamic, dynamic>();
             Dictionary<dynamic, dynamic> final = new Dictionary<dynamic, dynamic>();
@@ -763,6 +767,7 @@ namespace AVEGIC.Controllers
                         List<dynamic> tblques = new List<dynamic>();
                         List<KeyValuePair<string, string>> tempdata = new List<KeyValuePair<string, string>>();
                         string key = item.Name;
+                        string value = item.Value;
                         sequence.Add(new KeyValuePair<string, string>(Convert.ToString(key), Convert.ToString(item.Value)));
                         if (key[0] == 't')
                         {
@@ -812,6 +817,9 @@ namespace AVEGIC.Controllers
                             //temp = _dynamicTemplateRepository.GetAllTempDataByReportId(modelreport.Id.ToString(), Convert.ToString(item.Value));
                             dgn = _dynamicTable.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TableFormat);
+                            if (value.Length>=10 && value.Substring(0, 10).ToLower() == "letterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.letterHeadData);
+                            else if(value.Length >= 10 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
+
                             foreach (var items in temp)
                             {
                                 if (items.ReportId == modelreport.Id)

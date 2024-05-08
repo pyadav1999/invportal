@@ -116,7 +116,7 @@
             $('.savebtn').show();
             $('.refId').show();
             $('.reportType').show();
-            $('.reportAction').hide();
+            //$('.reportAction').hide();
             $('.temp').show();
             $(this).hide();
         }
@@ -866,6 +866,7 @@
                     if (result.model != null) {
                         debugger
                         $('.refId').show();
+                        $('.reportAction').show();
                         $('.reportType').show();
                         var data = result.model;
                         $(`#agencyId`).val(data.agency).prop('selected', true);
