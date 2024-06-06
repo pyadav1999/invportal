@@ -865,6 +865,8 @@
 
                     if (result.model != null) {
                         debugger
+                        $('.temp').empty();
+                        $('#reportNext').hide();
                         $('.refId').show();
                         $('.reportAction').show();
                         $('.reportType').show();

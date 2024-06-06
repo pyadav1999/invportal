@@ -146,18 +146,18 @@ namespace AVEGIC.Controllers
                         foreach (var item in data)
                         {
                             string key = "dyn" + i;
-                            string value= item.Value;
+                            string value = item.Value;
                             if (key == "dyn2")
                             {
                                 seq.Add(key, "RefNumber");
                                 i++;
-                                key = "dyn" + i ;
+                                key = "dyn" + i;
                             }
                             seq.Add(key, value);
                             i++;
 
                         }
-                        model.Sequence= JsonConvert.SerializeObject(seq);
+                        model.Sequence = JsonConvert.SerializeObject(seq);
                         model.IsDeleted = false;
                         model.UserId = userProfile.userId;
                         _reportRepository.Add(model);
@@ -250,18 +250,18 @@ namespace AVEGIC.Controllers
         public void GenrateRefNumberTemp(Reports model)
         {
             List<KeyValuePair<string, string>> jsn = new List<KeyValuePair<string, string>>();
-            UserDetails userDetails=_userDetails.GetByUserId(model.UserId);
+            UserDetails userDetails = _userDetails.GetByUserId(model.UserId);
             Year year = _yearRepository.GetById(model.year);
             string RefId = userDetails.abbrevation + "/" + model.Ref2 + "/" + year.year;
-            jsn.Add(new KeyValuePair<string, string>("RefNumber000","RefId"));
+            jsn.Add(new KeyValuePair<string, string>("RefNumber000", "RefId"));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", RefId));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", "Date"));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", model.Created_Date.ToString()));
-            var jsndata=JsonConvert.SerializeObject(jsn);
+            var jsndata = JsonConvert.SerializeObject(jsn);
             string ref1 = @"""RefNumber000""" + ":" + @"""RefId""";
-            string ref2 = "\"RefNumber001\"" + ":" +"\""+RefId + "\"";
+            string ref2 = "\"RefNumber001\"" + ":" + "\"" + RefId + "\"";
             string ref3 = "\"RefNumber002\"" + ": " + "\"Date\"";
-            string ref4 = "\"RefNumber003\"" + ":" + "\""+model.Created_Date.ToString() + "\"";
+            string ref4 = "\"RefNumber003\"" + ":" + "\"" + model.Created_Date.ToString() + "\"";
             string reffinal = "[{" + ref1 + "," + ref2 + "," + ref3 + "," + ref4 + "}]";
             SaveDynamicTableData("RefNumber", reffinal, model.RefId);
         }
@@ -461,7 +461,11 @@ namespace AVEGIC.Controllers
                 report = _reportRepository.findByUserIdAndRefId(userProfile.userId, refid);
                 IEnumerable<dynamic> data2;
                 dynamic data;
-                data = _dynamicTemplateRepository.FindTempDataByUserIdAndReportId(userProfile.userId, report.Id.ToString(), name);
+                if (name != null)
+                {
+                    data = _dynamicTemplateRepository.FindTempDataByUserIdAndReportId(userProfile.userId, report.Id.ToString(), name);
+                    model = data[0];
+                }
 
                 //foreach (var items in data)
                 //{
@@ -470,7 +474,7 @@ namespace AVEGIC.Controllers
                 //        model = items;
                 //    }
                 //}
-                model = data[0];
+
             }
             //string tempModel = JsonConvert.SerializeObject(model);
             return Json(new { Model = model });
@@ -718,14 +722,14 @@ namespace AVEGIC.Controllers
             }
             return Json(new { Message = msg, Status = status });
         }
-       // [HttpPost]
+        // [HttpPost]
         public IActionResult PrintReport(string RefId)
         {
             if (!User.Identity.IsAuthenticated)
             { return RedirectToAction("LogOut", "Home"); }
             string userName = User.Identity.GetUserName();
             UserProfile userProfile = _userProfile.FindByEmail(userName);
-            UserLetterHead userLetterHead=_userLetterHead.GetByUserId(userProfile.userId);
+            UserLetterHead userLetterHead = _userLetterHead.GetByUserId(userProfile.userId);
             dynamic model = new ExpandoObject();
             Dictionary<dynamic, dynamic> dec = new Dictionary<dynamic, dynamic>();
             Dictionary<dynamic, dynamic> final = new Dictionary<dynamic, dynamic>();
@@ -817,8 +821,8 @@ namespace AVEGIC.Controllers
                             //temp = _dynamicTemplateRepository.GetAllTempDataByReportId(modelreport.Id.ToString(), Convert.ToString(item.Value));
                             dgn = _dynamicTable.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TableFormat);
-                            if (value.Length>=10 && value.Substring(0, 10).ToLower() == "letterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.letterHeadData);
-                            else if(value.Length >= 10 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
+                            if (value.Length >= 10 && value.Substring(0, 10).ToLower() == "letterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.letterHeadData);
+                            else if (value.Length >= 10 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
 
                             foreach (var items in temp)
                             {
