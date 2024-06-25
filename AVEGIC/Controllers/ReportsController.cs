@@ -822,7 +822,7 @@ namespace AVEGIC.Controllers
                             dgn = _dynamicTable.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TableFormat);
                             if (value.Length >= 10 && value.Substring(0, 10).ToLower() == "letterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.letterHeadData);
-                            else if (value.Length >= 10 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
+                            else if (value.Length >= 14 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
 
                             foreach (var items in temp)
                             {
