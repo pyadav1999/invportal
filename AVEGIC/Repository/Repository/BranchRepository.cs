@@ -48,7 +48,7 @@ namespace AVEGIC.Repository.Repository
             filters.Add(filterBuilder.Eq("HeadOfficeId", model.HeadOfficeId));
             filters.Add(filterBuilder.Eq("State", model.State));
             filters.Add(filterBuilder.Eq("District", model.District));
-            var combinedFilter = filterBuilder.Or(filters);
+            var combinedFilter = filterBuilder.And(filters);
             result = DbSet.Find(combinedFilter).ToList();
             if (result == null) return Enumerable.Empty<Branch>();
             else return result;

@@ -1859,6 +1859,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -1988,12 +1989,12 @@ $(document).ready(function () {
  <div class="col-6">
  <select id="${cellborder}" class="form-select">
                                             <option value="select"  selected>Border</option>
-                                            <option value="border:1px solid black;">full border</option>
-                                            <option value="border-right:1px solid black;">right-border</option>
-                                            <option value="border-bottom:1px solid black;">bottom-border</option>
-                                            <option value="border-left:1px solid black;">left-border</option>
-                                            <option value="border-top:1px solid black;">top-border</option>
-                                            <option value="border-top:1px solid black;border-bottom:1px solid black;">top bottom border</option>
+                                            <option value="border:1px solid;">full border</option>
+                                            <option value="border-right:1px solid;">right-border</option>
+                                            <option value="border-bottom:1px solid;">bottom-border</option>
+                                            <option value="border-left:1px solid;">left-border</option>
+                                            <option value="border-top:1px solid;">top-border</option>
+                                            <option value="border-top:1px solid;border-bottom:1px solid black;">top bottom border</option>
                                             <option value="no-border">no border</option>
                                             
 </select></div>
@@ -2079,6 +2080,23 @@ $(document).ready(function () {
 <div class="row">
 <div class="col-6">
 <input type="text" id="${marginbottom}" class="form-control" placeholder="margin bottom">
+</div>
+<div class="col-6">
+<select id="${cellbordercolor}" class="form-select">
+                                            <option value="select" selected>Border Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+ </select>
 </div>
 </div>
                                 `
@@ -2235,6 +2253,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -2256,6 +2275,7 @@ $(document).ready(function () {
                 colChoices[i][size] = $(`#${size}`).val();
                 colChoices[i][height] = $(`#${height}`).val();
                 colChoices[i][cellborder] = $(`#${cellborder}`).val();
+                colChoices[i][cellbordercolor] = $(`#${cellbordercolor}`).val();
                 colChoices[i][fontsize] = $(`#${fontsize}`).val();
                 colChoices[i][underline] = $(`#${underline}`).val();
                 colChoices[i][fontstyle] = $(`#${fontstyle}`).val();
@@ -2307,6 +2327,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -2331,6 +2352,7 @@ $(document).ready(function () {
                     celld.fontfamily = colChoices[i][fontFamily];
                     celld.cSet = colChoices[i][cSet];
                     celld.cellborder = colChoices[i][cellborder];
+                    celld.cellbordercolor = colChoices[i][cellbordercolor];
                     celld.fontsize = colChoices[i][fontsize];
                     celld.underline = colChoices[i][underline];
                     celld.fontstyle = colChoices[i][fontstyle];
@@ -2343,33 +2365,33 @@ $(document).ready(function () {
                     // celld.location = colChoices[i][location];
                     dr.push(celld);
                     if (colChoices[i][colId] == 0) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" style='font-style:${colChoices[i][fontstyle]};font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;' value="" class="form-control"> `;
                         table_body += '</td>';
 
                     }
                     if (colChoices[i][colId] == 1) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<textarea id="inp${inpi}" class="form-control" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" row="1"></textarea>`;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 2) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="date" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 3) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="checkbox" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-check"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 4) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="number" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 5) {
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="list${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"><button type="button" class="btn btn-info" id="addbtndrp">+</button>
                                         <datalist id="list${inpi}">
                                         </datalist>`;
@@ -2377,13 +2399,13 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 6) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="file" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 7) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="state${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>State</option>
                                        </select>`;
@@ -2392,7 +2414,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 8) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                        <option value="0" selected>State</option>
@@ -2406,7 +2428,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 9) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>State</option>
@@ -2423,7 +2445,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 10) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="agency${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Agency</option>
                                        </select>`;
@@ -2432,7 +2454,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 11) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         //table_body += `<select id="insurer${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                         //                <option value="0" selected>Branch</option>
                         //               </select>`;
@@ -2451,12 +2473,12 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 12) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}"  type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control currencyField"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 13) {
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="con${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
                                         <datalist id="con${inpi}">
                                         </datalist>`;
@@ -2465,7 +2487,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 14) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="head${inpi}" class="headselect form-control headTemp"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Head</option>
@@ -2475,7 +2497,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 15) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="av${inpi}" class=" form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Agency</option>
@@ -2489,7 +2511,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 16) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="advo${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Advocate</option>
                                        </select>`;
@@ -2498,7 +2520,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 17) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="depart${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Department</option>
                                        </select>`;
@@ -2507,7 +2529,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 18) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="year${inpi}" class="t form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Year</option>
                                        </select>`;
@@ -2531,6 +2553,7 @@ $(document).ready(function () {
                     celld.fontfamily = colChoices[i][fontFamily];
                     celld.cSet = colChoices[i][cSet];
                     celld.cellborder = colChoices[i][cellborder];
+                    celld.cellbordercolor = colChoices[i][cellbordercolor];
                     celld.fontsize = colChoices[i][fontsize];
                     celld.underline = colChoices[i][underline];
                     celld.fontstyle = colChoices[i][fontstyle];
@@ -2542,32 +2565,32 @@ $(document).ready(function () {
                     celld.marginbottom = colChoices[i][marginbottom];
                     dr.push(celld);
                     if (colChoices[i][colId] == 0) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 1) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<textarea id="inp${inpi}" class="form-control" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" row="1"></textarea>`;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 2) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input type="date" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 3) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="checkbox" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-check"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 4) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="number" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 5) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="list${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"><button type="button" class="btn btn-info" id="addbtndrp">+</button>
                                          <datalist id="list${inpi}">
                                         </datalist>`;
@@ -2575,13 +2598,13 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 6) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="file" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 7) {
 
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="state${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>State</option>
                                        </select>`;
@@ -2590,7 +2613,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 8) {
 
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                        <option value="0" selected>State</option>
@@ -2604,7 +2627,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 9) {
 
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>State</option>
@@ -2621,7 +2644,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 10) {
 
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="agency${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Agency</option>
                                        </select>`;
@@ -2630,7 +2653,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 11) {
 
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         //table_body += `<select id="insurer${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                         //                <option value="0" selected>Insurer</option>
                         //               </select>`;
@@ -2649,12 +2672,12 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 12) {
-                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}"  style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" rowspan="${colChoices[i][widthId]}"  style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}"  type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control currencyField"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 13) {
-                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" rowspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="con${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
                                         <datalist id="con${inpi}">
                                         </datalist>`;
@@ -2663,7 +2686,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 14) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="head${inpi}" class="headselect form-control headTemp"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Head</option>
@@ -2673,7 +2696,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 15) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="av${inpi}" class=" form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Agency</option>
@@ -2687,7 +2710,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 16) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="advo${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Advocate</option>
                                        </select>`;
@@ -2696,7 +2719,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 17) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="depart${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Department</option>
                                        </select>`;
@@ -2705,7 +2728,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 18) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="year${inpi}" class="t form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Year</option>
                                        </select>`;
@@ -2728,6 +2751,7 @@ $(document).ready(function () {
                     celld.fontfamily = colChoices[i][fontFamily];
                     celld.cSet = colChoices[i][cSet];
                     celld.cellborder = colChoices[i][cellborder];
+                    celld.cellbordercolor = colChoices[i][cellbordercolor];
                     celld.fontsize = colChoices[i][fontsize];
                     celld.underline = colChoices[i][underline];
                     celld.fontstyle = colChoices[i][fontstyle];
@@ -2739,32 +2763,32 @@ $(document).ready(function () {
                     celld.marginbottom = colChoices[i][marginbottom];
                     dr.push(celld);
                     if (colChoices[i][colId] == 0) {
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 1) {
-                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<textarea id="inp${inpi}" class="form-control" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" row="1"></textarea>`;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 2) {
-                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="date" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 3) {
-                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="checkbox" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-check"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 4) {
-                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="number" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 5) {
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="list${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"><button type="button" class="btn btn-info" id="addbtndrp">+</button>
                                         <datalist id="list${inpi}">
                                         </datalist>`;
@@ -2772,13 +2796,13 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 6) {
-                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="file" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 7) {
 
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="state${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>State</option>
                                        </select>`;
@@ -2787,7 +2811,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 8) {
 
-                        table_body += `<td class="${id}" id="${inpId}"  width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}"  width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                        <option value="0" selected>State</option>
@@ -2801,7 +2825,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 9) {
 
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="state${inpi}" class="stateselect form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>State</option>
@@ -2818,7 +2842,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 10) {
 
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="agency${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Agency</option>
                                        </select>`;
@@ -2827,7 +2851,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 11) {
 
-                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         //table_body += `<select id="insurer${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                         //                <option value="0" selected>Insurer</option>
                         //               </select>`;
@@ -2847,12 +2871,12 @@ $(document).ready(function () {
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 12) {
-                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}"  type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control currencyField"> `;
                         table_body += '</td>';
                     }
                     if (colChoices[i][colId] == 13) {
-                        table_body += `<td class="${id}" id="${inpId}"  width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}"  width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<input id="inp${inpi}" type="text" list="con${inpi}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
                                         <datalist id="con${inpi}">
                                         </datalist>`;
@@ -2861,7 +2885,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 14) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="head${inpi}" class="headselect form-control headTemp"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Head</option>
@@ -2871,7 +2895,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 15) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<div class="d-flex w-100">`
                         table_body += `<select id="av${inpi}" class=" form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Agency</option>
@@ -2885,7 +2909,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 16) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="advo${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Advocate</option>
                                        </select>`;
@@ -2894,7 +2918,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 17) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="depart${inpi}" class="form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  >
                                         <option value="0" selected>Department</option>
                                        </select>`;
@@ -2903,7 +2927,7 @@ $(document).ready(function () {
                     }
                     if (colChoices[i][colId] == 18) {
 
-                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                        table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                         table_body += `<select id="year${inpi}" class="t form-control"  style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'>
                                        <option value="0" selected>Year</option>
                                        </select>`;
@@ -3365,6 +3389,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -3565,6 +3590,23 @@ $(document).ready(function () {
                                            
 </select>
 </div>
+<div class="col-6">
+<select id="${cellbordercolor}" class="form-select">
+                                            <option value="select"  selected>Border Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+ </select>
+</div>
 </div>
 
 
@@ -3610,6 +3652,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -3631,6 +3674,7 @@ $(document).ready(function () {
                 colChoices[i][size] = $(`#${size}`).val();
                 colChoices[i][height] = $(`#${height}`).val();
                 colChoices[i][cellborder] = $(`#${cellborder}`).val();
+                colChoices[i][cellbordercolor] = $(`#${cellbordercolor}`).val();
                 colChoices[i][fontsize] = $(`#${fontsize}`).val();
                 colChoices[i][underline] = $(`#${underline}`).val();
                 colChoices[i][fontstyle] = $(`#${fontstyle}`).val();
@@ -3673,6 +3717,7 @@ $(document).ready(function () {
                 var fontFamily = "family" + i + j;
                 var cSet = "conclusionSet" + i + j;
                 var cellborder = "cellborder" + i + j;
+                var cellbordercolor = "cellbordercolor" + i + j;
                 var fontsize = "fontsize" + i + j;
                 var underline = "underline" + i + j;
                 var fontstyle = "fontstyle" + i + j;
@@ -3696,6 +3741,7 @@ $(document).ready(function () {
                 celld.fontfamily = colChoices[i][fontFamily];
                 celld.cSet = colChoices[i][cSet];
                 celld.cellborder = colChoices[i][cellborder];
+                celld.cellbordercolor = colChoices[i][cellbordercolor];
                 celld.fontsize = colChoices[i][fontsize];
                 celld.underline = colChoices[i][underline];
                 celld.fontstyle = colChoices[i][fontstyle];
@@ -3706,32 +3752,32 @@ $(document).ready(function () {
                 celld.marginbottom = colChoices[i][marginbottom];
                 dr.push(celld);
                 if (colChoices[i][colId] == 0) {
-                    table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="text" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 1) {
-                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<textarea id="inp${calinp}" class="form-control" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" row="1"></textarea>`;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 2) {
-                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="date" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 3) {
-                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="checkbox" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-check"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 4) {
-                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${inpi}" type="number" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 5) {
-                    table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}" id="${inpId}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="text" list="list${calinp}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"><button type="button" class="btn btn-info" id="addcalcbtndrp">+</button>
                                         <datalist id="list${calinp}">
                                         </datalist>`;
@@ -3739,17 +3785,17 @@ $(document).ready(function () {
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 6) {
-                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="file" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 7) {
-                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="text" name="currency-field" pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$" data-type="currency" placeholder="₹ 1,00,000.00" style="font-style:${colChoices[i][fontstyle]}; text-decoration:${colChoices[i][underline]}; font-size:${colChoices[i][fontsize]}; color:${colChoices[i][colorId]}; background-color:${colChoices[i][bgcolorId]}; font-weight:${colChoices[i][fontWeight]}; vertical-align:${colChoices[i][verticalId]}; text-align:${colChoices[i][horizontalId]}; font-family:${colChoices[i][fontFamily]}; height:${colChoices[i][height]}em;" value="" class="form-control currencyField"> `;
                     table_body += '</td>';
                 }
                 if (colChoices[i][colId] == 8) {
-                    table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
                     table_body += `<input id="inp${calinp}" type="text" list="con${calinp}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
                                         <datalist id="con${calinp}">
                                         </datalist>`;
@@ -4520,37 +4566,37 @@ $(document).ready(function () {
                                 var dynid = tblname + it + i + j;
                                 if (format[tblid][i][j].height == "null" || typeof format[tblid][i][j].height == "undefined" || format[tblid][i][j].height == "" || format[tblid][i][j].height == "undefined") format[tblid][i][j].height = 2;
                                 if (format[tblid][i][j].datatype == '0') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" colId="" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '1') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea class="form-control" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '2') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="date" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '3') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="checkbox" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-check"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '4') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="number" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '5') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea type="text" id="dyn${dynid}" list="list2${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textarea>
                                                    <a type="" href="javascript:void(0);" style="color:blue;curson:pointer;" class="" id="editbtndrp">+</a>
                                                    <a type="" href="javascript:void(0);" style="color:red;curson:pointer;" class="" id="deloption">x</a>
@@ -4561,14 +4607,14 @@ $(document).ready(function () {
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '6') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="file" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '7') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<select id="state${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                         <option value="0" selected>State</option>
                                        </select>`;
@@ -4578,7 +4624,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '8') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<div class="d-flex w-100">`
                                     table_body += `<select id="state${dynid}" class="stateselect form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
                                        <option value="0" selected>State</option>
@@ -4593,7 +4639,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '9') {
 
-                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<div class="d-flex w-100">`
                                     table_body += `<select id="state${dynid}" class="stateselect form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                        <option value="0" selected>State</option>
@@ -4611,7 +4657,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '10') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<select id="agency${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                         <option value="0" selected>Agency</option>
                                        </select>`;
@@ -4621,7 +4667,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '11') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     //table_body += `<select id="insurer${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                     //    <option value="0" selected>Insurer</option>
                                     //   </select>`;
@@ -4641,13 +4687,13 @@ $(document).ready(function () {
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '12') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00"  id="dyn${dynid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '13') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea type="text" id="dyn${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"></textarea>
                                                <select id="con${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                         </select>`;
@@ -4656,7 +4702,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '14') {
 
-                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<div class="d-flex w-100">`
                                     table_body += `<select id="head${dynid}" class="headselect form-control headTemp"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                        <option value="0" selected>Head Office</option>
@@ -4668,7 +4714,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '15') {
 
-                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<div class="d-flex w-100">`
                                     table_body += `<select id="av${dynid}" class=" form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
                                        <option value="0" selected>Agency</option>
@@ -4683,7 +4729,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '16') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<select id="advo${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                         <option value="0" selected>Advocate</option>
                                        </select>`;
@@ -4693,7 +4739,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '17') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<select id="department${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
                                         <option value="0" selected>Department</option>
                                        </select>`;
@@ -4703,7 +4749,7 @@ $(document).ready(function () {
                                 }
                                 if (format[tblid][i][j].datatype == '18') {
 
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<select id="year${dynid}" class=" form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
                                        <option value="0" selected>Year</option>
                                        </select>`;
@@ -4723,28 +4769,28 @@ $(document).ready(function () {
                     }
 
                     if (dynmodel.Border == "0") {
-                        $(`.renderDynTemps`).css("border", "1px solid black");
+                        $(`.renderDynTemps`).css("border", "1px solid");
                         //$(`.tbl tr`).css("border", "1px solid black");
                         //$(`.tbl`).css("border", "1px solid black");
                     }
                     else if (dynmodel.Border == "1") {
-                        $(`.renderDynTemps`).css("border-right", "1px solid black");
+                        $(`.renderDynTemps`).css("border-right", "1px solid");
                         //$(`.tbl tr`).css("border-right", "1px solid black");
                         // $(`.tbl`).css("border-right", "1px solid black");
                     }
                     else if (dynmodel.Border == "2") {
-                        $(`.renderDynTemps`).css("border-left", "1px solid black");
+                        $(`.renderDynTemps`).css("border-left", "1px solid");
                         //$(`.tbl tr`).css("border-left", "1px solid black");
                         //$(`.tbl`).css("border-left", "1px solid black");
                     }
                     else if (dynmodel.Border == "3") {
-                        $(`.renderDynTemps`).css("border-top", "1px solid black");
+                        $(`.renderDynTemps`).css("border-top", "1px solid");
                         //$(`.tbl tr`).css("border-top", "1px solid black");
                         //$(`.tbl`).css("border-top", "1px solid black");
 
                     }
                     else if (dynmodel.Border == "4") {
-                        $(`.renderDynTemps`).css("border-bottom", "1px solid black");
+                        $(`.renderDynTemps`).css("border-bottom", "1px solid");
                         // $(`.tbl tr`).css("border-bottom", "1px solid black");
                         //$(`.tbl`).css("border-bottom", "1px solid black");
                     }
@@ -4922,6 +4968,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -5108,6 +5155,27 @@ $(document).ready(function () {
 <input type="text" id="${marginbottom}" class="form-control" placeholder="margin bottom">
 </div>
 </div>
+<div class="row">
+<div class="col-6">
+<div class="col-6">
+<select id="${cellbordercolor}" class="form-select">
+                                            <option value="select"  selected>Text Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+ </select>
+</div>
+</div>
+</div>
                                 `
 
                     table_body += '</td>';
@@ -5137,6 +5205,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -5183,6 +5252,8 @@ $(document).ready(function () {
                         $(`#${margintop}`).val(EditGlobal[tblid][i][j].margintop);
                     if (EditGlobal[tblid][i][j].marginbottom != "undefine" && EditGlobal[tblid][i][j].marginbottom != null && EditGlobal[tblid][i][j].marginbottom != "")
                         $(`#${marginbottom}`).val(EditGlobal[tblid][i][j].marginbottom);
+                    if (EditGlobal[tblid][i][j].cellbordercolor != "undefine" && EditGlobal[tblid][i][j].cellbordercolor != null && EditGlobal[tblid][i][j].cellbordercolor != "")
+                        $(`#${cellbordercolor}`).val(EditGlobal[tblid][i][j].cellbordercolor);
                     //edval++;
                 }
 
@@ -5208,6 +5279,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -5235,6 +5307,8 @@ $(document).ready(function () {
                         EditGlobal[tblid][i][j].width = $(`#${size}`).val();
                     if ($(`#${cellborder}`).val() != "undefine")
                         EditGlobal[tblid][i][j].cellborder = $(`#${cellborder}`).val();
+                    if ($(`#${cellbordercolor}`).val() != "undefine")
+                        EditGlobal[tblid][i][j].cellbordercolor = $(`#${cellbordercolor}`).val();
                     if ($(`#${fontsize}`).val() != "undefine")
                         EditGlobal[tblid][i][j].fontsize = $(`#${fontsize}`).val();
                     if ($(`#${underline}`).val() != "undefine")
@@ -5536,31 +5610,31 @@ $(document).ready(function () {
                                 var calid = tblname + it + i + j;
                                 if (format[tblid][i][j].height == "null" || format[tblid][i][j].height == "" || format[tblid][i][j].height == "undefined" || typeof format[tblid][i][j].height == "undefined") format[tblid][i][j].height = 2;
                                 if (format[tblid][i][j].datatype == '0') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" id="calc${calid}" rowNo="${i}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '1') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea class="form-control" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '2') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="date" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '3') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="checkbox" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-check"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '4') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="number" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     if (row_no == rowcount) {
                                         table_body += `<input type="checkbox" class="checksum">`
@@ -5569,7 +5643,7 @@ $(document).ready(function () {
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '5') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<textarea type="text" id="calc${calid}" colNo="${j}" list="list2${calid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textarea>
                                                    <a type="" class="" href="javascript:void(0);" style="color:blue;cursor:pointer;" id="editCalcbtndrp">+</a>
                                                    <a type="" class="" href="javascript:void(0);" style="color:red;cursor:pointer;" id="delCalcoption">+</a>
@@ -5580,13 +5654,13 @@ $(document).ready(function () {
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '6') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="file" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == '7') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" name="currency-field"  pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$"  data-type="currency" placeholder="₹ 10,00,000.00"  id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField"> `;
                                     if (row_no == rowcount) {
                                         table_body += `<input type="checkbox" class="checksum">`
@@ -5595,7 +5669,7 @@ $(document).ready(function () {
                                     table_body += '</td>';
                                 }
                                 if (format[tblid][i][j].datatype == 8) {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
                                     table_body += `<input type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">
                                                <datalist id="con${dynid}">
                                         </datalist>`;
@@ -5748,6 +5822,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -5935,6 +6010,25 @@ $(document).ready(function () {
 <input type="text" id="${marginbottom}" class="form-control" placeholder="margin bottom">
 </div>
 </div>
+<div class="row">
+<div class="col-6">
+<select id="${cellbordercolor}" class="form-select">
+                                            <option value="select"  selected>Border Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+ </select>
+</div>
+</div>
                                 `
 
                     table_body += '</td>';
@@ -5964,6 +6058,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -6010,6 +6105,8 @@ $(document).ready(function () {
                         $(`#${margintop}`).val(EditGlobal[tblid][i][j].margintop);
                     if (EditGlobal[tblid][i][j].marginbottom != "undefine" && EditGlobal[tblid][i][j].marginbottom != null && EditGlobal[tblid][i][j].marginbottom != "")
                         $(`#${marginbottom}`).val(EditGlobal[tblid][i][j].marginbottom);
+                    if (EditGlobal[tblid][i][j].cellbordercolor != "undefine" && EditGlobal[tblid][i][j].cellbordercolor != null && EditGlobal[tblid][i][j].cellbordercolor != "")
+                        $(`#${cellbordercolor}`).val(EditGlobal[tblid][i][j].cellbordercolor);
                     //edval++;
                 }
 
@@ -6037,6 +6134,7 @@ $(document).ready(function () {
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -6082,6 +6180,8 @@ $(document).ready(function () {
                         EditGlobal[tblid][i][j].margintop = $(`#${margintop}`).val();
                     if ($(`#${marginbottom}`).val() != "undefine")
                         EditGlobal[tblid][i][j].marginbottom = $(`#${marginbottom}`).val();
+                    if ($(`#${cellbordercolor}`).val() != "undefine")
+                        EditGlobal[tblid][i][j].cellbordercolor = $(`#${cellbordercolor}`).val();
                     edval++;
                 }
             }
@@ -7392,6 +7492,8 @@ $(document).ready(function () {
             $('#editMarginTop').val(EditGlobal[tblid][i][j].margintop);
         if (EditGlobal[tblid][i][j].marginbottom != "undefine" && EditGlobal[tblid][i][j].marginbottom != null && EditGlobal[tblid][i][j].marginbottom != "")
             $('#editMarginBottom').val(EditGlobal[tblid][i][j].marginbottom);
+        if (EditGlobal[tblid][i][j].cellbordercolor != "undefine" && EditGlobal[tblid][i][j].cellbordercolor != null && EditGlobal[tblid][i][j].cellbordercolor != "")
+            $('#editBorderColor').val(EditGlobal[tblid][i][j].cellbordercolor);
         //edval++;
 
     });
@@ -7436,6 +7538,9 @@ $(document).ready(function () {
             EditGlobal[tblid][i][j].margintop = $('#editMarginTop').val();
         if ($('#editMarginBottom').val() != "undefine")
             EditGlobal[tblid][i][j].marginbottom = $('#editMarginBottom').val();
+        if ($('#editBorderColor').val() != "undefine")
+            EditGlobal[tblid][i][j].cellbordercolor = $('#editBorderColor').val();
+        
         var tblno= tblid.match(/\d+/);
         var colIdText = 'dyn' + EditTempName + tblno + i + j;
         $(`#${colIdText}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
