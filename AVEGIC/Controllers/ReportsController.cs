@@ -464,6 +464,7 @@ namespace AVEGIC.Controllers
                 if (name != null)
                 {
                     data = _dynamicTemplateRepository.FindTempDataByUserIdAndReportId(userProfile.userId, report.Id.ToString(), name);
+                    //if(data) 
                     model = data[0];
                 }
 

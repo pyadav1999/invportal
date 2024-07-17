@@ -188,7 +188,7 @@ namespace AVEGIC.Controllers
                 status = false;
                 throw ex;
             }
-            return Json(new { Status = status, Json = jsn });
+            return Json(new { Status = status, Model = jsn });
         }
         [HttpPost]
         public IActionResult CreateHeadOffice(HeadOffice model)

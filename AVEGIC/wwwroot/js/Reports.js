@@ -832,6 +832,7 @@
 
     //search report
     var stemps = [];
+    var globalDynOrder = 1;
     $('.actionDivbtn').on("click", function () {
         $('#searchDiv').show();
     });
@@ -956,6 +957,7 @@
                                 });
                             }
                             if (key[0] == 'd') {
+                                debugger;
                                 localStorage.setItem("type", seq[key]);
                                 renderDynamicTable(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
@@ -970,6 +972,7 @@
                                         $(this).prop('disabled', true);
                                     }
                                 });
+                                globalDynOrder = order;
                             }
                             if (key[0] == 'c') {
                                 renderCalcTable(seq[key], refid, order);
@@ -1487,7 +1490,7 @@
         ;
         var name = $(this).find(':selected').text();
 
-        renderDynamicTable(name, 0, 1);
+        renderDynamicTable(name, 0, globalDynOrder);
 
         var key = "dyn" + d;
 
@@ -1496,7 +1499,7 @@
         $(this).find(':selected').attr("disabled", "disabled");
     });
     async function renderDynamicTable(name, refId, order) {
-
+        debugger
         var statel = await getStates();
         var statelist = JSON.parse(statel.json);
 
@@ -1523,15 +1526,17 @@
             data: { name },
             aysnc: false,
             success: function (result) {
-
+                debugger
                 if (result.model != null) {
                     var format = JSON.parse(result.model.tableFormat);
                     //data = format;
                     tabelName = result.model.tableName;
+                    TempName = tabelName;
                     var Border = result.model.border;
                     var tblname = result.model.tableName.replace(/[^\w\s]/gi, '');
-                    debugger
                     tblname = tblname.split(" ").join("");
+                    console.log(tblname);
+                    console.log(format);
                     $('.temp').append(`
                     <section class="templates order-${order}" id="${tblname}">
     <div class="cotainer">
@@ -1829,9 +1834,10 @@
                                     });
                                 }
                                 if (format[tblid][i][j].datatype == 10) {
-                                    var id = agencyr.model.userId;
+                                    var angencyModel = JSON.parse(agencyr.model);
+                                    var id = angencyModel.userId;
                                     var optval = String(id)
-                                    var name = agencyr.model.abbrevation;
+                                    var name = angencyModel.abbrevation;
                                     $(`#agency${dynid}`).append(`<option value="${optval}">${name}</option>`);
                                 }
                                 if (format[tblid][i][j].datatype == 11) {
@@ -1863,10 +1869,10 @@
                                     });
                                 }
                                 if (format[tblid][i][j].datatype == 15) {
-
-                                    var id = agencyr.model.userId;
+                                    var angencyModel = JSON.parse(agencyr.model);
+                                    var id = angencyModel.userId;
                                     var optval = String(id)
-                                    var name = agencyr.model.abbrevation;
+                                    var name = angencyModel.abbrevation;
                                     $(`#av${dynid}`).append(`<option value="${optval}">${name}</option>`)
                                     $.each(yearlist, function (index, element) {
 
@@ -1913,8 +1919,9 @@
                         }
                     }
                     $('#editable-select').editableSelect();
-                    //var name = TempName;
+                    var name = TempName;
                     if (refId != "0") {
+                        console.log(name, refId);
                         $.ajax({
                             type: "post",
                             url: '/Reports/GetTempDataByReportId',
@@ -1922,7 +1929,8 @@
                             data: { name, refId },
                             aysnc: false,
                             success: function (result) {
-
+                                console.log(result);
+                                debugger
                                 //var model = JSON.parse(result.tempModel);
                                 if (result.model != null) {
                                     var i = 0;
