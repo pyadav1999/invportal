@@ -177,7 +177,7 @@
         var statelist = JSON.parse(statel.json);
 
         var agencyr = await getAgency();
-        var agencylist = JSON.parse(agencyr.json);
+        var agencylist = JSON.parse(agencyr.model);
 
         var insurerr = await getInsurer();
         var insurerlist = JSON.parse(insurerr.json);
@@ -601,6 +601,7 @@
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -787,6 +788,25 @@
 <input type="text" id="${marginbottom}" class="form-control" placeholder="margin bottom">
 </div>
 </div>
+<div class="row">
+<div class="col-6">
+<select id="${colorId}" class="form-select">
+                                            <option value="select"  selected>Border Color</option>
+                                            <option value="Red" style="background-color:red">Red</option>
+                                            <option value="Blue" style="background-color:blue">Blue</option>
+                                            <option value="Green" style="background-color:green">Green</option>
+                                            <option value="Aqua" style="background-color:aqua">Aqua</option>
+                                            <option value="Yellow" style="background-color:yellow">Yellow</option>
+                                            <option value="Brown" style="background-color:brown">Brown</option>
+                                            <option value="Black" style="background-color:black">Black</option>
+                                            <option value="darkmagenta" style="background-color:darkmagenta">DarkMagenta</option>
+                                            <option value="deafult" style="background-color:deafult">Deafult</option>
+                                            <option value="skyblue" style="background-color:skyblue">SkyBlue</option>
+                                            <option value="darkgoldenrod" style="background-color:darkgoldenrod">DarkGoldenRod</option>
+                                            <option value="cadetblue" style="background-color:cadetblue">CadetBlue</option>
+ </select>
+</div>
+</div>
                                 `
 
                     table_body += '</td>';
@@ -816,6 +836,7 @@
                     var height = "height" + k + i + j;
                     var size = "size" + k + i + j;
                     var cellborder = "cellborder" + k + i + j;
+                    var cellbordercolor = "cellbordercolor" + k + i + j;
                     var fontsize = "fontsize" + k + i + j;
                     var underline = "underline" + k + i + j;
                     var fontstyle = "fontstyle" + k + i + j;
@@ -862,6 +883,8 @@
                         $(`#${margintop}`).val(EditGlobal[tblid][i][j].margintop);
                     if (EditGlobal[tblid][i][j].marginbottom != "undefine" && EditGlobal[tblid][i][j].marginbottom != null && EditGlobal[tblid][i][j].marginbottom != "")
                         $(`#${marginbottom}`).val(EditGlobal[tblid][i][j].marginbottom);
+                    if (EditGlobal[tblid][i][j].cellbordercolor != "undefine" && EditGlobal[tblid][i][j].cellbordercolor != null && EditGlobal[tblid][i][j].cellbordercolor != "")
+                        $(`#${cellbordercolor}`).val(EditGlobal[tblid][i][j].cellbordercolor);
                     //edval++;
                 }
 
@@ -896,6 +919,7 @@
                         var height = "height" + k + i + j;
                         var size = "size" + k + i + j;
                         var cellborder = "cellborder" + k + i + j;
+                        var cellbordercolor = "cellbordercolor" + k + i + j;
                         var fontsize = "fontsize" + k + i + j;
                         var underline = "underline" + k + i + j;
                         var fontstyle = "fontstyle" + k + i + j;
@@ -941,6 +965,8 @@
                             EditGlobal[tblid][i][j].margintop = $(`#${margintop}`).val();
                         if ($(`#${marginbottom}`).val() != "undefine")
                             EditGlobal[tblid][i][j].marginbottom = $(`#${marginbottom}`).val();
+                        if ($(`#${cellbordercolor}`).val() != "undefine")
+                            EditGlobal[tblid][i][j].cellbordercolor = $(`#${cellbordercolor}`).val();
                     }
 
                     //edval++;
