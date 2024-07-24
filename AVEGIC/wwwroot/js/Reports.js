@@ -1003,7 +1003,7 @@
 
     //update report
     $(document).on("click", "#UpdateReportData", function () {
-        ;
+        debugger;
         var count = 0;
         var model = {};
         var tempname = [];
@@ -1056,13 +1056,10 @@
                 data: { model },
                 aysnc: false,
                 success: function (result) {
-
                     if (result.status == true) {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success(result.message);
                         for (var i = 0; i < tempname.length; i++) {
-
-
                             SaveTempData(tempname[i]).done(function (result) {
 
                                 var tempdata = [];
@@ -1133,10 +1130,8 @@
                                     console.log(tempdata);
                                 }
                             });
-
                         }
                         for (var i = 0; i < dyntbl.length; i++) {
-
                             saveDynamicTable(dyntbl[i]).done(function (result) {
 
                                 var format = JSON.parse(result.model.tableFormat);
@@ -1214,12 +1209,8 @@
                                     }
                                 });
                             });
-
-
                         }
                         for (var i = 0; i < clctbl.length; i++) {
-
-
                             saveCalcTable(clctbl[i]).done(function (result) {
                                 var format = JSON.parse(result.model.calcFormat);
                                 console.log(format);
@@ -1487,7 +1478,6 @@
         }).catch(function (timeout) { });
     }
     $(document).on("change", "#dynamicTableId", function () {
-        ;
         var name = $(this).find(':selected').text();
 
         renderDynamicTable(name, 0, globalDynOrder);
@@ -2023,46 +2013,49 @@
         $(this).val('Select').prop('selected', true);
     });
     $(document).on("click", ".removeTemplates", function () {
-        debugger
+        console.log(sequence);
         var name = $(this).attr("name");
-        //var tblname = name.replace(/[^\w\s]/gi, '');
-        //tblname = tblname.split(" ").join("");
+
         var key;
         $(`#${name}`).remove();
         for (var k in sequence) {
-            if (sequence[k] == name) {
+            console.log(k);
+            var tblname = sequence[k].replace(/[^\w\s]/gi, '');
+            tblname = tblname.split(" ").join("");
+            if (tblname == name) {
                 key = k;
             }
         }
 
-        if (k[0] == 't') {
+        if (key[0] == 't') {
             $('#templateId option').each(function () {
 
                 var txt = $(this).text();
-                if (txt == sequence[k]) {
+                if (txt == sequence[key]) {
                     $(this).prop('disabled', false);
                 }
             });
         }
-        else if (k[0] == 'd') {
+        else if (key[0] == 'd') {
             $('#dynamicTableId option').each(function () {
 
                 var txt = $(this).text();
-                if (txt == sequence[k]) {
+                if (txt == sequence[key]) {
                     $(this).prop('disabled', false);
                 }
             });
         }
-        else if (k[0] == 'c') {
+        else if (key[0] == 'c') {
             $('#calctblId option').each(function () {
 
                 var txt = $(this).text();
-                if (txt == sequence[k]) {
+                if (txt == sequence[key]) {
                     $(this).prop('disabled', false);
                 }
             });
         }
-        delete sequence.k;
+        console.log(key);
+        delete sequence[key];
         console.log(sequence);
 
     });
