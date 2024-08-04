@@ -46,6 +46,7 @@
                                     <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2">
                                         @foreach (var dynrow in dyntbl)
                                         {
+                                            
                                             @foreach (var dyncol in dynrow)
                                             {
                                                 <tr>
@@ -69,7 +70,7 @@
                             }
                             else
                             {
-                                @foreach (var dyntbl in objs)
+                                @foreach (var dyntbl in objs[1])
                                 {
                                     <div style="width:100%;display:flex">
                                         @foreach (var dynrow in dyntbl)
@@ -104,7 +105,7 @@
                         {
                             <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2" bordercolor="#black">
                                 <tbody>
-                                    @foreach (var dyntbl in objs)
+                                        @foreach (var dyntbl in objs[1])
                                     {
                                         <tr>
                                             @foreach (var cold in dyntbl)
