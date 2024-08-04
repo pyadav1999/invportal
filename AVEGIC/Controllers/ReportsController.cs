@@ -23,6 +23,7 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.Data.Entity.Infrastructure;
 
 namespace AVEGIC.Controllers
 {
@@ -769,6 +770,7 @@ namespace AVEGIC.Controllers
                     foreach (var item in data)
                     {
                         List<dynamic> ques = new List<dynamic>();
+                        List<dynamic> dynFormat = new List<dynamic>();
                         List<dynamic> tblques = new List<dynamic>();
                         List<KeyValuePair<string, string>> tempdata = new List<KeyValuePair<string, string>>();
                         string key = item.Name;
@@ -784,7 +786,7 @@ namespace AVEGIC.Controllers
                             //temp = _dynamicTemplateRepository.GetAllTempDataByReportId(modelreport.Id.ToString(), Convert.ToString(item.Value));
                             dgn = _templatesRepository.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TemplateFormat);
-
+                            
                             foreach (var items in temp)
                             {
                                 if (items.ReportId == modelreport.Id)
@@ -803,9 +805,10 @@ namespace AVEGIC.Controllers
 
                             foreach (var items in format)
                             {
-                                ques.Add(items);
+                                dynFormat.Add(items);
 
                             }
+                            ques.Add(dynFormat);
                             //foreach(var design in format)
                             //{
                             //    obj.
@@ -824,7 +827,31 @@ namespace AVEGIC.Controllers
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TableFormat);
                             if (value.Length >= 10 && value.Substring(0, 10).ToLower() == "letterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.letterHeadData);
                             else if (value.Length >= 14 && value.Substring(0, 14).ToLower() == "billletterhead") format = JsonConvert.DeserializeObject<dynamic>(userLetterHead.billLetterHeadData);
-
+                            if (dgn.Border == "0")
+                            {
+                                dgn.Border = "border:1px solid black";
+                            }
+                            else if (dgn.Border == "1")
+                            {
+                                dgn.Border = "border-right:1px solid black";
+                            }
+                            else if (dgn.Border == "2")
+                            {
+                                dgn.Border = "border-left:1px solid black";
+                            }
+                            else if (dgn.Border == "3")
+                            {
+                                dgn.Border = "border-top:1px solid black";
+                            }
+                            else if (dgn.Border == "4")
+                            {
+                                dgn.Border = "border-bottom:1px solid black";
+                            }
+                            else
+                            {
+                                dgn.Border = "border:none";
+                            }
+                            ques.Add(dgn.Border);
                             foreach (var items in temp)
                             {
                                 if (items.ReportId == modelreport.Id)
@@ -841,14 +868,14 @@ namespace AVEGIC.Controllers
                                         //tempdata.Add(item2.Key);
 
                                     }
-
                                     //tempname.Add(template);
                                 }
                             }
                             foreach (var items in format)
                             {
-                                ques.Add(items);
+                                dynFormat.Add(items);
                             }
+                            ques.Add(dynFormat);
                             //var res = sequence.Where(x => x.Key== key);
                             int indexSeq = 0;
                             foreach (var items in sequence)
@@ -879,6 +906,7 @@ namespace AVEGIC.Controllers
                             //temp = _dynamicTemplateRepository.GetAllTempDataByReportId(modelreport.Id.ToString(), Convert.ToString(item.Value));
                             dgn = _calc.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.CalcFormat);
+                            ques.Add(dgn.Border);
                             foreach (var items in temp)
                             {
                                 if (items.ReportId == modelreport.Id)
@@ -901,8 +929,9 @@ namespace AVEGIC.Controllers
                             }
                             foreach (var items in format)
                             {
-                                ques.Add(items);
+                                dynFormat.Add(items);
                             }
+                            ques.Add(dynFormat);
                         }
 
                         modeldynamic.Add(ques);

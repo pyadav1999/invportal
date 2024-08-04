@@ -17,29 +17,18 @@
 <body>
 
     <style>
-        /*.tr1 {
-                                                                                                                                                                                                                                                                                            background-color: aqua;
-                                                                                                                                                                                                                                                                                            margin: auto;
-                                                                                                                                                                                                                                                                                        }*/
-
-
-        /* table {
-                                                                                                                                                                                                                                                                                            font-family: "Lato","sans-serif";
-                                                                                                                                                                                                                                                                                        }*/
-        /* added custom font-family  */
-
         .table1, .table1 tr, .table1 tr td {
+            border-collapse: collapse;
         }
 
         .table1 {
             border-collapse: collapse;
+            margin-bottom:2px;
         }
     </style>
-    @*   @foreach (var items in Model.agency)
-    {*@
+
     <div class="maindiv" id="invoice" style="width:100%;height:auto; background-color:#fff">
         <div class="container-fluid">
-
             @foreach (var models in Model.modeldynamic)
             {
                 foreach (var templates in models.Value)
@@ -47,70 +36,33 @@
                     foreach (var objs in templates.Key)
                     {
                         string tmp = models.Key[t1].Key;
-                        if (tmp[0] == 't')
-                        {
-
-
-                            <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2">
-                                <tbody>
-
-                                    @foreach (var rows in objs)
-                                    {
-                                        if (templates.Value[i][j].Key != "ReportId" && templates.Value[i][j].Key != "_id")
-                                        {
-                                            <tr id="doc1">
-                                                <td height="18" width="50%" valign="@rows.qverticle" style="color:@rows.qcolor;background-color:@rows.qbgcolor; text-align:@rows.qhorizontal;font-family:@rows.qfontStyle; font-weight:@rows.qfontWeight;">
-                                                    @templates.Value[i][j].Key
-                                                </td>
-                                                <td valign="@rows.averticle" style="color:@rows.acolor;background-color:@rows.abgcolor; text-align:@rows.ahorizontal;font-family:@rows.afontStyle; font-weight:@rows.afontWeight;" width="50%">
-                                                    <span id="txtCaseMactNo"> @templates.Value[i][j].Value</span>
-                                                </td>
-
-                                            </tr>
-
-                                        }
-                                        j++;
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <br />
-
-
-                            i++;
-                            j = 0;
-                        }
-                        else if (tmp[0] == 'd')
+                        <div style="@objs[0]">
+                        @if (tmp[0] == 'd')
                         {
                             if (models.Key[t1].Value != "1")
                             {
-                                @foreach (var dyntbl in objs)
+                                @foreach (var dyntbl in objs[1])
                                 {
                                     <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2">
                                         @foreach (var dynrow in dyntbl)
                                         {
-
                                             @foreach (var dyncol in dynrow)
                                             {
                                                 <tr>
-
                                                     @foreach (var cold in dyncol)
                                                     {
-                                                        string fontsize = cold.fontsize + "px";
-                                                        var height = cold.height + "em";
-                                                        @if (@templates.Value[i][j].Value != "")
-                                                        {
-                                                            <td colspan="@cold.colspan" rowspan="@cold.rowspan" width="@cold.width%" valign="@cold.verticalalign" style="visibility:@cold.printshow;height:@height;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize;font-style:@cold.fontstyle">
-
-                                                                @templates.Value[i][j].Value
-                                                            </td>
-                                                        }
-
+                                                    string fontsize =cold.fontsize + "px";
+                                                    var height =cold.height + "em";
+                                                        <td colspan="@cold.colspan" rowspan="@cold.rowspan" width="@cold.width%" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize;font-style:@cold.fontstyle">
+                                                            @if (i < templates.Value.Count && j < templates.Value[i].Count)
+                                                            {
+                                                                @(templates.Value[i][j]?.Value ?? "")
+                                                            }
+                                                        </td>
                                                         j++;
                                                     }
                                                 </tr>
                                             }
-
                                         }
                                     </table>
                                 }
@@ -122,26 +74,21 @@
                                     <div style="width:100%;display:flex">
                                         @foreach (var dynrow in dyntbl)
                                         {
-
                                             @foreach (var dyncol in dynrow)
                                             {
-
-
                                                 @foreach (var cold in dyncol)
                                                 {
                                                     string fontsize = cold.fontsize + "px";
                                                     var height = cold.height + "em";
-                                                    @if (@templates.Value[i][j].Value != "")
+                                                    @if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
                                                     {
-                                                        <p style="visibility:@cold.printshow;height:@height;width:@cold.width%;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@cold.fontsize;font-size:@fontsize px;font-style:@cold.fontstyle;">
+                                                        <p style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;width:@cold.width%;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@cold.fontsize;font-size:@fontsize px;font-style:@cold.fontstyle;">
                                                             @templates.Value[i][j].Value
                                                         </p>
                                                     }
-
                                                     j++;
                                                 }
                                             }
-
                                         }
                                     </div>
                                 }
@@ -150,110 +97,11 @@
                             <br />
                             <br />
 
-
                             i++;
                             j = 0;
                         }
                         else
                         {
-                           @* if (p == false)
-                            {
-                                <p style="text-align:center;color:blue;">INVESTIGATION FEE BILL(PRERECEIPT)</p>
-                                <table style="text-align: justify;" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                    <tbody>
-                                        <tr>
-                                            <td valign="top">
-                                                <table style="text-align: justify;" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="color: #0000FF; font-size: 22px; font-weight: normal;">
-                                                                <em>
-                                                                    <span id="lblNameDetail" style="color:Blue;font-size:22px;font-weight:normal;">@items.Name</span>
-                                                                </em>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="color: #0000FF; font-size: 15px;">
-                                                                <em>
-                                                                    <span id="lblprofile2Detail" style="color:Blue;font-size:18px;font-weight:normal;">(@items.Profile)</span><br>
-                                                                    <span id="lblAddressDetail" style="color:Blue;font-weight:normal;">@items.Address_Line1</span><br>
-                                                                    <span id="lblAddress2Detail" style="color:Blue;font-weight:normal;">@items.Address_Line2</span>
-                                                                </em>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td style="text-align: right; color: #0000FF; font-size: 15px;" valign="top">
-                                                <em>
-                                                    Mobile :
-                                                    <span id="lblPhoneDetail" style="color:Blue;font-weight:normal;">@items.Mobile</span><br>
-                                                    E-mail :
-                                                    <span id="lblMobileDetail" style="color:Blue;font-weight:normal;">@items.Email</span><br>
-                                                    Website :
-                                                    <span id="lblEmailIDDetail" style="color:Blue;font-weight:normal;">@items.Website</span><br>
-                                                    PAN No. :
-                                                    <span id="lblEmailID2Detail" style="color:Blue;font-weight:normal;">@items.PAN_NO</span>
-                                                    <br>
-                                                    Locations :
-                                                    <span id="lblWebsiteDetail" style="color:Red;font-weight:normal;">Delhi &amp; NCR, Haryana, Westeren UP, Uttrakhand &amp; Northeren Rajasthan</span>
-                                                </em>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td height="30"></td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top"></td>
-                                            <td style="text-align: right;" valign="top"></td>
-                                        </tr>
-                                        @foreach (var report in Model.report)
-                                        {
-                                            <tr>
-                                                <td style="font-size: 13px; font-weight: normal;" valign="top">
-                                                    <span id="txtRef1" class="input1">@items.Abbreviation</span>/
-                                                    <span id="txtRef2" class="input1">@report.Ref2</span>/
-                                                    <span id="ddlRef3">@report.year</span>
-                                                </td>
-                                                <td style="text-align: right; font-size: 13px; font-weight: normal;" valign="top">
-                                                    Date:-<span id="txtRefDate">@report.Created_Date</span>
-                                                </td>
-                                            </tr>
-                                        }
-
-
-
-                                        <tr>
-                                            <td style="color: #0000FF; font-size: 13px;" valign="top" height="48">
-                                                <br>
-                                                To,<br>
-                                                The Manager<br>
-                                                @foreach (var head in Model.headOffice)
-                                                {
-                                                    <span id="lblAddress1_Client">@head.Name</span>
-                                                }
-                                                <br>
-                                                @foreach (Branch branch in Model.branch)
-                                                {
-                                                    <span id="lblAddress1_Client">@branch.Name</span>
-                                                    <br />
-                                                    <span id="lblAddress2_Client" style="display:inline-block;width:250px;">
-                                                        @branch.Address
-                                                    </span>
-                                                    <br>
-                                                }
-                                                -------------------------
-                                            </td>
-                                            <td style="text-align: right;" valign="top"></td>
-                                            <td style="color: #0000FF; font-size: 13px;" valign="top" height="5"></td>
-                                            <td style="text-align: right;" valign="top"></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            }*@
-
                             <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2" bordercolor="#black">
                                 <tbody>
                                     @foreach (var dyntbl in objs)
@@ -261,19 +109,17 @@
                                         <tr>
                                             @foreach (var cold in dyntbl)
                                             {
-                                                string fontsize = cold.fontsize + "px";
+                                                string fontsize =cold.fontsize + "px";
                                                 if (cold.Value != cl.ToString())
                                                 {
-                                                    if (templates.Value[i][j].Value != "")
+                                                    if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
                                                     {
-                                                        <td height="18" width="@cold.width" valign="@cold.verticalalign" style="visibility:@cold.printshow;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize px;font-style:@cold.fontstyle;font-size:@cold.fontsize">
+                                                        <td height="18" width="@cold.width" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize px;font-style:@cold.fontstyle;font-size:@cold.fontsize">
                                                             @templates.Value[i][j].Value
                                                         </td>
                                                     }
-
                                                     j++;
                                                 }
-
                                             }
                                         </tr>
                                         cl++;
@@ -285,234 +131,20 @@
                             i++;
                             j = 0;
                         }
+                        </div>
                         t1++;
                     }
                 }
             }
-
         </div>
-
     </div>
 
-
-    @*}*@
-    @* @using (Html.BeginForm("PdfConvert", "Reports", FormMethod.Post))
-    {
-    <input type="hidden" name="GridHtml" />
-    <input type="submit" id="btnSubmit" value="Export" />
-    }
-    <a href="@Url.Action("PdfConvert","Reports")">Print</a>
-    <button id="print">Print</button>*@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-    @*<script src="js/html2canvas.min.js"></script>*@
-
-    <!-- jsPDF library -->
-    @*<script src="js/jsPDF/dist/jspdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
     <script>
-        //              var doc = new jsPDF();
-        //var elementHTML = $('.maindiv').html();
-        //var specialElementHandlers = {
-        //    '#elementH': function (element, renderer) {
-        //        return true;
-        //    }
-        //};
-        //doc.fromHTML(elementHTML, 10, 10, {
-        //    'width': 190,
-        //    'elementHandlers': specialElementHandlers
-        //});
-
-        //// Save the PDF
-        //doc.save('sample-document.pdf');
-        //        function generatePDF() {
-        //            debugger;
-        //                // Choose the element that our invoice is rendered in.
-        //                const element = document.getElementById('invoice');
-        //                // Choose the element and save the PDF for our user.
-        //                //html2pdf().from(element).save();
-        //                var opt = {
-        //   margin: 0,
-        //    filename: name, // some name
-        //    image: { type: 'jpeg', quality: 1 },
-        //    html2canvas: { scale: 3, logging: true },
-        //    jsPDF: { unit: 'in', format: 'a4', orientation: 'p' }
-        //};
-
-        //// New Promise-based usage:
-        //html2pdf().set(opt).from(element).save();
-        //html2pdf().from(element).save();
-        //// Old monolithic-style usage:
-        //html2pdf(element, opt);
-        //            }
-
-
-
-        //    function Convert_HTML_To_PDF() {
-        //  var elementHTML = document.getElementById('invoice');
-
-        //  html2canvas(elementHTML, {
-        //    useCORS: true,
-        //    onrendered: function(canvas) {
-        //      var pdf = new jsPDF('p', 'pt', 'letter');
-
-        //      var pageHeight = 980;
-        //      var pageWidth = 900;
-        //      for (var i = 0; i <= elementHTML.clientHeight / pageHeight; i++) {
-        //        var srcImg = canvas;
-        //        var sX = 0;
-        //        var sY = pageHeight * i; // start 1 pageHeight down for every new page
-        //        var sWidth = pageWidth;
-        //        var sHeight = pageHeight;
-        //        var dX = 0;
-        //        var dY = 0;
-        //        var dWidth = pageWidth;
-        //        var dHeight = pageHeight;
-
-        //        window.onePageCanvas = document.createElement("canvas");
-        //        onePageCanvas.setAttribute('width', pageWidth);
-        //        onePageCanvas.setAttribute('height', pageHeight);
-        //        var ctx = onePageCanvas.getContext('2d');
-        //        ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
-
-        //        var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
-        //        var width = onePageCanvas.width;
-        //        var height = onePageCanvas.clientHeight;
-
-        //        if (i > 0) // if we're on anything other than the first page, add another page
-        //          pdf.addPage(612, 864); // 8.5" x 12" in pts (inches*72)
-
-        //        pdf.setPage(i + 1); // now we declare that we're working on that page
-        //        pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width * .62), (height * .62)); // add content to the page
-        //      }
-
-        //	  // Save the PDF
-        //      pdf.save('reports.pdf');
-
-        //    }
-        //  });
-        //}
-
-
         $("#btnSubmit").click(function () {
             $("input[name='GridHtml']").val($("#invoice").html());
         });
-
     </script>
-    @* <script>
-
-    (function () {
-    var
-    form = $('#invoice'),
-    cache_width = form.width()
-    a4 = [595.28, 841.89]; // for a4 size paper width and height
-
-    $('#print').on('click', function () {
-    $('body').scrollTop(0);
-    createPDF();
-    });
-    //create pdf
-    function createPDF() {
-    getCanvas().then(function (canvas) {
-    var
-    img = canvas.toDataURL("image/png"),
-    doc = new jsPDF({
-    unit: 'px',
-    format: 'a4'
-    });
-    pageHeight= doc.internal.pageSize.height;
-
-
-    y = 500;
-    if (y >= pageHeight)
-    {
-    doc.addPage();
-    y = 0 // Restart height position
-    }
-    doc.addImage(img, 'JPEG', 20, 20);
-    doc.save('Bhavdip-html-to-pdf.pdf');
-    form.width(cache_width);
-    });
-    }
-
-    // create canvas object
-    function getCanvas() {
-    form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-    return html2canvas(form, {
-    imageTimeout: 2000,
-    removeContainer: true
-    });
-    }
-
-    }());
-    </script>
-    <script>
-
-    /*
-    * jQuery helper plugin for examples and tests
-    */
-    (function ($) {
-    $.fn.html2canvas = function (options) {
-    var date = new Date(),
-    $message = null,
-    timeoutTimer = false,
-    timer = date.getTime();
-    html2canvas.logging = options && options.logging;
-    html2canvas.Preload(this[0], $.extend({
-    complete: function (images) {
-    var queue = html2canvas.Parse(this[0], images, options),
-    $canvas = $(html2canvas.Renderer(queue, options)),
-    finishTime = new Date();
-
-    $canvas.css({ position: 'absolute', left: 0, top: 0 }).appendTo(document.body);
-    $canvas.siblings().toggle();
-
-    $(window).click(function () {
-    if (!$canvas.is(':visible')) {
-    $canvas.toggle().siblings().toggle();
-    throwMessage("Canvas Render visible");
-    } else {
-    $canvas.siblings().toggle();
-    $canvas.toggle();
-    throwMessage("Canvas Render hidden");
-    }
-    });
-    throwMessage('Screenshot created in ' + ((finishTime.getTime() - timer) / 1000) + " seconds<br />", 4000);
-    }
-    }, options));
-
-    function throwMessage(msg, duration) {
-    window.clearTimeout(timeoutTimer);
-    timeoutTimer = window.setTimeout(function () {
-    $message.fadeOut(function () {
-    $message.remove();
-    });
-    }, duration || 2000);
-    if ($message)
-    $message.remove();
-    $message = $('<div ></div>').html(msg).css({
-    margin: 0,
-    padding: 10,
-    background: "#000",
-    opacity: 0.7,
-    position: "fixed",
-    top: 10,
-    right: 10,
-    fontFamily: 'Tahoma',
-    color: '#fff',
-    fontSize: 12,
-    borderRadius: 12,
-    width: 'auto',
-    height: 'auto',
-    textAlign: 'center',
-    textDecoration: 'none'
-    }).hide().fadeIn().appendTo('body');
-    }
-    };
-    })(jQuery);
-
-    </script>*@
 </body>
 </html>

@@ -1493,6 +1493,7 @@ $(document).ready(function () {
                     if (result.status == true) {
                         $('#reportType').val(result.model.name);
                         $('.tempnames').empty();
+                        sequence = result.model.sequence;
                         var type = JSON.parse(result.model.templates);
                         for (var i = 0; i < type.length; i++) {
 
@@ -1505,6 +1506,7 @@ $(document).ready(function () {
                                     $(this).prop('disabled', true);
                                 }
                             });
+                            t++;
                         }
                         var dyntype = JSON.parse(result.model.dynamicTables);
                         for (var i = 0; i < dyntype.length; i++) {
@@ -1518,6 +1520,7 @@ $(document).ready(function () {
                                     $(this).prop('disabled', true);
                                 }
                             });
+                            d++;
                         }
                         var calctype = JSON.parse(result.model.clacTables);
                         for (var i = 0; i < calctype.length; i++) {
@@ -1531,6 +1534,7 @@ $(document).ready(function () {
                                     $(this).prop('disabled', true);
                                 }
                             });
+                            c++;
                         }
                     }
 
@@ -1547,18 +1551,14 @@ $(document).ready(function () {
 
     });
     $(document).on("click", "#saveReport", function () {
-        ;
         var count = 0;
         var model = {};
-        model.Name = $('#reportType').val();
+        model.Name = $('#reportTypeName').val();
         model.Templates = JSON.stringify(reportTypeTemp);
         model.DynamicTables = JSON.stringify(reportTypeDynTable);
         model.ClacTables = JSON.stringify(reportTypeCalcTable);
         model.Sequence = JSON.stringify(sequence);
-        $.each(model, function (index, value) {
-            if (value == '') count = count + 1;
-        });
-        if (count != 0) {
+        if (model.Sequence == "" || model.Sequence == null || typeof model.Sequence ==undefined) {
             alertify.set('notifier', 'position', 'top-right');
             alertify.error("Details is Required");
         }
@@ -1596,7 +1596,7 @@ $(document).ready(function () {
 
         var id = $('#reportTypeId option:selected').val();
         var model = {};
-        model.Name = $('#reportType').val();
+        model.Name = $('#reportTypeName').val();
         model.Templates = JSON.stringify(reportTypeTemp);
         model.DynamicTables = JSON.stringify(reportTypeDynTable);
         model.ClacTables = JSON.stringify(reportTypeCalcTable);
