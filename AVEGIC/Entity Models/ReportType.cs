@@ -12,6 +12,8 @@ namespace AVEGIC.Entity_Models
         public string DynamicTables { get; set; }
         public string ClacTables { get; set; }
         public string Sequence { get; set; }
+        public string HeadOfficeId { get; set; } 
+        public string DepartmentId { get; set; }
         public DateTime Created_Date { get; set; }
         public bool IsDeleted { get; set; }
     }

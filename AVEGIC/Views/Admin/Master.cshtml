@@ -743,6 +743,36 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="reportTypeCompanyId" class="col-md-4 col-form-label text-md-right">Select Company Id</label>
+                                        <div class="col-md-6 headofficedrop">
+                                            <select id="reportTypeCompanyId" class="form-control" name="reportTypeCompanyId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.HeadOffice)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="reportTypeDepartmentId" class="col-md-4 col-form-label text-md-right">Select Department</label>
+                                        <div class="col-md-6 departmentdrop">
+                                            <select id="reportTypeDepartmentId" class="form-control" name="reportTypeDepartmentId">
+                                                <option selected value="0">Select &#9662;</option>
+                                                @foreach (var item in ViewBag.Department)
+                                                {
+                                                    if (item.IsDeleted == false)
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Templates</label>
                                         <div class="col-md-6 yeardrop">
                                             <select id="reporttemplateId" class="form-control" name="reporttemplateId">
@@ -2380,7 +2410,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary closeEditCol"  data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary closeEditCol" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="saveEditCol" col="" row="" tbl="">Save changes</button>
                     </div>
                 </div>

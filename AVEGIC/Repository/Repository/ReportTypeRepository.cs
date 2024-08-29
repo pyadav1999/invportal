@@ -31,6 +31,18 @@ namespace AVEGIC.Repository.Repository
 
             return report;
         }
+        public ReportType GetByName(string name)
+        {
+            ReportType report = new ReportType();
+
+            if (name != null)
+            {
+                //var Id = new ObjectId(id);
+                report = DbSet.AsQueryable<ReportType>().SingleOrDefault(x => x.Name == name);
+            }
+
+            return report;
+        }
 
         public void UpdateReportType(ReportType reportType)
         {
@@ -46,6 +58,18 @@ namespace AVEGIC.Repository.Repository
             {
                 DbSet.DeleteOne(Builders<ReportType>.Filter.Eq("_id", Id));
             }
+        }
+
+        public IEnumerable<ReportType>  GetReportTypeByFilters(string headOfficeId, string departmentId) {
+            List<ReportType> result = new List<ReportType>();
+            var filterBuilder = Builders<ReportType>.Filter;
+            var filters = new List<FilterDefinition<ReportType>>();
+            filters.Add(filterBuilder.Eq("HeadOfficeId", headOfficeId));
+            filters.Add(filterBuilder.Eq("DepartmentId", departmentId));
+            var combinedFilter = filterBuilder.Or(filters);
+            result = DbSet.Find(combinedFilter).ToList();
+            if (result == null) return Enumerable.Empty<ReportType>();
+            else return result;
         }
 
     }

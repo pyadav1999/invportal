@@ -382,10 +382,75 @@
         });
     }
     //reporttype render
+
+    $(document).on("change", "#reportTypeHeadofficeId", function () {
+        var headOfficeId = $("#reportTypeHeadofficeId option:selected").val().trim();
+        var departmentId = $("#reportTypeDepartmentId option:selected").val().trim();
+        $.ajax({
+            type: "post",
+            url: '/Reports/BindReportType',
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { headOfficeId, departmentId},
+
+            aysnc: false,
+            success: function (result) {
+                if (result.status == true) {
+                    $("#reporttypeId").empty();
+                    $(`#reporttypeId`).append(`<option value="0">Select &#9662;</option>`);
+                    var model = JSON.parse(result.model);
+                    for (var i = 0; i < model.length; i++) {
+                        var ob = model[i].Id;
+                        var optionValue = String(ob);
+                        var optionText = model[i].Name;
+                        if (model[i].IsDeleted == false) {
+                            $(`#reporttypeId`).append(`<option value="${optionValue}">
+                                   ${optionText}
+                              </option>`);
+                        }
+                    }
+                }
+            },
+
+        });
+    });
+
+    $(document).on("change", "#reportTypeDepartmentId", function () {
+        var headOfficeId = $("#reportTypeHeadofficeId option:selected").val().trim();
+        var departmentId = $("#reportTypeDepartmentId option:selected").val().trim();
+        $.ajax({
+            type: "post",
+            url: '/Reports/BindReportType',
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { headOfficeId, departmentId },
+
+            aysnc: false,
+            success: function (result) {
+                if (result.status == true) {
+                    $("#reporttypeId").empty();
+                    $(`#reporttypeId`).append(`<option value="0">Select &#9662;</option>`);
+                    var model = JSON.parse(result.model);
+                    for (var i = 0; i < model.length; i++) {
+                        var ob = model[i].Id;
+                        var optionValue = String(ob);
+                        var optionText = model[i].Name;
+                        if (model[i].IsDeleted == false) {
+                            $(`#reporttypeId`).append(`<option value="${optionValue}">
+                                   ${optionText}
+                              </option>`);
+                        }
+                    }
+                }
+            },
+
+        });
+    });
     var reporttemp = [];
     $(document).on("change", "#reporttypeId", function () {
 
         var id = $(this).val();
+        console.log(id);
         for (var i = 0; i < reporttemp.length; i++) {
             var name = reporttemp[i];
             $('.temp').find(`#${name}`).remove();

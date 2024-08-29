@@ -82,23 +82,23 @@ else
                     Submit
                 </a>
             </li>
-                        <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link link-body-emphasis" id="UpdateReportData" aria-current="page" href="javascript:void(0);">
                     Update
                 </a>
             </li>
             <li class="nav-item actionDivbtn">
-                <a class="nav-link link-body-emphasis"  aria-current="page" href="javascript:void(0);">
+                <a class="nav-link link-body-emphasis" aria-current="page" href="javascript:void(0);">
                     Delete
                 </a>
             </li>
             <li class="nav-item actionDivbtn">
-                <a class="nav-link link-body-emphasis"  aria-current="page" href="javascript:void(0);">
+                <a class="nav-link link-body-emphasis" aria-current="page" href="javascript:void(0);">
                     Search
                 </a>
             </li>
             <li class="nav-item actionDivbtn">
-                <a class="nav-link link-body-emphasis"  aria-current="page" href="javascript:void(0);">
+                <a class="nav-link link-body-emphasis" aria-current="page" href="javascript:void(0);">
                     Print
                 </a>
             </li>
@@ -223,8 +223,36 @@ else
                                     </div>
                                 </div>
                                 <div class="form-group row reportAction">
-                                    <label for="reporttypeId" class="col-md-4 col-form-label text-md-right">Select Report Type</label>
+                                    <label for="reportTypeHeadofficeId" class="col-md-4 col-form-label text-md-right">Select Client </label>
                                     <div class="col-md-6">
+                                        <select id="reportTypeHeadofficeId" class="form-control" name="reportTypeHeadofficeId">
+                                            <option value="0" selected>Select &#9662;</option>
+                                            @foreach (var item in ViewBag.HeadOffice)
+                                            {
+                                                if (item.IsDeleted == false)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row reportAction">
+                                    <label for="reportTypeDepartmentId" class="col-md-4 col-form-label text-md-right">Select Department</label>
+                                    <div class="col-md-6">
+                                        <select id="reportTypeDepartmentId" class="form-control" name="reportTypeDepartmentId">
+                                            <option value="0">Select &#9662;</option>
+                                            @foreach (var item in ViewBag.Department)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row reportAction">
+                                    <label for="reporttypeId" class="col-md-4 col-form-label text-md-right">Select Report Type</label>
+                                    <div class="col-md-6 reportTypedrop">
                                         <select id="reporttypeId" class="form-control" name="reporttypeId">
                                             <option value="0">Select &#9662;</option>
                                             @foreach (var item in ViewBag.ReportType)
@@ -292,17 +320,17 @@ else
                                 </div>
                                 </div>*@
 
-@*                                <div class="form-group row reportType">
-                                    <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Templates</label>
-                                    <div class="col-md-6 yeardrop">
-                                        <select id="templateId" class="form-control" name="templateId">
-                                            <option selected value="0">Select &#9662;</option>
-                                            @foreach (var item in ViewBag.Templates)
-                                            {
-                                                <option value="@item.Id" class="tempOptions">@item.TemplateName</option>
-                                            }
-                                        </select>
-                                    </div>
+                                @*                                <div class="form-group row reportType">
+                                <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Templates</label>
+                                <div class="col-md-6 yeardrop">
+                                <select id="templateId" class="form-control" name="templateId">
+                                <option selected value="0">Select &#9662;</option>
+                                @foreach (var item in ViewBag.Templates)
+                                {
+                                <option value="@item.Id" class="tempOptions">@item.TemplateName</option>
+                                }
+                                </select>
+                                </div>
                                 </div>*@
                                 <div class="form-group row reportType">
                                     <label for="yearId" class="col-md-4 col-form-label text-md-right">Select Dynamic Table</label>

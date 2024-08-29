@@ -1017,6 +1017,35 @@ namespace AVEGIC.Controllers
             return Json(new { Status = status, Message = msg, Model = model });
         }
         [HttpPost]
+        public IActionResult GetReportTypeByName(string name)
+        {
+            bool status = false;
+            string msg = "";
+            ReportType model = new ReportType();
+            if (name != null&&name!="")
+            {
+                model = _reportTypeRepository.GetByName(name);
+                if(model != null)
+                {
+                    status = false;
+                    msg = "ReportName already in use";
+                }
+                else
+                {
+                    status = true;
+                    msg = "ReportName can be used";
+                }
+
+            }
+            else
+            {
+                status = false;
+                msg = "ReportName can't be null";
+
+            }
+            return Json(new { Status = status, Message = msg, Model = model });
+        }
+        [HttpPost]
         public IActionResult CreateReportType(ReportType model)
         {
             bool status = false;

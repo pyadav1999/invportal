@@ -786,7 +786,7 @@ namespace AVEGIC.Controllers
                             //temp = _dynamicTemplateRepository.GetAllTempDataByReportId(modelreport.Id.ToString(), Convert.ToString(item.Value));
                             dgn = _templatesRepository.GetByName(Convert.ToString(item.Value));
                             var format = JsonConvert.DeserializeObject<dynamic>(dgn.TemplateFormat);
-                            
+
                             foreach (var items in temp)
                             {
                                 if (items.ReportId == modelreport.Id)
@@ -1165,6 +1165,19 @@ namespace AVEGIC.Controllers
         public string GetActualPath(string filename)
         {
             return Path.Combine(_webHostEnvironment.WebRootPath + "\\ImagesUpload\\", filename);
+        }
+
+        [HttpPost]
+        public IActionResult BindReportType(string headOfficeId, string departmentId)
+        {
+            bool status = false;
+            List<ReportType> reportTypes = new List<ReportType>(); ;
+            if (headOfficeId != null|| departmentId!=null)
+            {  
+                reportTypes = _reportTypeRepository.GetReportTypeByFilters(headOfficeId, departmentId).ToList();
+                status= true;
+            }
+            return  Json(new { Status = status,model= JsonConvert.SerializeObject(reportTypes) });
         }
         public IActionResult Reloadmethods()
         {

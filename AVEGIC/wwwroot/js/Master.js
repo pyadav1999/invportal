@@ -1474,7 +1474,6 @@ $(document).ready(function () {
         })
     });
     $(document).on("change", "#reportTypeId", function () {
-
         reportTypeTemp = [];
         var id = $(this).val();
         if (id != 0) {
@@ -1486,17 +1485,18 @@ $(document).ready(function () {
                 //contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: { id },
-
                 aysnc: false,
                 success: function (result) {
-
                     if (result.status == true) {
-                        $('#reportType').val(result.model.name);
+                        console.log(result.model);
+                        $('#reportTypeName').val(result.model.name);
+                        $('#reportTypeName').attr('disabled', true);
+                        $(`#reportTypeCompanyId`).val(result.model.headOfficeId).prop('selected', true);
+                        $(`#reportTypeDepartmentId`).val(result.model.departmentId).prop('selected', true);
                         $('.tempnames').empty();
                         sequence = result.model.sequence;
                         var type = JSON.parse(result.model.templates);
                         for (var i = 0; i < type.length; i++) {
-
                             reportTypeTemp.push(type[i]);
                             $('.tempnames').append(`<p><span>${type[i]}</span><span class="ms-5" style="cursor:pointer" id="rmvTemp">x<span></p>`);
                             $('#reporttemplateId option').each(function () {
@@ -1553,54 +1553,79 @@ $(document).ready(function () {
     $(document).on("click", "#saveReport", function () {
         var count = 0;
         var model = {};
-        model.Name = $('#reportTypeName').val();
+        var name = $('#reportTypeName').val().trim();
+        model.Name = $('#reportTypeName').val().trim();
         model.Templates = JSON.stringify(reportTypeTemp);
         model.DynamicTables = JSON.stringify(reportTypeDynTable);
         model.ClacTables = JSON.stringify(reportTypeCalcTable);
         model.Sequence = JSON.stringify(sequence);
-        if (model.Sequence == "" || model.Sequence == null || typeof model.Sequence ==undefined) {
+        model.HeadOfficeId = $('#reportTypeCompanyId option:selected').val().trim();
+        model.DepartmentId = $('#reportTypeDepartmentId option:selected').val().trim();
+        if (model.Name == "" || model.HeadOfficeId == "" || model.DepartmentId == "") {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error("Details is Required");
+        }
+        else if (model.Sequence == "" || model.Sequence == null || typeof model.Sequence == undefined) {
             alertify.set('notifier', 'position', 'top-right');
             alertify.error("Details is Required");
         }
         else {
-
             $.ajax({
                 type: "post",
-                url: '/Admin/CreateReportType',
+                url: '/Admin/GetReportTypeByName',
                 dataType: "json",
-                data: { model },
+                data: { name },
                 aysnc: false,
                 success: function (result) {
-
                     if (result.status == true) {
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(result.message);
-                        reportTypeTemp = [];
-                        reportTypeDynTable = [];
-                        reportTypeCalcTable = [];
-                        sequence = [];
-                        $('.reportdrop').load(" #reportTypeId");
-                        //window.location.href = "@Url.Action("Index","Admin")";
+                        $.ajax({
+                            type: "post",
+                            url: '/Admin/CreateReportType',
+                            dataType: "json",
+                            data: { model },
+                            aysnc: false,
+                            success: function (result) {
+
+                                if (result.status == true) {
+                                    alertify.set('notifier', 'position', 'top-right');
+                                    alertify.success(result.message);
+                                    reportTypeTemp = [];
+                                    reportTypeDynTable = [];
+                                    reportTypeCalcTable = [];
+                                    sequence = [];
+                                    $('.reportdrop').load(" #reportTypeId");
+                                    //window.location.href = "@Url.Action("Index","Admin")";
+                                }
+                                else {
+                                    alertify.set('notifier', 'position', 'top-right');
+                                    alertify.error(result.message);
+                                }
+
+                            },
+
+                        });
                     }
                     else {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error(result.message);
                     }
-
                 },
 
             });
+
         }
     });
     $(document).on("click", "#updateReport", function () {
 
         var id = $('#reportTypeId option:selected').val();
         var model = {};
-        model.Name = $('#reportTypeName').val();
+        model.Name = $('#reportTypeName').val().trim();
         model.Templates = JSON.stringify(reportTypeTemp);
         model.DynamicTables = JSON.stringify(reportTypeDynTable);
         model.ClacTables = JSON.stringify(reportTypeCalcTable);
         model.Sequence = JSON.stringify(sequence);
+        model.HeadOfficeId = $('#reportTypeCompanyId option:selected').val().trim();
+        model.DepartmentId = $('#reportTypeDepartmentId option:selected').val().trim();
         $.ajax({
             type: "post",
             url: '/Admin/UpdateReportType',
@@ -7540,8 +7565,8 @@ $(document).ready(function () {
             EditGlobal[tblid][i][j].marginbottom = $('#editMarginBottom').val();
         if ($('#editBorderColor').val() != "undefine")
             EditGlobal[tblid][i][j].cellbordercolor = $('#editBorderColor').val();
-        
-        var tblno= tblid.match(/\d+/);
+
+        var tblno = tblid.match(/\d+/);
         var colIdText = 'dyn' + EditTempName + tblno + i + j;
         $(`#${colIdText}`).css({ 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'font-style': `${EditGlobal[tblid][i][j].fontstyle}`, 'text-decoration': `${EditGlobal[tblid][i][j].underline}`, 'font-size': `${EditGlobal[tblid][i][j].fontsize}px`, 'color': `${EditGlobal[tblid][i][j].color}`, 'background-color': `${EditGlobal[tblid][i][j].backgroundcolor}`, 'font-weight': `${EditGlobal[tblid][i][j].fontweight}`, 'vertical-align': `${EditGlobal[tblid][i][j].verticalalign}`, 'text-align': `${EditGlobal[tblid][i][j].textalign}`, 'font-family': `${EditGlobal[tblid][i][j].fontfamily}`, 'height': `${EditGlobal[tblid][i][j].height}em` });
         var colIdYear = 'year' + EditTempName + tblno + i + j;
