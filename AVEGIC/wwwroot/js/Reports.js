@@ -22,10 +22,10 @@
         var id = $(this).val();
         var name = $('#agencyId option:selected').text();
         if (id != 0) {
-           // $('.update-btns').hide();
-           // $('.savebtn').show();
-           // $('.refId').show();
-           // $('.reportType').show();
+            // $('.update-btns').hide();
+            // $('.savebtn').show();
+            // $('.refId').show();
+            // $('.reportType').show();
             $('#agencyAbb').val(name);
             //$.ajax({
             //    type: "post",
@@ -45,9 +45,9 @@
             //});
         }
         else {
-           // $('.savebtn').hide();
-           // $('.refId').hide();
-           // $('.reportType').hide();
+            // $('.savebtn').hide();
+            // $('.refId').hide();
+            // $('.reportType').hide();
         }
 
     });
@@ -391,7 +391,7 @@
             url: '/Reports/BindReportType',
             //contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: { headOfficeId, departmentId},
+            data: { headOfficeId, departmentId },
 
             aysnc: false,
             success: function (result) {
@@ -448,9 +448,7 @@
     });
     var reporttemp = [];
     $(document).on("change", "#reporttypeId", function () {
-
         var id = $(this).val();
-        console.log(id);
         for (var i = 0; i < reporttemp.length; i++) {
             var name = reporttemp[i];
             $('.temp').find(`#${name}`).remove();
@@ -471,10 +469,11 @@
                     if (result.status == true) {
                         //$('#reportType').val(result.model.name);
                         var seq = JSON.parse(result.model.sequence);
+                        var order = 1;
                         for (var key in seq) {
                             if (key[0] == 't') {
                                 localStorage.setItem("type", seq[key]);
-                                renderTemplate(seq[key], 0);
+                                renderTemplate(seq[key], 0, order);
                                 reporttemp.push(seq[key]);
                                 var key = "temp" + t;
                                 sequence[key] = seq[key];
@@ -486,10 +485,11 @@
                                         $(this).prop('disabled', true);
                                     }
                                 });
+                                order++;
                             }
                             if (key[0] == 'd') {
                                 localStorage.setItem("type", seq[key]);
-                                renderDynamicTable(seq[key], 0);
+                                renderDynamicTable(seq[key], 0, order);
                                 reporttemp.push(seq[key]);
                                 var key = "dyn" + d;
                                 sequence[key] = seq[key];
@@ -501,9 +501,11 @@
                                         $(this).prop('disabled', true);
                                     }
                                 });
+                                order++;
                             }
+
                             if (key[0] == 'c') {
-                                renderCalcTable(seq[key], 0);
+                                renderCalcTable(seq[key], 0, order);
                                 reporttemp.push(seq[key]);
                                 var key = "calc" + c;
                                 sequence[key] = seq[key];
@@ -515,6 +517,7 @@
                                         $(this).prop('disabled', true);
                                     }
                                 });
+                                order++;
                             }
                         }
                         //var type = JSON.parse(result.model.templates);
@@ -748,27 +751,27 @@
                                         for (var j = 0; j < format[tblid][i].length; j++) {
 
                                             var dynid = tblname + it + i + j;
-                                            if (format[tblid][i][j].datatype == '7') {
+                                            if (cell.datatype == '7') {
                                                 dynid = "state" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '8') {
+                                            else if (cell.datatype == '8') {
                                                 dynid = "district" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '9') {
+                                            else if (cell.datatype == '9') {
                                                 dynid = "police" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '10') {
+                                            else if (cell.datatype == '10') {
                                                 dynid = "agency" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '11') {
+                                            else if (cell.datatype == '11') {
                                                 //dynid = "insurer" + dynid;
                                                 //var val = $(`#${dynid} option:selected`).text();
                                                 var branch = $(`#branch${dynid} option:selected`).text();
@@ -776,13 +779,13 @@
                                                 var val = address;
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '14') {
+                                            else if (cell.datatype == '14') {
                                                 var head = $(`#head${dynid} option:selected`).text();
-                                                
-                                                
+
+
                                                 ob[dynid] = head;
                                             }
-                                            else if (format[tblid][i][j].datatype == '15') {
+                                            else if (cell.datatype == '15') {
                                                 var av = $(`#av${dynid} option:selected`).text();
                                                 var year = $(`#year${dynid} option:selected`).text();
                                                 var ref = $(`#dyn${dynid}`).val();
@@ -1214,27 +1217,27 @@
 
                                         for (var j = 0; j < format[tblid][i].length; j++) {
                                             var dynid = tblname + it + i + j;
-                                            if (format[tblid][i][j].datatype == '7') {
+                                            if (cell.datatype == '7') {
                                                 dynid = "state" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '8') {
+                                            else if (cell.datatype == '8') {
                                                 dynid = "district" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '9') {
+                                            else if (cell.datatype == '9') {
                                                 dynid = "police" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '10') {
+                                            else if (cell.datatype == '10') {
                                                 dynid = "agency" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
                                             }
-                                            else if (format[tblid][i][j].datatype == '11') {
+                                            else if (cell.datatype == '11') {
                                                 dynid = "insurer" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();
                                                 ob[dynid] = val;
@@ -1555,470 +1558,318 @@
     });
     async function renderDynamicTable(name, refId, order) {
         debugger
-        var statel = await getStates();
-        var statelist = JSON.parse(statel.json);
-
-        var agencyr = await getAgency();
-       // var agencylist = JSON.parse(agencyr.json);
-
-        var insurerr = await getInsurer();
-        var insurerlist = JSON.parse(insurerr.json);
-
-        var headres = await getHeadoffice();
-        headlist = JSON.parse(headres.json);
-
-        var yearres = await getYear();
-        yearlist = JSON.parse(yearres.json);
-        var advocateres = await getAdvocate();
-        advocatelist = JSON.parse(advocateres.json);
-
-        var departmentres = await getDepartment();
-        departmentlist = JSON.parse(departmentres.json);
-        $.ajax({
-            type: "post",
+        const [statel, agencyr, insurerr, headres, yearres, advocateres, departmentres] = await Promise.all([
+            getStates(),
+            getAgency(),
+            getInsurer(),
+            getHeadoffice(),
+            getYear(),
+            getAdvocate(),
+            getDepartment()
+        ]);
+        const statelist = JSON.parse(statel.json);
+        const insurerlist = JSON.parse(insurerr.json);
+        const headlist = JSON.parse(headres.json);
+        const yearlist = JSON.parse(yearres.json);
+        const advocatelist = JSON.parse(advocateres.json);
+        const departmentlist = JSON.parse(departmentres.json);
+        const result = await $.ajax({
+            type: "POST",
             url: '/Reports/RenderDynaimcTable',
             dataType: "json",
             data: { name },
-            aysnc: false,
-            success: function (result) {
-                debugger
-                if (result.model != null) {
-                    var format = JSON.parse(result.model.tableFormat);
-                    //data = format;
-                    tabelName = result.model.tableName;
-                    TempName = tabelName;
-                    var Border = result.model.border;
-                    var tblname = result.model.tableName.replace(/[^\w\s]/gi, '');
-                    tblname = tblname.split(" ").join("");
-                    console.log(tblname);
-                    console.log(format);
-                    $('.temp').append(`
-                    <section class="templates order-${order}" id="${tblname}">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between w-100"><p class="removeTemplates"   name="${tblname}" style="color:red;text-decoration:none;cursor:pointer">X</p></div>
-                    <div class="card-body">
-                        <form name="my-form" >
-                        <fieldset class="${tblname}">
-
-                        </fieldset>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-                `);
-                    if (tabelName.length > 11) {
-                        var res1 = result.model.tableName.substring(0, 10);
-                        if (res1.toLowerCase() == "letterhead") {
-                            $(`.${tblname}`).attr("disabled", "disabled");
-                        }
-                    }
-                    if (tabelName.length > 15) {
-                        var res2 = result.model.tableName.substring(0, 14);
-                        if (res2.toLowerCase() == "billletterhead") {
-                            $(`.${tblname}`).attr("disabled", "disabled");
-                        }
-                    }
-                    var tbllength = Object.keys(format).length;
-                    for (var it = 0; it < tbllength; it++) {
-                        var tblid = "table" + it;
-                        var table_body = `<table id="" class="table tbl" style="border-collapse:collapse; margin-bottom:0;">`;
-                        for (var i = 0; i < format[tblid].length; i++) {
-                            table_body += `<tr>`;
-                            for (var j = 0; j < format[tblid][i].length; j++) {
-                                var dynid = tblname + it + i + j;
-                                if (format[tblid][i][j].height == "null" || typeof format[tblid][i][j].height == "undefined" || format[tblid][i][j].height == "" || format[tblid][i][j].height == "undefined") format[tblid][i][j].height = 2;
-                                if (format[tblid][i][j].datatype == '0') {
-                                    table_body += `<td class=""  colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-
-                                    table_body += `<input type="text"  from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" ${format[tblid][i][j].staticcol} class="form-control copyTempData"> `;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '1') {
-                                    table_body += `<td class="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol}  from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" class="form-control copyTempData" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '2') {
-                                    table_body += `<td class=""  colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol}  from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" type="date" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control copyTempData"> `;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '3') {
-                                    table_body += `<td class=""  colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="checkbox" id="dyn${dynid}" style='color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily}'  value="${format[tblid][i][j].value}" class="form-check"> `;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '4') {
-                                    table_body += `<td class="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="number" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control copyTempData"> `;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '5') {
-                                    table_body += `<td class=""  colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol} type="text" id="dyn${dynid}" list="list2${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textarea>
-                                               <select id="list2${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                               <option value="select" selected>Select</option>
-                                        </select>`;
-                                    //table_body += `<p id="refreshSelect" style="cursor:pointer;">X</p>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '6') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="file" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
-                                    table_body += `<a class="btn btn-success" id="fileUpload">Upload</a>`;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '7') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="state${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
-                                        <option value="0" selected>State</option>
-                                       </select>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '8') {
-
-                                    table_body += `<td class="d-flex" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="100%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<div class="d-flex w-100">`
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="state${dynid}" class="stateselect form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>State</option>
-                                       </select>`;
-
-                                    table_body += `<select id="district${dynid}" class="form-control" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                      <option value="0" selected>District</option>
-                                       </select>`;
-                                    table_body += `</div>`
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '9') {
-
-                                    table_body += `<td class="d-flex" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="100%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<div class="d-flex w-100">`
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="state${dynid}" class="stateselect form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                       <option value="0" selected>State</option>
-                                       </select>`;
-
-                                    table_body += `<select id="district${dynid}" class="districtselect form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>District</option>
-                                       </select>`;
-                                    table_body += `<select id="police${dynid}"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  class="form-control">
-                                       <option value="0" selected>Poilce</option>
-                                       </select>`;
-                                    table_body += `</div>`
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '10') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="agency${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
-                                        <option value="0" selected>Agency</option>
-                                       </select>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '11') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    //table_body += `<select ${format[tblid][i][j].staticcol} id="insurer${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
-                                    //    <option value="0" selected>Insurer</option>
-                                    //   </select>`;
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="state${dynid}" class="stateselect form-control branchState"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                       <option value="0" selected>State</option>
-                                       </select>`;
-
-                                    table_body += `<select id="district${dynid}" class="form-control branchDistrict"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>District</option>
-                                       </select>`;
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="branch${dynid}" class="branchselect form-control branchTemp"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>Branch</option>
-                                       </select>`;
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol} class="branch-address form-control" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '12') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol}  from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00"  id="dyn${dynid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField copyTempData"> `;
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == 13) {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<p>`
-                                    for (var kt = 0; kt < conclusionStes.length; kt++) {
-                                        table_body += `${conclusionStes[kt].Name} <input type="checkbox" name="${conclusionStes[kt].Name}" Id="" class="setChecks">  `
-                                    }
-                                    table_body += `</p>`
-
-                                    table_body += `<textarea type="text"  from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" id="dyn${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textarea>
-                                               <select id="con${dynid}" class="form-control selectTextarea copyTempData" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                        </select>`;
-                                    //table_body += `<p id="refreshSelect" style="cursor:pointer;">X</p>`;
-                                    table_body += '</td>';
-
-                                }
-                                if (format[tblid][i][j].datatype == '14') {
-
-                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<div class="d-flex w-100">`
-                                    table_body += `<select ${format[tblid][i][j].staticcol} id="head${dynid}" class="headselect form-control headTemp"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                       <option value="0" selected>Head Office</option>
-                                       </select>`;
-
-                                     table_body += `</div>`
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '15') {
-
-                                    table_body += `<td class="" id="$" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<div class="d-flex w-100">`
-                                    table_body += `<select id="av${dynid}" class=" form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
-                                       <option value="0" selected>Agency</option>
-                                       </select>`;
-                                    table_body += `<textarea class="form-control" id="dyn${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em !important;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
-                                    table_body += `<select id="year${dynid}" class=" form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>Year</option>
-                                       </select>`;
-                                    table_body += `</div>`
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '16') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<select id="advo${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
-                                        <option value="0" selected>Advocate</option>
-                                       </select>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '17') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<select id="department${dynid}" class="form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  >
-                                        <option value="0" selected>Department</option>
-                                       </select>`;
-
-                                    table_body += '</td>';
-                                }
-                                if (format[tblid][i][j].datatype == '18') {
-
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<select id="year${dynid}" class=" form-control"  style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' >
-                                       <option value="0" selected>Year</option>
-                                       </select>`;
-
-                                    table_body += '</td>';
-                                }
-                            }
-                            table_body += '</tr>';
-                        }
-                        table_body += '</table>';
-                        $(`.${tblname}`).append(table_body);
-
-
-                    }
-                    if (Border == "0") {
-                        $(`.${tblname}`).css("border", "1px solid");
-                    }
-                    else if (Border == "1") {
-                        $(`.${tblname}`).css("border-right", "1px solid");
-
-                    }
-                    else if (Border == "2") {
-                        $(`.${tblname}`).css("border-left", "1px solid");
-
-                    }
-                    else if (Border == "3") {
-                        $(`.${tblname}`).css("border-top", "1px solid");
-
-
-                    }
-                    else if (Border == "4") {
-                        $(`.${tblname}`).css("border-bottom", "1px solid");
-
-                    }
-                    for (var it = 0; it < tbllength; it++) {
-                        var tblid = "table" + it;
-                        for (var i = 0; i < format[tblid].length; i++) {
-                            for (var j = 0; j < format[tblid][i].length; j++) {
-
-                                var dynid = tblname + it + i + j;
-                                if (format[tblid][i][j].datatype == '5') {
-                                    $.each(format[tblid][i][j].options, function (i, item) {
-
-                                        $(`#list2${dynid}`).append(`<option value="${item}">${item}</option>`);
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 7) {
-                                    $.each(statelist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#state${dynid}`).append(`<option value="${optval}">${name}</option>`);
-                                        console.log(`#state${dynid} 7`);
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 8) {
-                                    $.each(statelist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#state${dynid}`).append(`<option value="${optval}">${name}</option>`);
-                                    });
-                                    console.log(`#state${dynid} 8`);
-                                }
-                                if (format[tblid][i][j].datatype == 9) {
-                                    $.each(statelist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#state${dynid}`).append(`<option value="${optval}">${name}</option>`);
-                                        console.log(`#state${dynid} 9`);
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 10) {
-                                    var angencyModel = JSON.parse(agencyr.model);
-                                    var id = angencyModel.userId;
-                                    var optval = String(id)
-                                    var name = angencyModel.abbrevation;
-                                    $(`#agency${dynid}`).append(`<option value="${optval}">${name}</option>`);
-                                }
-                                if (format[tblid][i][j].datatype == 11) {
-                                    //$.each(insurerlist, function (index, element) {
-
-                                    //    var id = element.Id;
-                                    //    var optval = String(id)
-                                    //    var name = element.Name;
-                                    //    $(`#insurer${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    //});
-                                    $.each(statelist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#state${dynid}`).append(`<option value="${optval}">${name}</option>`);
-                                        console.log(`#state${dynid} 9`);
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 14) {
-                                    $.each(headlist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#head${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 15) {
-                                    var angencyModel = JSON.parse(agencyr.model);
-                                    var id = angencyModel.userId;
-                                    var optval = String(id)
-                                    var name = angencyModel.abbrevation;
-                                    $(`#av${dynid}`).append(`<option value="${optval}">${name}</option>`)
-                                    $.each(yearlist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.year;
-                                        $(`#year${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 16) {
-                                    $.each(advocatelist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.name;
-                                        $(`#advo${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 17) {
-                                    $.each(departmentlist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.Name;
-                                        $(`#department${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
-                                }
-                                if (format[tblid][i][j].datatype == 18) {
-
-
-                                    $.each(yearlist, function (index, element) {
-
-                                        var id = element.Id;
-                                        var optval = String(id)
-                                        var name = element.year;
-                                        $(`#year${dynid}`).append(`<option value="${optval}">${name}</option>`);
-
-                                    });
-                                }
-                            }
-                        }
-                    }
-                    $('#editable-select').editableSelect();
-                    var name = TempName;
-                    if (refId != "0") {
-                        console.log(name, refId);
-                        $.ajax({
-                            type: "post",
-                            url: '/Reports/GetTempDataByReportId',
-                            dataType: "json",
-                            data: { name, refId },
-                            aysnc: false,
-                            success: function (result) {
-                                console.log(result);
-                                debugger
-                                //var model = JSON.parse(result.tempModel);
-                                if (result.model != null) {
-                                    var i = 0;
-                                    delete result.model["_id"];
-                                    delete result.model["ReportId"];
-                                    var d = JSON.parse(result.model["Data"]);
-                                    var _tblname = name;
-                                    _tblname = _tblname.replace(/[^\w\s]/gi, '');
-                                    _tblname = _tblname.split(" ").join("");
-                                    //var tbllength = Object.keys(d).length;
-                                    for (var it = 0; it < tbllength; it++) {
-                                        var tblid = "table" + it;
-                                        //for (var i = 0; i < d.length; i++) {
-                                        for (var j = 0; j < format[tblid].length; j++) {
-                                            for (var k = 0; k < format[tblid][i].length; k++) {
-                                                var _id = _tblname + it + j + k;
-                                                var _val = d[0][_id];
-                                                $(`#dyn${_id}`).val(_val);
-                                            }
-                                        }
-                                        //}
-                                    }
-
-                                    console.log(d);
-                                }
-
-                            }
-                        });
-                    }
-                }
-            }
+            async: true
         });
+        if (!result || !result.model) return; // Exit if no data
+        TempName = result.model.tableName;
+        const format = JSON.parse(result.model.tableFormat);
+        const tableName = result.model.tableName.replace(/[^\w\s]/gi, '').split(" ").join("");
+        const Border = result.model.border;
+        const tableOrder =order;
+        const sectionTemplate = `
+            <section class="templates d-flex flex-columns" id="${tableName}" style="order:${order}!important;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between w-100">
+                                    <p class="removeTemplates" name="${tableName}" style="color:red;text-decoration:none;cursor:pointer">X</p>
+                                </div>
+                                <div class="card-body">
+                                    <form name="my-form">
+                                        <fieldset class="${tableName}"></fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>`;
+        $('.temp').append(sectionTemplate);
+        if (tableName.length > 11) {
+            var res1 = result.model.tableName.substring(0, 10);
+            if (res1.toLowerCase() == "letterhead") {
+                $(`.${tableName}`).attr("disabled", "disabled");
+            }
+        }
+        if (tableName.length > 15) {
+            var res2 = result.model.tableName.substring(0, 14);
+            if (res2.toLowerCase() == "billletterhead") {
+                $(`.${tableName}`).attr("disabled", "disabled");
+            }
+        }
+        let tableHtml = '';
+        var tbllength = Object.keys(format).length;
 
+        for (var it = 0; it < tbllength; it++) {
+            var tblid = "table" + it;
+            var table_body = `<table id="" class="table tbl" style="border-collapse:collapse; margin-bottom:0;">`;
+
+            for (var i = 0; i < format[tblid].length; i++) {
+                table_body += `<tr>`;
+
+                for (var j = 0; j < format[tblid][i].length; j++) {
+                    var dynid = tableName + it + i + j;
+                    var cell = format[tblid][i][j];
+                    var height = cell.height && cell.height != "null" && cell.height != "undefined" ? cell.height : 2;
+                    // Common styles across elements
+                    var commonStyles = `
+                font-style:${cell.fontstyle};
+                text-decoration:${cell.underline};
+                font-size:${cell.fontsize}px;
+                color:${cell.color};
+                background-color:${cell.backgroundcolor};
+                font-weight:${cell.fontweight};
+                vertical-align:${cell.verticalalign};
+                text-align:${cell.textalign};
+                font-family:${cell.fontfamily};
+                height:${height}em;
+                border-color:${cell.cellbordercolor};
+                ${cell.cellborder};`;
+
+                    table_body += `<td colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${commonStyles} margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};${cell.cellborder};">`;
+
+                    // Handle different data types
+                    switch (cell.datatype) {
+                        case '0': // Text input
+                            table_body += `<input type="text" from="${cell.fromtemp}" to="${cell.totemp}" id="dyn${dynid}" value="${cell.value}" class="form-control copyTempData" ${cell.staticcol} style="${commonStyles}">`;
+                            break;
+
+                        case '1': // Textarea
+                            table_body += `<textarea from="${cell.fromtemp}" to="${cell.totemp}" id="dyn${dynid}" class="form-control copyTempData" style="${commonStyles}" ${cell.staticcol} rows="1">${cell.value}</textarea>`;
+                            break;
+
+                        case '2': // Date input
+                            table_body += `<input type="date" from="${cell.fromtemp}" to="${cell.totemp}" id="dyn${dynid}" value="${cell.value}" ${cell.staticcol} class="form-control copyTempData" style="${commonStyles}">`;
+                            break;
+
+                        case '3': // Checkbox
+                            table_body += `<input type="checkbox" id="dyn${dynid}" ${cell.staticcol} class="form-check" value="${cell.value}" style="${commonStyles}">`;
+                            break;
+
+                        case '4': // Number input
+                            table_body += `<input type="number" id="dyn${dynid}" ${cell.staticcol} value="${cell.value}" class="form-control copyTempData" style="${commonStyles}">`;
+                            break;
+
+                        case '5': // Textarea with Select
+                            table_body += `<textarea ${cell.staticcol} type="text" id="dyn${dynid}" list="list2${dynid}" value="${cell.value}" class="form-control" style="${commonStyles}">${cell.value}</textarea>`;
+                            table_body += `<select id="list2${dynid}" class="form-control selectTextarea" style="${commonStyles}"><option value="select" selected>Select</option></select>`;
+                            break;
+
+                        case '6':// File Upload
+                            table_body += `<input ${cell.staticcol} type="file" id="dyn${dynid}" style='${commonStyles}'  value="${cell.value}" class="form-control"> `;
+                            table_body += `<a class="btn btn-success" id="fileUpload">Upload</a>`;
+                            break;
+
+                        case '7':// State
+                            table_body += `<select ${cell.staticcol} id="state${dynid}" class="form-control"  style="${commonStyles}"><option value="0" selected>State</option></select>`;
+                            break;
+
+                        case '8':// District
+                            table_body += `<div class="d-flex w-100">`;
+                            table_body += `<select ${cell.staticcol} id="state${dynid}" class="stateselect form-control" style="${commonStyles}" ><option value="0" selected>State</option></select>`;
+                            table_body += `<select id="district${dynid}" class="form-control" style="${commonStyles}"><option value="0" selected>District</option></select>`;
+                            table_body += `</div>`;
+                            break;
+
+                        case '9':// Police
+                            table_body += `<div class="d-flex w-100">`;
+                            table_body += `<select ${cell.staticcol} id="state${dynid}" class="stateselect form-control"  style="${commonStyles}"><option value="0" selected>State</option></select>`;
+                            table_body += `<select id="district${dynid}" class="districtselect form-control"  style="${commonStyles}"><option value="0" selected>District</option></select>`;
+                            table_body += `<select id="police${dynid}"  style="${commonStyles}"  class="form-control"><option value="0" selected>Poilce</option></select>`;
+                            table_body += `</div>`;
+                            break;
+
+                        case '10':// Agency
+                            table_body += `<select ${cell.staticcol} id="agency${dynid}" class="form-control"  style="${commonStyles}"><option value="0" selected>Agency</option></select>`;
+                            break;
+
+                        case '11':// Branch
+                            table_body += `<select ${cell.staticcol} id="state${dynid}" class="stateselect form-control branchState" style="${commonStyles}"><option value="0" selected>State</option></select>`;
+                            table_body += `<select id="district${dynid}" class="form-control branchDistrict"  style="${commonStyles}"><option value="0" selected>District</option></select>`;
+                            table_body += `<select ${cell.staticcol} id="branch${dynid}" class="branchselect form-control branchTemp"  style="${commonStyles}"><option value="0" selected>Branch</option></select>`;
+                            table_body += `<textarea ${cell.staticcol} class="branch-address form-control" id="dyn${dynid}" style="${commonStyles}"  value="${cell.value}" row="1">${cell.value}</textarea>`;
+                            break;
+
+                        case '12':// Currency Field
+                            table_body += `<input ${cell.staticcol}  from="${cell.fromtemp}" to="${cell.totemp}" type="text" name="currency-field"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  data-type="currency" placeholder="₹ 1,000,000.00"  id="dyn${dynid}" colNo="${j}" style="${commonStyles}"  value="${cell.value}" class="form-control currencyField copyTempData"> `;
+                            break;
+
+                        case '13':// Conclusion Set
+                            table_body += `<p>`;
+                            for (var kt = 0; kt < conclusionStes.length; kt++) {
+                                table_body += `${conclusionStes[kt].Name} <input type="checkbox" name="${conclusionStes[kt].Name}" Id="" class="setChecks">`
+                            }
+                            table_body += `</p>`;
+                            table_body += `<textarea type="text"  from="${cell.fromtemp}" to="${cell.totemp}" id="dyn${dynid}" list="con${dynid}" style="${commonStyles}"  value="${cell.value}" class="form-control">${cell.value}</textarea>
+                                           <select id="con${dynid}" class="form-control selectTextarea copyTempData" style="${commonStyles}"></select>`;
+                            break;
+
+                        case '14':// HeadOffice
+                            table_body += `<div class="d-flex w-100">`;
+                            table_body += `<select ${cell.staticcol} id="head${dynid}" class="headselect form-control headTemp"  style="${commonStyles}"><option value="0" selected>Head Office</option></select>`;
+                            table_body += `</div>`;
+                            break;
+
+                        case '15':// RefId
+                            table_body += `<div class="d-flex w-100">`;
+                            table_body += `<select id="av${dynid}" class=" form-control"  style="${commonStyles}"><option value="0" selected>Agency</option></select>`;
+                            table_body += `<textarea class="form-control" id="dyn${dynid}" style="${commonStyles}" value="${cell.value}" row="1">${cell.value}</textarea>`;
+                            table_body += `<select id="year${dynid}" class=" form-control"  style="${commonStyles}"><option value="0" selected>Year</option></select>`;
+                            table_body += `</div>`;
+                            break;
+
+                        case '16':// Advocate
+                            table_body += `<select id="advo${dynid}" class="form-control"  style="${commonStyles}"><option value="0" selected>Advocate</option></select>`;
+                            break;
+
+                        case '17':// Department
+                            table_body += `<select id="department${dynid}" class="form-control"  style="${commonStyles}"><option value="0" selected>Department</option></select>`;
+                            break;
+
+                        case '18':// Year
+                            table_body += `<select id="year${dynid}" class=" form-control"  style="${commonStyles}" ><option value="0" selected>Year</option></select>`;
+                            break;
+
+                    }
+
+                    table_body += `</td>`;
+                }
+
+                table_body += `</tr>`;
+            }
+
+            table_body += `</table>`;
+            $(`.${tableName}`).append(table_body);
+        }
+
+        if (Border == "0") {
+            $(`.${tableName}`).css("border", "1px solid");
+        }
+        else if (Border == "1") {
+            $(`.${tableName}`).css("border-right", "1px solid");
+
+        }
+        else if (Border == "2") {
+            $(`.${tableName}`).css("border-left", "1px solid");
+
+        }
+        else if (Border == "3") {
+            $(`.${tableName}`).css("border-top", "1px solid");
+
+
+        }
+        else if (Border == "4") {
+            $(`.${tableName}`).css("border-bottom", "1px solid");
+
+        }
+
+        // Populate select options based on datatypes
+        populateSelectOptions(tableName,format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr);
+
+        if (refId != "0") {
+            await loadTemplateData(name, refId, format, tableName);
+        }
+
+    }
+    function populateSelectOptions(tableName,format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr) {
+        Object.keys(format).forEach((tblid,it) => {
+            format[tblid].forEach((row, i) => {
+                row.forEach((cell, j) => {
+                    const dynid = `${tableName}${it}${i}${j}`;
+                    switch (cell.datatype) {
+                        case '5': populateList(cell.options, dynid, 'list2'); break;
+                        case '7': case '8': case '9': populateStateList(statelist, dynid); break;
+                        case '10': populateAgency(agencyr, dynid); break;
+                        case '11': populateStateList(statelist, dynid); break;
+                        case '14': populateOptions(headlist, dynid, 'head'); break;
+                        case '15': populateAgencyAndYear(agencyr, yearlist, dynid); break;
+                        case '16': populateOptions(advocatelist, dynid, 'advo'); break;
+                        case '17': populateOptions(departmentlist, dynid, 'department'); break;
+                        case '18': populateOptions(yearlist, dynid, 'year'); break;
+                    }
+                });
+            });
+        });
+    }
+    function populateList(list, dynid) {
+        $.each(list, function (i, item) {
+            $(`#list2${dynid}`).append(`<option value="${item}">${item}</option>`);
+        });
+    }
+    function populateStateList(list, dynid) {
+        console.log(dynid);
+        list.forEach(item => {
+            const opt = `<option value="${item.Id}">${item.Name}</option>`;
+            $(`#state${dynid}`).append(opt);
+        });
+    }
+
+    function populateAgency(agencyr, dynid) {
+        const agencyModel = JSON.parse(agencyr.model);
+        const opt = `<option value="${agencyModel.userId}">${agencyModel.abbrevation}</option>`;
+        $(`#agency${dynid}`).append(opt);
+    }
+
+    function populateAgencyAndYear(agencyr, yearlist, dynid) {
+        populateAgency(agencyr, dynid);
+        yearlist.forEach(item => {
+            const opt = `<option value="${item.Id}">${item.year}</option>`;
+            $(`#year${dynid}`).append(opt);
+        });
+    }
+
+    function populateOptions(list, dynid, prefix) {
+        list.forEach(item => {
+            const opt = `<option value="${item.Id}">${item.Name}</option>`;
+            $(`#${prefix}${dynid}`).append(opt);
+        });
+    }
+    async function loadTemplateData(name, refId, format, tableName) {
+        try {
+            const result = await $.ajax({
+                type: "POST",
+                url: '/Reports/GetTempDataByReportId',
+                dataType: "json",
+                data: { name, refId },
+                async: true
+            });
+
+            if (result && result.model) {
+                const data = JSON.parse(result.model.Data);
+                Object.keys(format).forEach(tblid => {
+                    format[tblid].forEach((row, i) => {
+                        row.forEach((cell, j) => {
+                            const dynid = `${tableName}${tblid}${i}${j}`;
+                            const value = data[0][dynid];
+                            $(`#dyn${dynid}`).val(value);
+                        });
+                    });
+                });
+            }
+        } catch (error) {
+            console.error("Error loading template data:", error);
+        }
     }
     $(document).on("click", "#fileUpload", function () {
         ;
@@ -2217,34 +2068,34 @@
                             for (var j = 0; j < format[tblid][i].length; j++) {
                                 no_cols.push(format[tblid][i].length);
                                 var calid = tblname + it + i + j;
-                                if (format[tblid][i][j].datatype == '0') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid; border-color:"${format[tblid][i][j].cellbordercolor}";margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} from="${format[tblid][i][j].fromtemp}" to="${format[tblid][i][j].totemp}" type="text" id="calc${calid}" rowNo="${i}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;' value="${format[tblid][i][j].value}" class="form-control"> `;
+                                if (cell.datatype == '0') {
+                                    table_body += `<td class=""  id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} from="${cell.fromtemp}" to="${cell.totemp}" type="text" id="calc${calid}" rowNo="${i}" colNo="${j}" style='${commonStyles}' value="${cell.value}" class="form-control"> `;
 
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '1') {
-                                    table_body += `<td class=""  id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid; border-color:"${format[tblid][i][j].cellbordercolor}";margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol} class="form-control" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" row="1">${format[tblid][i][j].value}</textarea>`;
+                                if (cell.datatype == '1') {
+                                    table_body += `<td class=""  id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<textarea ${cell.staticcol} class="form-control" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" row="1">${cell.value}</textarea>`;
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '2') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid; border-color:"${format[tblid][i][j].cellbordercolor}";margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="date" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                if (cell.datatype == '2') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="date" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control"> `;
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '3') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid; border-color:"${format[tblid][i][j].cellbordercolor}";margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="checkbox" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-check"> `;
+                                if (cell.datatype == '3') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="checkbox" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-check"> `;
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '4') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid; border-color:"${format[tblid][i][j].cellbordercolor}";margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="number" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                if (cell.datatype == '4') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan} rowspan="${cell.rowspan} width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="number" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control"> `;
                                     if (row_no == rowcount) {
-                                        table_body += `<input ${format[tblid][i][j].staticcol} type="checkbox" class="checksum" calNo="${calNo}">`
+                                        table_body += `<input ${cell.staticcol} type="checkbox" class="checksum" calNo="${calNo}">`
                                         if (result.model.billType == "0") {
-                                            table_body += `  <select ${format[tblid][i][j].staticcol} aria-label="Server" class="form-control" id="calcCategory">
+                                            table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
                                         <option value="select" disabled selected>Select Category</option>
                                         <option value="0">Verified</option>
                                         <option value="1">Part of Final Bill/ Duplicate</option>
@@ -2258,27 +2109,27 @@
                                     }
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '5') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid black;margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol} type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textara>
-                                               <select ${format[tblid][i][j].staticcol} id="con${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
+                                if (cell.datatype == '5') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid black;margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<textarea ${cell.staticcol} type="text" id="calc${dynid}" list="con${dynid}" style="${commonStyles}"  value="${cell.value}" class="form-control">${cell.value}</textara>
+                                               <select ${cell.staticcol} id="con${dynid}" class="form-control selectTextarea" style="${commonStyles}">
                                         </select>`;
 
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '6') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder}:1px solid black;margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="file" id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> `;
+                                if (cell.datatype == '6') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan} rowspan="${cell.rowspan} width="${cell.width}%" style="${cell.cellborder}:1px solid black;margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="file" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control"> `;
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == '7') {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan} rowspan="${format[tblid][i][j].rowspan} width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input ${format[tblid][i][j].staticcol} type="text" name="currency-field"  pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$"  data-type="currency" placeholder="₹ 10,00,000.00"  id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField"> `;
+                                if (cell.datatype == '7') {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan} rowspan="${cell.rowspan} width="${cell.width}%"  style="${cell.cellborder};border-color:${cell.cellbordercolor};margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="text" name="currency-field"  pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$"  data-type="currency" placeholder="₹ 10,00,000.00"  id="calc${calid}" colNo="${j}" style="${commonStyles}"  value="${cell.value}" class="form-control currencyField"> `;
                                     if (row_no == rowcount) {
                                         table_body += `<input  type="checkbox" calNo="${calNo}" class="checksum">`
                                     }
                                     if (result.model.billType == "0") {
-                                        table_body += `  <select ${format[tblid][i][j].staticcol} aria-label="Server" class="form-control" id="calcCategory">
+                                        table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
                                         <option value="select" disabled selected>Select Category</option>
                                         <option value="0">Verified</option>
                                         <option value="1">Part of Final Bill/ Duplicate</option>
@@ -2290,15 +2141,15 @@
                                     }
                                     table_body += '</td>';
                                 }
-                                if (format[tblid][i][j].datatype == 8) {
-                                    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%"  style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                if (cell.datatype == 8) {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%"  style="${cell.cellborder};border-color:${cell.cellbordercolor};margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
                                     table_body += `<p>`
                                     for (var kt = 0; kt < conclusionStes.length; kt++) {
                                         table_body += `${conclusionStes[kt].Name} <input type="checkbox" name="${conclusionStes[kt].Name}" Id="" class="setChecks">  `
                                     }
                                     table_body += `</p>`
-                                    table_body += `<textarea ${format[tblid][i][j].staticcol} type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">${format[tblid][i][j].value}</textara>
-                                               <select ${format[tblid][i][j].staticcol} id="con${dynid}" class="form-control selectTextarea" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'>
+                                    table_body += `<textarea ${cell.staticcol} type="text" id="calc${dynid}" list="con${dynid}" style="${commonStyles}"  value="${cell.value}" class="form-control">${cell.value}</textara>
+                                               <select ${cell.staticcol} id="con${dynid}" class="form-control selectTextarea" style="${commonStyles}">
                                         </select>`;
                                     table_body += '</td>';
                                 }
