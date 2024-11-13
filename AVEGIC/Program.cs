@@ -13,6 +13,11 @@ using Nest;
 using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using DinkToPdf.Contracts;
+using DinkToPdf;
+using AVEGIC.Services;
+using System.Runtime.InteropServices;
+using SharpCompress.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -46,6 +51,17 @@ builder.Services.AddScoped(typeof(IUserLetterHead), typeof(UserLetterHeadReposit
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped(typeof(AVEGIC.Common.EntityMapper));
 builder.Services.AddScoped(typeof(EntityDtoService));
+builder.Services.AddSingleton<ITools, PdfTools>();
+builder.Services.AddSingleton<IConverter, BasicConverter>();
+var libPath = Path.Combine(Directory.GetCurrentDirectory(), "wkhtmltopdf/libwkhtmltox.dll");
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !File.Exists(libPath))
+{
+    throw new Exception("libwkhtmltox.dll is missing. Make sure the path is correct and the file is in the specified folder.");
+}
+CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(libPath);
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+builder.Services.AddScoped(typeof(PdfService));
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -54,7 +70,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-Console.WriteLine();
+Console.WriteLine("app is started....");
 var connectionString = builder.Configuration["AVEDatabase:ConnectionString"];
 var dataBaseName = builder.Configuration["AVEDatabase:DatabaseName"];
 // Add MongoDB Identity

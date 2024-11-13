@@ -1494,7 +1494,7 @@ $(document).ready(function () {
                         $(`#reportTypeCompanyId`).val(result.model.headOfficeId).prop('selected', true);
                         $(`#reportTypeDepartmentId`).val(result.model.departmentId).prop('selected', true);
                         $('.tempnames').empty();
-                        sequence = result.model.sequence;
+                        sequence = JSON.parse(result.model.sequence);
                         var type = JSON.parse(result.model.templates);
                         for (var i = 0; i < type.length; i++) {
                             reportTypeTemp.push(type[i]);
@@ -1626,6 +1626,8 @@ $(document).ready(function () {
         model.Sequence = JSON.stringify(sequence);
         model.HeadOfficeId = $('#reportTypeCompanyId option:selected').val().trim();
         model.DepartmentId = $('#reportTypeDepartmentId option:selected').val().trim();
+        console.log(model);
+        console.log(sequence);
         $.ajax({
             type: "post",
             url: '/Admin/UpdateReportType',

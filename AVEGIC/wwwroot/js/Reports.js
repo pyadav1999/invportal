@@ -448,6 +448,7 @@
     });
     var reporttemp = [];
     $(document).on("change", "#reporttypeId", function () {
+        console.log("calling");
         var id = $(this).val();
         for (var i = 0; i < reporttemp.length; i++) {
             var name = reporttemp[i];
@@ -469,6 +470,7 @@
                     if (result.status == true) {
                         //$('#reportType').val(result.model.name);
                         var seq = JSON.parse(result.model.sequence);
+                        console.log(seq);
                         var order = 1;
                         for (var key in seq) {
                             if (key[0] == 't') {
@@ -749,7 +751,7 @@
                                     for (var i = 0; i < format[tblid].length; i++) {
 
                                         for (var j = 0; j < format[tblid][i].length; j++) {
-
+                                            var cell = format[tblid][i][j];
                                             var dynid = tblname + it + i + j;
                                             if (cell.datatype == '7') {
                                                 dynid = "state" + dynid;
@@ -1214,9 +1216,10 @@
                                 for (var it = 0; it < tbllength; it++) {
                                     var tblid = "table" + it;
                                     for (var i = 0; i < format[tblid].length; i++) {
-
+                                        
                                         for (var j = 0; j < format[tblid][i].length; j++) {
                                             var dynid = tblname + it + i + j;
+                                            var cell = format[tblid][i][j];
                                             if (cell.datatype == '7') {
                                                 dynid = "state" + dynid;
                                                 var val = $(`#${dynid} option:selected`).text();

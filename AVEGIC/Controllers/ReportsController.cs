@@ -24,11 +24,19 @@ using Microsoft.AspNet.Identity;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System.Data.Entity.Infrastructure;
+using AVEGIC.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Text;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Syncfusion.Pdf.Tables;
 
 namespace AVEGIC.Controllers
 {
     [Produces("application/json")]
-    //[Route("api/[controller]")]
+    //[Route("Reports")]
     public class ReportsController : Controller
     {
         private readonly IAgencyRepository _agencyRepository;
@@ -48,6 +56,9 @@ namespace AVEGIC.Controllers
         private readonly IUserProfile _userProfile;
         private readonly IUserDetails _userDetails;
         private readonly IUserLetterHead _userLetterHead;
+        private readonly PdfService _pdfService;
+        private readonly IRazorViewEngine _razorViewEngine;
+        private readonly ITempDataProvider _tempDataProvider;
 
 
         [BsonId]
@@ -55,7 +66,8 @@ namespace AVEGIC.Controllers
         public ReportsController(IAgencyRepository agencyRepository, ITemplatesRepository templatesRepository, IHeadOfficeRepository headOfficeRepository,
           IBranchRepository branchRepository, IYearRepository yearRepository, IReportRepository reportRepository, IReportTypeRepository reportTypeRepository,
            IDepartmentRepository departmentRepository, IDynamicTemplateRepository dynamicTemplateRepository, IHostingEnvironment hostingEnvironment,
-           IDynamicTable dynamicTable, ICalc calc, IConclusionSet conclusionSet, IWebHostEnvironment webHostEnvironment, IUserProfile userProfile, IUserDetails userDetails, IUserLetterHead userLetterHead)
+           IDynamicTable dynamicTable, ICalc calc, IConclusionSet conclusionSet, IWebHostEnvironment webHostEnvironment, IUserProfile userProfile, IUserDetails userDetails, IUserLetterHead userLetterHead,
+           PdfService pdfService, IRazorViewEngine razorViewEngine, ITempDataProvider tempDataProvider)
         {
             _agencyRepository = agencyRepository;
             _templatesRepository = templatesRepository;
@@ -74,6 +86,9 @@ namespace AVEGIC.Controllers
             _userProfile = userProfile;
             _userDetails = userDetails;
             _userLetterHead = userLetterHead;
+            _pdfService = pdfService;
+            _tempDataProvider = tempDataProvider;
+            _razorViewEngine= razorViewEngine;
         }
         public IActionResult Index()
         {
@@ -724,11 +739,13 @@ namespace AVEGIC.Controllers
             }
             return Json(new { Message = msg, Status = status });
         }
-        // [HttpPost]
+
+        //[HttpPost]
         public IActionResult PrintReport(string RefId)
         {
             if (!User.Identity.IsAuthenticated)
-            { return RedirectToAction("LogOut", "Home"); }
+            { return RedirectToAction("LogOut", "Home");
+            }
             string userName = User.Identity.GetUserName();
             UserProfile userProfile = _userProfile.FindByEmail(userName);
             UserLetterHead userLetterHead = _userLetterHead.GetByUserId(userProfile.userId);
@@ -739,7 +756,7 @@ namespace AVEGIC.Controllers
             List<dynamic> tempname = new List<dynamic>();
             if (RefId == null)
             {
-                return Json(new { Message = "RefId is NUll" });
+                  return Json(new { Message = "RefId is NUll" });
                 //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
             }
             else
@@ -956,110 +973,12 @@ namespace AVEGIC.Controllers
                 }
                 else
                 {
-                    return Json(new { Message = "Report is not exist with this RefId" });
+                    //return Json(new { Message = "Report is not exist with this RefId" });
                 }
             }
+            //OnPostGeneratePdfAsync(model);
             return View(model);
         }
-
-        //[Obsolete]
-        [HttpPost]
-        //[ValidateInput(false)]
-        //public FileResult PdfConvert(string GridHtml)
-        //{
-        //    //IRONPDF
-        //    //var Renderer = new IronPdf.ChromePdfRenderer();
-        //    //Renderer.RenderingOptions.MarginTop = 20;  //millimeters
-        //    //Renderer.RenderingOptions.MarginBottom = 20;
-        //    //Renderer.RenderingOptions.CssMediaType = PdfPrintOptions.PdfCssMediaType.Print;
-        //    //Renderer.RenderingOptions.TextHeader = new TextHeaderFooter()
-        //    //{
-        //    //    DrawDividerLine = true,
-        //    //    FontSize = 16
-        //    //};
-        //    //Renderer.RenderingOptions.TextFooter = new TextHeaderFooter()
-        //    //{
-        //    //    DrawDividerLine = true,
-        //    //    FontSize = 14
-        //    //};
-        //    //using var PDF = Renderer.RenderUrlAsPdf("https://localhost:7252/Reports/PrintReport/?RefId=AV0052019-2020");
-        //    //var OutputPath = "C:/Users/acer/source/repos/AVEGIC/AVEGIC/wwwroot/I.pdf";
-        //    //PDF.WatermarkAllPages("<h2 style='color:red'>SAMPLE</h2>");
-        //    //PDF.SaveAs(OutputPath);
-        //    //PDF.Print(true);
-        //    // This neat trick opens our PDF file so we can see the result
-        //    //System.Diagnostics.Process.Start(OutputPath);
-
-        //    //SyncFusionPdf
-        //    //HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
-        //    ////Create a new instance for webkit converter settings.
-        //    //WebKitConverterSettings settings = new WebKitConverterSettings();
-        //    ////Set WebKit path
-        //    //settings.WebKitPath = @"/QtBinaries/";
-        //    ////Enable toc.
-        //    //settings.EnableToc = true;
-        //    ////Create a new instance for HTML to PDF toc.
-        //    //HtmlToPdfToc toc = new HtmlToPdfToc();
-        //    ////Set title.
-        //    //toc.Title = "HTML to PDF";
-        //    ////Set title alignment.
-        //    //toc.TitleAlignment = PdfTextAlignment.Center;
-        //    ////Create new HTML to PDF Toc Style.
-        //    //HtmlToPdfTocStyle style = new HtmlToPdfTocStyle();
-        //    ////Set background color.
-        //    //style.BackgroundColor = new PdfSolidBrush(Color.LightCyan);
-        //    ////Set font.
-        //    //style.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 12);
-        //    ////Set fore color.
-        //    //style.ForeColor = new PdfSolidBrush(Color.Red);
-        //    ////Set paddings.
-        //    //style.Padding = new PdfPaddings(5, 5, 5, 5);
-        //    ////Set toc style.
-        //    //toc.TitleStyle = style;
-        //    ////Set toc to webkit settings.
-        //    //settings.Toc = toc;
-        //    ////Assign WebKit settings to HTML converter
-        //    //htmlConverter.ConverterSettings = settings;
-        //    ////Convert URL to PDF
-        //    //PdfDocument document = htmlConverter.Convert("https://en.wikipedia.org/wiki/.NET_Framework");
-        //    ////Save and close the PDF document 
-        //    //MemoryStream ms = new MemoryStream();
-        //    //document.Save(ms);
-        //    //document.Close(true);
-        //    //ms.Position = 0;
-        //    //FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf");
-        //    //fileStreamResult.FileDownloadName = "report.pdf";
-        //    //return fileStreamResult;
-
-        //    //ITEXTSHARP
-        //    //using (MemoryStream stream = new System.IO.MemoryStream())
-        //    //{
-        //    //    StringReader sr = new StringReader(GridHtml);
-        //    //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-        //    //    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-        //    //    pdfDoc.Open();
-        //    //    XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-        //    //    pdfDoc.Close();
-        //    //    return File(stream.ToArray(), "application/pdf", "Grid.pdf");
-        //    //}
-        //    //PdfPCell cell = new PdfPCell();
-        //    //cell.BackgroundColor = new iTextSharp.text.BaseColor(51, 102, 102);
-        //    //StringReader sr = new StringReader(GridHtml);
-        //    //Document pdfDoc = new Document(PageSize.A4, 40f, 20f, 20f, 20f);
-        //    //HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-        //    //using (MemoryStream memoryStream = new MemoryStream())
-        //    //{
-        //    //    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
-        //    //    pdfDoc.Open();
-
-        //    //    htmlparser.Parse(sr);
-        //    //    pdfDoc.Close();
-
-        //    //    byte[] bytes = memoryStream.ToArray();
-        //    //    memoryStream.Close();
-        //    //    return File(memoryStream.ToArray(), "application/pdf", "Grid.pdf");
-        //    //}
-        //}
 
         [HttpPost]
         public IActionResult CopyTempData(string name, string refid)
@@ -1179,6 +1098,52 @@ namespace AVEGIC.Controllers
             }
             return  Json(new { Status = status,model= JsonConvert.SerializeObject(reportTypes) });
         }
+
+
+        [HttpPost]
+        public IActionResult GeneratePdf(string fullHtml)
+        {
+            if (!User.Identity.IsAuthenticated)
+            { return RedirectToAction("LogOut", "Home"); }
+            byte[] pdfBytes = _pdfService.GeneratePdf(fullHtml);
+            // Encode PDF bytes to base64 string
+            string pdfBase64 = Convert.ToBase64String(pdfBytes);
+            // Return as JSON
+            return Json(new
+            {
+                Success = true,
+                Message = "PDF generated successfully",
+                PdfBase64 = pdfBase64
+            });
+        }
+
+        public async Task<string> RenderRazorViewToString(string viewName, object model)
+        {
+            var viewResult = _razorViewEngine.GetView(executingFilePath: null, viewName, isMainPage: true);
+
+            if (!viewResult.Success)
+            {
+                throw new InvalidOperationException($"View {viewName} not found.");
+            }
+
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
+            {
+                var viewContext = new ViewContext(
+                    ControllerContext,
+                    viewResult.View,
+                    new ViewDataDictionary(new EmptyModelMetadataProvider(), ModelState) { Model = model },
+                    TempData,
+                    sw,
+                    new HtmlHelperOptions()
+                );
+
+                await viewResult.View.RenderAsync(viewContext);
+            }
+
+            return sb.ToString();
+        }
+
         public IActionResult Reloadmethods()
         {
             if (!User.Identity.IsAuthenticated)

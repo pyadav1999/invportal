@@ -23,8 +23,29 @@
 
         .table1 {
             border-collapse: collapse;
-            margin-bottom:2px;
+            margin-bottom: 2px;
         }
+
+        table {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+            break-inside: avoid;
+        }
+
+        td, th {
+            page-break-inside: avoid;
+            white-space: nowrap; /* Optional: This prevents text from breaking within cells */
+        }
+
+        h1, h2, h3 {
+            break-before: page; /* Ensure headings start on a new page */
+        }
+
     </style>
 
     <div class="maindiv" id="invoice" style="width:100%;height:auto; background-color:#fff">
@@ -37,101 +58,101 @@
                     {
                         string tmp = models.Key[t1].Key;
                         <div style="@objs[0]">
-                        @if (tmp[0] == 'd')
-                        {
-                            if (models.Key[t1].Value != "1")
+                            @if (tmp[0] == 'd')
                             {
-                                @foreach (var dyntbl in objs[1])
+                                if (models.Key[t1].Value != "1")
                                 {
-                                    <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2">
-                                        @foreach (var dynrow in dyntbl)
-                                        {
-                                            
-                                            @foreach (var dyncol in dynrow)
+                                    @foreach (var dyntbl in objs[1])
+                                    {
+                                        <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2">
+                                            @foreach (var dynrow in dyntbl)
                                             {
-                                                <tr>
+
+                                                @foreach (var dyncol in dynrow)
+                                                {
+                                                    <tr>
+                                                        @foreach (var cold in dyncol)
+                                                        {
+                                                            string fontsize = cold.fontsize + "px";
+                                                            var height = cold.height + "em";
+                                                            <td colspan="@cold.colspan" rowspan="@cold.rowspan" width="@cold.width%" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize;font-style:@cold.fontstyle">
+                                                                @if (i < templates.Value.Count && j < templates.Value[i].Count)
+                                                                {
+                                                                    @(templates.Value[i][j]?.Value ?? "")
+                                                                }
+                                                            </td>
+                                                            j++;
+                                                        }
+                                                    </tr>
+                                                }
+                                            }
+                                        </table>
+                                    }
+                                }
+                                else
+                                {
+                                    @foreach (var dyntbl in objs[1])
+                                    {
+                                        <div style="width:100%;display:flex">
+                                            @foreach (var dynrow in dyntbl)
+                                            {
+                                                @foreach (var dyncol in dynrow)
+                                                {
                                                     @foreach (var cold in dyncol)
                                                     {
-                                                    string fontsize =cold.fontsize + "px";
-                                                    var height =cold.height + "em";
-                                                        <td colspan="@cold.colspan" rowspan="@cold.rowspan" width="@cold.width%" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize;font-style:@cold.fontstyle">
-                                                            @if (i < templates.Value.Count && j < templates.Value[i].Count)
-                                                            {
-                                                                @(templates.Value[i][j]?.Value ?? "")
-                                                            }
-                                                        </td>
+                                                        string fontsize = cold.fontsize + "px";
+                                                        var height = cold.height + "em";
+                                                        @if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
+                                                        {
+                                                            <span style="white-space: nowrap;margin: 0;padding: 0;display: inline-flex;color: @cold.color;background-color: @cold.backgroundcolor;text-align: @cold.textalign;font-family: @cold.fontfamily;font-weight: @cold.fontweight;font-size: @fontsize;font-style: @cold.fontstyle;">
+                                                                @templates.Value[i][j].Value
+                                                            </span>
+                                                        }
                                                         j++;
                                                     }
-                                                </tr>
+                                                }
                                             }
-                                        }
-                                    </table>
+                                        </div>
+                                    }
                                 }
+
+                                <br />
+                                <br />
+
+                                i++;
+                                j = 0;
                             }
                             else
                             {
-                                @foreach (var dyntbl in objs[1])
-                                {
-                                    <div style="width:100%;display:flex">
-                                        @foreach (var dynrow in dyntbl)
+                                <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2" bordercolor="#black">
+                                    <tbody>
+                                        @foreach (var dyntbl in objs[1])
                                         {
-                                            @foreach (var dyncol in dynrow)
-                                            {
-                                                @foreach (var cold in dyncol)
+                                            <tr>
+                                                @foreach (var cold in dyntbl)
                                                 {
                                                     string fontsize = cold.fontsize + "px";
-                                                    var height = cold.height + "em";
-                                                    @if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
+                                                    if (cold.Value != cl.ToString())
                                                     {
-                                                        <p style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;width:@cold.width%;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@cold.fontsize;font-size:@fontsize px;font-style:@cold.fontstyle;">
-                                                            @templates.Value[i][j].Value
-                                                        </p>
+                                                        if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
+                                                        {
+                                                            <td height="18" width="@cold.width" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize px;font-style:@cold.fontstyle;font-size:@cold.fontsize">
+                                                                @templates.Value[i][j].Value
+                                                            </td>
+                                                        }
+                                                        j++;
                                                     }
-                                                    j++;
                                                 }
-                                            }
+                                            </tr>
+                                            cl++;
                                         }
-                                    </div>
-                                }
+                                    </tbody>
+                                </table>
+                                <br />
+                                <br />
+                                i++;
+                                j = 0;
                             }
-
-                            <br />
-                            <br />
-
-                            i++;
-                            j = 0;
-                        }
-                        else
-                        {
-                            <table id="" class="table1" style="text-align: justify;" width="100%" cellpadding="1" cellspacing="2" bordercolor="#black">
-                                <tbody>
-                                        @foreach (var dyntbl in objs[1])
-                                    {
-                                        <tr>
-                                            @foreach (var cold in dyntbl)
-                                            {
-                                                string fontsize =cold.fontsize + "px";
-                                                if (cold.Value != cl.ToString())
-                                                {
-                                                    if (i < templates.Value.Count && j < templates.Value[i].Count && templates.Value[i][j].Value != "")
-                                                    {
-                                                        <td height="18" width="@cold.width" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize px;font-style:@cold.fontstyle;font-size:@cold.fontsize">
-                                                            @templates.Value[i][j].Value
-                                                        </td>
-                                                    }
-                                                    j++;
-                                                }
-                                            }
-                                        </tr>
-                                        cl++;
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <br />
-                            i++;
-                            j = 0;
-                        }
                         </div>
                         t1++;
                     }
@@ -139,12 +160,41 @@
             }
         </div>
     </div>
+    <button class="btn btn-success" type="button" id="printReport">GenratePdf</button>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script>
-        $("#btnSubmit").click(function () {
-            $("input[name='GridHtml']").val($("#invoice").html());
+        $("#printReport").click(function () {
+            var content = $('html').html();
+            var fullHtml = content;
+            console.log(fullHtml);
+            $.ajax({
+                type: "post",
+                url: '/Reports/GeneratePdf',
+                dataType: "json",
+                data: { fullHtml },
+                aysnc: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result.success == true) {
+                        const byteCharacters = atob(result.pdfBase64);
+                        const byteNumbers = Array.from(byteCharacters).map(c => c.charCodeAt(0));
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                        // Create a link element, set its href to the blob, and trigger download
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'generated.pdf';
+                        link.click();
+
+                        // Optionally, you can revoke the URL to free memory
+                        URL.revokeObjectURL(link.href);
+                    }
+                },
+
+            });
         });
     </script>
 </body>
