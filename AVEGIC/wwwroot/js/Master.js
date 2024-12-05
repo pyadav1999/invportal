@@ -679,16 +679,13 @@ $(document).ready(function () {
 
     //Year
     $(document).on("click", "#saveYear", function () {
-        ;
         var count = 0;
         var model = {};
-        model.year = $('#year').val();
-        $.each(model, function (index, value) {
-            if (value == '') count = count + 1;
-        });
-        if (count != 0) {
+        model.year = $('#yearName').val();
+        console.log($('#yearName').val());
+        if (model.year=="") {
             alertify.set('notifier', 'position', 'top-right');
-            alertify.error("Details is Required");
+            alertify.error("Year is Required");
         }
         else {
 
@@ -717,10 +714,9 @@ $(document).ready(function () {
         }
     });
     $(document).on("click", "#updateYear", function () {
-
         var id = $('#yearId option:selected').val();
         var model = {};
-        model.year = $('#year').val();
+        model.year = $('#yearName').val();
         $.ajax({
             type: "post",
             url: '/Admin/UpdateYear',
@@ -728,7 +724,6 @@ $(document).ready(function () {
             data: { model, id },
             aysnc: false,
             success: function (result) {
-
                 if (result.status == true) {
                     alertify.set('notifier', 'position', 'top-right');
                     alertify.success(result.message);
