@@ -53,7 +53,7 @@ builder.Services.AddScoped(typeof(AVEGIC.Common.EntityMapper));
 builder.Services.AddScoped(typeof(EntityDtoService));
 builder.Services.AddSingleton<ITools, PdfTools>();
 builder.Services.AddSingleton<IConverter, BasicConverter>();
-var libPath = Path.Combine(Directory.GetCurrentDirectory(), "wkhtmltopdf/libwkhtmltox.dll");
+var libPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/wkhtmltopdf/libwkhtmltox.dll");
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !File.Exists(libPath))
 {
     throw new Exception("libwkhtmltox.dll is missing. Make sure the path is correct and the file is in the specified folder.");

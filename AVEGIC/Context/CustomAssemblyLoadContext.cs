@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Loader;
 
 namespace AVEGIC.Context
@@ -7,6 +8,7 @@ namespace AVEGIC.Context
     {
         public IntPtr LoadUnmanagedLibrary(string absolutePath)
         {
+            NativeLibrary.Load(absolutePath);
             return LoadUnmanagedDll(absolutePath);
         }
         protected override IntPtr LoadUnmanagedDll(String unmanagedDllName)
