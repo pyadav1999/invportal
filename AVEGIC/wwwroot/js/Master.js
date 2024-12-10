@@ -336,7 +336,6 @@ $(document).ready(function () {
 
     //HeadOffice
     $(document).on("click", "#saveHeadOffice", function () {
-        ;
         var count = 0;
         var model = {};
         model.Name = $('#headofficename').val();
@@ -2130,7 +2129,6 @@ $(document).ready(function () {
         return table_body;
     }
     $(document).on("click", "#createtable", function () {
-        ;
         cols = [];
 
         $('#table-datatype').empty();

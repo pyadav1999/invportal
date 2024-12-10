@@ -606,8 +606,7 @@
                 tempname.push($(this).text());
             }
         });
-        $(".dynOptions").each(function () {
-            // 
+        $(".dynOptions").each(function () { 
             if ($(this).prop('disabled') == true) {
                 dyntbl.push($(this).text());
             }
@@ -647,7 +646,7 @@
                 data: { model },
                 aysnc: false,
                 success: function (result) {
-                    debugger
+                     
                     if (result.status == true) {
 
                         alertify.set('notifier', 'position', 'top-right');
@@ -735,7 +734,7 @@
                         for (var i = 0; i < dyntbl.length; i++) {
 
                             saveDynamicTable(dyntbl[i]).done(function (result) {
-                                debugger
+                                 
 
                                 var format = JSON.parse(result.model.tableFormat);
                                 //console.log(format);
@@ -774,17 +773,15 @@
                                                 ob[dynid] = val;
                                             }
                                             else if (cell.datatype == '11') {
-                                                //dynid = "insurer" + dynid;
-                                                //var val = $(`#${dynid} option:selected`).text();
-                                                var branch = $(`#branch${dynid} option:selected`).text();
-                                                var address = $(`#dyn${dynid}`).val();
-                                                var val = address;
+                                                var state = $(`#state${dynid} option:selected`).text().trim();
+                                                var district = $(`#district${dynid} option:selected`).text().trim();
+                                                var branch = $(`#branch${dynid} option:selected`).text().trim();
+                                                var address = $(`#dyn${dynid}`).val().trim();
+                                                var val = state + "#" + district + "#" + branch+"#"+ address;
                                                 ob[dynid] = val;
                                             }
                                             else if (cell.datatype == '14') {
                                                 var head = $(`#head${dynid} option:selected`).text();
-
-
                                                 ob[dynid] = head;
                                             }
                                             else if (cell.datatype == '15') {
@@ -910,7 +907,7 @@
         $('#searchDiv').hide();
     });
     $(document).on("click", "#searchReport", function () {
-        debugger
+         
         var agency = $('#searchagency option:selected').text();
         var ref2 = $('#SearchRef2').val();
         var year = $('#Searchyear option:selected').text();
@@ -935,7 +932,7 @@
                 success: function (result) {
 
                     if (result.model != null) {
-                        debugger
+                         
                         $('.temp').empty();
                         $('#reportNext').hide();
                         $('.refId').show();
@@ -950,62 +947,10 @@
                         $(`#reporttypeId`).val(data.reportType).prop('selected', true);
                         $(`#headofficeId`).val(data.client).prop('selected', true);
                         $('#headofficeId').trigger("change", [data.branch]).delay(5000);
-                        //var branch = data.branch;
-                        //$.when($('#headofficeId').trigger("change")).then(function (branch) {
-                        //     
-                        //    $(`#branchId`).val(branch).prop('selected', true);
-                        //});
-                        // $(`#branchId`).val(data.branch).prop('selected', true);
                         $(`#departmentId`).val(data.department).prop('selected', true);
                         $(`#advocateId`).val(data.advocate).prop('selected', true);
                         $('#date').val(data.created_Date);
                         var refid = data.refId;
-                        /*var temps = JSON.parse(data.templates);
-                        
-                        for (var i = 0; i < temps.length; i++) {
-
-                            var name = temps[i];
-                            stemps[i] = name;
-                            $('#templateId option').each(function () {
-                                 
-                                var txt = $(this).text();
-                                if (txt == temps[i]) {
-                                    $(this).prop('disabled', true);
-                                }
-                            });
-                            renderTemplate(temps[i], refid);
-
-                        }
-                        var dyntbl = JSON.parse(data.dynamicTable);
-                        for (var i = 0; i < dyntbl.length; i++) {
-
-                            var name = dyntbl[i];
-                            stemps[i] = name;
-                            $('#dynamicTableId option').each(function () {
-                                 
-                                var txt = $(this).text();
-                                if (txt == dyntbl[i]) {
-                                    $(this).prop('disabled', true);
-                                }
-                            });
-                            renderDynamicTable(dyntbl[i], refid);
-
-                        }
-                        var calctbl = JSON.parse(data.calculationTable);
-                        for (var i = 0; i < calctbl.length; i++) {
-
-                            var name = calctbl[i];
-                            stemps[i] = name;
-                            $('#calctblId option').each(function () {
-                                 
-                                var txt = $(this).text();
-                                if (txt == calctbl[i]) {
-                                    $(this).prop('disabled', true);
-                                }
-                            });
-                            renderCalcTable(calctbl[i], refid);
-
-                        }*/
                         var seq = JSON.parse(result.model.sequence);
                         var rt = 0, rd = 0, rc = 0;
                         var order = 1;
@@ -1027,7 +972,7 @@
                                 });
                             }
                             if (key[0] == 'd') {
-                                debugger;
+                                 ;
                                 localStorage.setItem("type", seq[key]);
                                 renderDynamicTable(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
@@ -1036,7 +981,6 @@
                                 rd++;
                                 order++;
                                 $('#dynamicTableId option').each(function () {
-
                                     var txt = $(this).text();
                                     if (txt == seq[key]) {
                                         $(this).prop('disabled', true);
@@ -1073,7 +1017,7 @@
 
     //update report
     $(document).on("click", "#UpdateReportData", function () {
-        debugger;
+         ;
         var count = 0;
         var model = {};
         var tempname = [];
@@ -1241,8 +1185,22 @@
                                                 ob[dynid] = val;
                                             }
                                             else if (cell.datatype == '11') {
-                                                dynid = "insurer" + dynid;
-                                                var val = $(`#${dynid} option:selected`).text();
+                                                var state = $(`#state${dynid} option:selected`).text().trim();
+                                                var district = $(`#district${dynid} option:selected`).text().trim();
+                                                var branch = $(`#branch${dynid} option:selected`).text().trim();
+                                                var address = $(`#dyn${dynid}`).val().trim();
+                                                var val = state + "#" + district + "#" + branch + "#" + address;
+                                                ob[dynid] = val;
+                                            }
+                                            else if (cell.datatype == '14') {
+                                                var head = $(`#head${dynid} option:selected`).text();
+                                                ob[dynid] = head;
+                                            }
+                                            else if (cell.datatype == '15') {
+                                                var av = $(`#av${dynid} option:selected`).text();
+                                                var year = $(`#year${dynid} option:selected`).text();
+                                                var ref = $(`#dyn${dynid}`).val();
+                                                var val = av + "/" + ref + "/" + year;
                                                 ob[dynid] = val;
                                             }
                                             else {
@@ -1560,7 +1518,7 @@
         $(this).find(':selected').attr("disabled", "disabled");
     });
     async function renderDynamicTable(name, refId, order) {
-        debugger
+         
         const [statel, agencyr, insurerr, headres, yearres, advocateres, departmentres] = await Promise.all([
             getStates(),
             getAgency(),
@@ -1857,15 +1815,55 @@
                 data: { name, refId },
                 async: true
             });
-
             if (result && result.model) {
+                debugger
                 const data = JSON.parse(result.model.Data);
-                Object.keys(format).forEach(tblid => {
+                Object.keys(format).forEach((tblid, it) => {
                     format[tblid].forEach((row, i) => {
                         row.forEach((cell, j) => {
-                            const dynid = `${tableName}${tblid}${i}${j}`;
-                            const value = data[0][dynid];
-                            $(`#dyn${dynid}`).val(value);
+                            debugger
+                            var datatype = format[tblid][i][j].datatype;
+                            const dynid = `${tableName}${it}${i}${j}`;
+                            const dataId = `${tableName}${it}${i}${j}`;
+                            const value = data[0][dataId];
+                            if (datatype == '5') {
+                                $(`#list2${dynid} option`).filter(function () {
+                                    return $(this).text() === value;
+                                }).prop('selected', true);
+                            } else if (datatype == '7' || datatype == '8' || datatype == '9') {
+                                $(`#state${dynid} option`).filter(function () {
+                                    return $(this).text() === value;
+                                }).prop('selected', true);
+                            } else if (datatype == '11') {
+                                let branchArray = value.split('#');
+                                var state = branchArray[0];
+                                var district = branchArray[1];
+                                var branch = branchArray[2];
+                                var address = branchArray[3];
+                                $(`#state${dynid} option`).filter(function () {
+                                    return $(this).text() === state;
+                                }).prop('selected', true).trigger('change');
+
+                                setTimeout(() => {
+                                    $(`#district${dynid} option`).filter(function () {
+                                        return $(this).text() === district;
+                                    }).prop('selected', true).trigger('change');
+                                }, 500);
+
+                                setTimeout(() => {
+                                    $(`#branch${dynid} option`).filter(function () {
+                                        return $(this).text() === branch;
+                                    }).prop('selected', true).trigger('change');
+                                }, 500);
+                                $(`#dyn${dynid}`).val(address);
+                            } else if (datatype == '14') {
+                                $(`#head${dynid} option`).filter(function () {
+                                    return $(this).text() === value;
+                                }).prop('selected', true);
+                            }
+                            else {
+                                $(`#dyn${dynid}`).val(value);
+                            }
                         });
                     });
                 });
@@ -1908,7 +1906,7 @@
     });
 
     $(document).on("blur", ".currencyField", function () {
-        debugger
+         
         let value = $(this).val();
         if (value === "") {
 
@@ -2651,7 +2649,7 @@
 
     //branch Template Render
     $(document).on("change", '.branchDistrict', function () {
-        debugger
+         
         var branchDistrict = $(this).find(':selected').text();
         var branchState = $(this).prev().find(':selected').text();
         var headId = $('.headTemp').find(':selected').val().trim();
@@ -2675,7 +2673,7 @@
                 aysnc: false,
                 success: function (result) {
                     if (result.status == true) {
-                        debugger
+                         
                         var model = JSON.parse(result.json);
                         for (var i = 0; i < model.length; i++) {
                             var ob = model[i].Id;
