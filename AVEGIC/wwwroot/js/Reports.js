@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     var reporterror = [];
+    var globalDistrict = "";
+    var globalBranch = "";
     $('#searchDiv').hide();
     //if ($('#agencyId').find(':selected').val() == 0) {
     $('.update-btns').hide();
@@ -972,8 +974,10 @@
                                 });
                             }
                             if (key[0] == 'd') {
-                                 ;
                                 localStorage.setItem("type", seq[key]);
+                                if (seq[key] == 'RefNumber') {
+                                    continue;
+                                }
                                 renderDynamicTable(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
                                 var key = "dyn" + rd;
@@ -1816,12 +1820,10 @@
                 async: true
             });
             if (result && result.model) {
-                debugger
                 const data = JSON.parse(result.model.Data);
                 Object.keys(format).forEach((tblid, it) => {
                     format[tblid].forEach((row, i) => {
                         row.forEach((cell, j) => {
-                            debugger
                             var datatype = format[tblid][i][j].datatype;
                             const dynid = `${tableName}${it}${i}${j}`;
                             const dataId = `${tableName}${it}${i}${j}`;
@@ -1830,31 +1832,23 @@
                                 $(`#list2${dynid} option`).filter(function () {
                                     return $(this).text() === value;
                                 }).prop('selected', true);
+                                $(`#dyn${dynid}`).val(value);
                             } else if (datatype == '7' || datatype == '8' || datatype == '9') {
                                 $(`#state${dynid} option`).filter(function () {
                                     return $(this).text() === value;
                                 }).prop('selected', true);
                             } else if (datatype == '11') {
+                                debugger
                                 let branchArray = value.split('#');
                                 var state = branchArray[0];
                                 var district = branchArray[1];
                                 var branch = branchArray[2];
                                 var address = branchArray[3];
+                                globalDistrict = district;
+                                globalBranch = branch;
                                 $(`#state${dynid} option`).filter(function () {
                                     return $(this).text() === state;
                                 }).prop('selected', true).trigger('change');
-
-                                setTimeout(() => {
-                                    $(`#district${dynid} option`).filter(function () {
-                                        return $(this).text() === district;
-                                    }).prop('selected', true).trigger('change');
-                                }, 500);
-
-                                setTimeout(() => {
-                                    $(`#branch${dynid} option`).filter(function () {
-                                        return $(this).text() === branch;
-                                    }).prop('selected', true).trigger('change');
-                                }, 500);
                                 $(`#dyn${dynid}`).val(address);
                             } else if (datatype == '14') {
                                 $(`#head${dynid} option`).filter(function () {
@@ -2494,13 +2488,11 @@
 
     //Location render
     $(document).on("change", '.stateselect', function () {
-
         var id = $(this).find(':selected').val().trim();
         var dis = $(this).next();
         var disId = dis.attr("id");
         $(this).next().empty();
         dis.append(`<option value="0" selected>District</option>`)
-        console.log(dis);
         if (id != 0) {
             $.ajax({
                 type: "post",
@@ -2508,11 +2500,9 @@
                 //contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: { id },
-
                 aysnc: false,
                 success: function (result) {
                     if (result.status == true) {
-
                         var model = JSON.parse(result.json);
                         for (var i = 0; i < model.length; i++) {
                             var ob = model[i].Id;
@@ -2525,16 +2515,21 @@
                             }
 
                         }
-
+                        if (typeof globalDistrict !== 'undefined' && globalDistrict && globalDistrict != "") {
+                            const $option = dis.find('option').filter(function () {
+                                return $.trim($(this).text()) === $.trim(globalDistrict);
+                            });
+                            if ($option.length > 0) {
+                                $option.prop('selected', true).trigger('change');
+                            }
+                        }
                     }
 
                 },
-
             });
         }
     });
     $(document).on("change", ".districtselect", function () {
-
         var id = $(this).find(':selected').val().trim();
         var text = $(this).find(':selected').text().trim();
         $(this).next().empty();
@@ -2547,7 +2542,6 @@
                 //contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: { id },
-
                 aysnc: false,
                 success: function (result) {
                     if (result.status == true) {
@@ -2563,7 +2557,6 @@
                             }
 
                         }
-
                     }
 
                 },
@@ -2576,7 +2569,6 @@
 
     //headoffice render
     $(document).on("change", '.headselect', function () {
-
         var id = $(this).find(':selected').val().trim();
         var dis = $(this).next();
         var disId = dis.attr("id");
@@ -2649,7 +2641,6 @@
 
     //branch Template Render
     $(document).on("change", '.branchDistrict', function () {
-         
         var branchDistrict = $(this).find(':selected').text();
         var branchState = $(this).prev().find(':selected').text();
         var headId = $('.headTemp').find(':selected').val().trim();
@@ -2669,11 +2660,9 @@
                 //contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: { model },
-
                 aysnc: false,
                 success: function (result) {
                     if (result.status == true) {
-                         
                         var model = JSON.parse(result.json);
                         for (var i = 0; i < model.length; i++) {
                             var ob = model[i].Id;
@@ -2685,6 +2674,14 @@
                               </option>`);
                             }
 
+                        }
+                        if (typeof globalBranch !== 'undefined' && globalBranch && globalBranch != "") {
+                            const $option = dis.find('option').filter(function () {
+                                return $.trim($(this).text()) === $.trim(globalBranch);
+                            });
+                            if ($option.length > 0) {
+                                $option.prop('selected', true).trigger('change');
+                            }
                         }
 
                     }

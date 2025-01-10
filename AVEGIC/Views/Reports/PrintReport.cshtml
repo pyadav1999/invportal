@@ -78,7 +78,20 @@
                                                             <td colspan="@cold.colspan" rowspan="@cold.rowspan" width="@cold.width%" valign="@cold.verticalalign" style="@cold.cellborder;border-color:@cold.cellbordercolor;visibility:@cold.printshow;height:@height;color:@cold.color;background-color:@cold.backgroundcolor; text-align:@cold.textalign;font-family:@cold.fontfamily; font-weight:@cold.fontweight;font-size:@fontsize;font-style:@cold.fontstyle">
                                                                 @if (i < templates.Value.Count && j < templates.Value[i].Count)
                                                                 {
-                                                                    @(templates.Value[i][j]?.Value ?? "")
+                                                                    @if (cold.datatype == "11")
+                                                                    {
+                                                                        var fullValue = templates.Value[i][j]?.Value ?? "";
+                                                                        var lastValue = fullValue.Contains("#")
+                                                                        ? fullValue.Substring(fullValue.LastIndexOf('#') + 1)
+                                                                        : fullValue;
+
+                                                                        @lastValue
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(templates.Value[i][j]?.Value ?? "")
+                                                                    }
+                                                                    
                                                                 }
                                                             </td>
                                                             j++;

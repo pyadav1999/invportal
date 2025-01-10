@@ -269,16 +269,16 @@ namespace AVEGIC.Controllers
             UserDetails userDetails = _userDetails.GetByUserId(model.UserId);
             Year year = _yearRepository.GetById(model.year);
             string RefId = userDetails.abbrevation + "/" + model.Ref2 + "/" + year.year;
-            jsn.Add(new KeyValuePair<string, string>("RefNumber000", "RefId"));
+            jsn.Add(new KeyValuePair<string, string>("RefNumber000", "RefNumber"));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", RefId));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", "Date"));
             jsn.Add(new KeyValuePair<string, string>("RefNumber001", model.Created_Date.ToString()));
             var jsndata = JsonConvert.SerializeObject(jsn);
-            string ref1 = @"""RefNumber000""" + ":" + @"""RefId""";
-            string ref2 = "\"RefNumber001\"" + ":" + "\"" + RefId + "\"";
-            string ref3 = "\"RefNumber002\"" + ": " + "\"Date\"";
-            string ref4 = "\"RefNumber003\"" + ":" + "\"" + model.Created_Date.ToString() + "\"";
-            string reffinal = "[{" + ref1 + "," + ref2 + "," + ref3 + "," + ref4 + "}]";
+            //string ref1 = @"""RefNumber000""" + ":" + @"""RefId""";
+            string ref2 = "\"RefNumber000\"" + ":" + "\"" + RefId + "\"";
+            string ref3 = "\"RefNumber001\"" + ": " + "\"Date:-\"";
+            string ref4 = "\"RefNumber002\"" + ":" + "\"" + model.Created_Date.ToString("dd/MM/yyyy") + "\"";
+            string reffinal = "[{" + ref2 + "," + ref3 + "," + ref4 + "}]";
             SaveDynamicTableData("RefNumber", reffinal, model.RefId);
         }
         [HttpPost]

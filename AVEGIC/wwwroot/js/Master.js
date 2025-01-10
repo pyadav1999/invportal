@@ -3153,10 +3153,16 @@ $(document).ready(function () {
     });
     var dpv = 0;
     $(document).on("click", "#addbtndrp", function () {
-
-        var v = $(this).prev().val();
-        var dp = $(this).next();
-        dp.append(`<option value="${v}"><option>`);
+        const newValue = $(this).prev().val().trim();
+        var dp = $(this).next().next();
+        if (newValue && !$(dp).find(`option[value='${newValue}']`).length) {
+            dp.append(`<option value="${newValue}">${newValue}<option>`);
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success("Option Added Successfully");
+        } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error("Duplicate field not allowed(case-sensitive)");
+        }
         dpv++;
     });
     $(document).on("click", "#dynamictblcheckName", function () {
@@ -4953,12 +4959,16 @@ $(document).ready(function () {
     var edv = 0;
     var edval = 0;
     $(document).on("click", "#editbtndrp", function () {
-
-        var v = $(this).prev().val();
+        const newValue = $(this).prev().val().trim();
         var dp = $(this).next().next();
-        dp.append(`<option value="${v}">${v}<option>`);
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.success("Option Added Successfully");
+        if (newValue && !$(dp).find(`option[value='${newValue}']`).length) {
+            dp.append(`<option value="${newValue}">${newValue}<option>`);
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success("Option Added Successfully");
+        } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error("Duplicate field not allowed(case-sensitive)");
+        }
         dpv++;
     });
     $(document).on("click", "#editDynTemplate", function () {
