@@ -934,7 +934,6 @@
                 success: function (result) {
 
                     if (result.model != null) {
-                         
                         $('.temp').empty();
                         $('#reportNext').hide();
                         $('.refId').show();
@@ -954,6 +953,7 @@
                         $('#date').val(data.created_Date);
                         var refid = data.refId;
                         var seq = JSON.parse(result.model.sequence);
+                        console.log(seq);
                         var rt = 0, rd = 0, rc = 0;
                         var order = 1;
                         for (var key in seq) {
@@ -961,8 +961,8 @@
                                 localStorage.setItem("type", seq[key]);
                                 renderTemplate(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
-                                var key = "temp" + rt;
-                                sequence[key] = seq[key];
+                                var Skey = "temp" + rt;
+                                sequence[Skey] = seq[key];
                                 rt++;
                                 order++;
                                 $('#templateId option').each(function () {
@@ -975,14 +975,14 @@
                             }
                             if (key[0] == 'd') {
                                 localStorage.setItem("type", seq[key]);
+                                var Skey = "dyn" + rd;
+                                sequence[Skey] = seq[key];
+                                rd++;
                                 if (seq[key] == 'RefNumber') {
                                     continue;
                                 }
                                 renderDynamicTable(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
-                                var key = "dyn" + rd;
-                                sequence[key] = seq[key];
-                                rd++;
                                 order++;
                                 $('#dynamicTableId option').each(function () {
                                     var txt = $(this).text();
@@ -995,8 +995,8 @@
                             if (key[0] == 'c') {
                                 renderCalcTable(seq[key], refid, order);
                                 //reporttemp.push(seq[key]);
-                                var key = "calc" + rc;
-                                sequence[key] = seq[key];
+                                var Skey = "calc" + rc;
+                                sequence[Skey] = seq[key];
                                 rc++;
                                 order++;
                                 $('#calctblId option').each(function () {
@@ -1021,14 +1021,12 @@
 
     //update report
     $(document).on("click", "#UpdateReportData", function () {
-         ;
         var count = 0;
         var model = {};
         var tempname = [];
         var dyntbl = [];
         var clctbl = [];
         $(".tempOptions").each(function () {
-            // 
             if ($(this).prop('disabled') == true) {
                 tempname.push($(this).text());
             }
