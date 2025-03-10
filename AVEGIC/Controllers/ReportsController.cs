@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Syncfusion.Pdf.Tables;
+using System.Globalization;
 
 namespace AVEGIC.Controllers
 {
@@ -268,16 +269,15 @@ namespace AVEGIC.Controllers
             List<KeyValuePair<string, string>> jsn = new List<KeyValuePair<string, string>>();
             UserDetails userDetails = _userDetails.GetByUserId(model.UserId);
             Year year = _yearRepository.GetById(model.year);
+            Console.WriteLine($"Raw Created_Date: {model.Created_Date}");
+            Console.WriteLine($"Formatted Created_Date: {model.Created_Date.ToString("dd/MM/yyyy")}");
+            string date = model.Created_Date.ToString("dd/MM/yyyy");
             string RefId = userDetails.abbrevation + "/" + model.Ref2 + "/" + year.year;
-            jsn.Add(new KeyValuePair<string, string>("RefNumber000", "RefNumber"));
-            jsn.Add(new KeyValuePair<string, string>("RefNumber001", RefId));
-            jsn.Add(new KeyValuePair<string, string>("RefNumber001", "Date"));
-            jsn.Add(new KeyValuePair<string, string>("RefNumber001", model.Created_Date.ToString()));
-            var jsndata = JsonConvert.SerializeObject(jsn);
             //string ref1 = @"""RefNumber000""" + ":" + @"""RefId""";
             string ref2 = "\"RefNumber000\"" + ":" + "\"" + RefId + "\"";
             string ref3 = "\"RefNumber001\"" + ": " + "\"Date:-\"";
-            string ref4 = "\"RefNumber002\"" + ":" + "\"" + model.Created_Date.ToString("dd/MM/yyyy") + "\"";
+            //string ref4 = "\"RefNumber002\"" + ":" + "\"" + date + "\"";
+            string ref4 = $"\"RefNumber002\":\"{model.Created_Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}\"";
             string reffinal = "[{" + ref2 + "," + ref3 + "," + ref4 + "}]";
             SaveDynamicTableData("RefNumber", reffinal, model.RefId);
         }

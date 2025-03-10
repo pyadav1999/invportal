@@ -339,7 +339,11 @@ else
                                             <option selected value="0">Select &#9662;</option>
                                             @foreach (var item in ViewBag.CustomizedDynamicTable)
                                             {
-                                                <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                                if (item.TableName != "RefNumber")
+                                                {
+                                                    <option value="@item.Id" class="dynOptions">@item.TableName</option>
+                                                }
+                                                
                                             }
                                         </select>
                                     </div>
