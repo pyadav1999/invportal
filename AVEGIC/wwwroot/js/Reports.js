@@ -608,7 +608,7 @@
                 tempname.push($(this).text());
             }
         });
-        $(".dynOptions").each(function () { 
+        $(".dynOptions").each(function () {
             if ($(this).prop('disabled') == true) {
                 dyntbl.push($(this).text());
             }
@@ -648,7 +648,7 @@
                 data: { model },
                 aysnc: false,
                 success: function (result) {
-                     
+
                     if (result.status == true) {
 
                         alertify.set('notifier', 'position', 'top-right');
@@ -736,7 +736,7 @@
                         for (var i = 0; i < dyntbl.length; i++) {
 
                             saveDynamicTable(dyntbl[i]).done(function (result) {
-                                 
+
 
                                 var format = JSON.parse(result.model.tableFormat);
                                 //console.log(format);
@@ -779,7 +779,7 @@
                                                 var district = $(`#district${dynid} option:selected`).text().trim();
                                                 var branch = $(`#branch${dynid} option:selected`).text().trim();
                                                 var address = $(`#dyn${dynid}`).val().trim();
-                                                var val = state + "#" + district + "#" + branch+"#"+ address;
+                                                var val = state + "#" + district + "#" + branch + "#" + address;
                                                 ob[dynid] = val;
                                             }
                                             else if (cell.datatype == '14') {
@@ -909,7 +909,7 @@
         $('#searchDiv').hide();
     });
     $(document).on("click", "#searchReport", function () {
-         
+
         var agency = $('#searchagency option:selected').text();
         var ref2 = $('#SearchRef2').val();
         var year = $('#Searchyear option:selected').text();
@@ -1059,6 +1059,7 @@
         model.Templates = JSON.stringify(tempname);
         model.DynamicTable = JSON.stringify(dyntbl);
         model.CalculationTable = JSON.stringify(clctbl);
+        console.log(sequence);
         model.Sequence = JSON.stringify(sequence);
         if (model.Ref2 == "" || model.year == 0 || model.Agency == 0) {
             alertify.set('notifier', 'position', 'top-right');
@@ -1162,7 +1163,7 @@
                                 for (var it = 0; it < tbllength; it++) {
                                     var tblid = "table" + it;
                                     for (var i = 0; i < format[tblid].length; i++) {
-                                        
+
                                         for (var j = 0; j < format[tblid][i].length; j++) {
                                             var dynid = tblname + it + i + j;
                                             var cell = format[tblid][i][j];
@@ -1520,7 +1521,7 @@
         $(this).find(':selected').attr("disabled", "disabled");
     });
     async function renderDynamicTable(name, refId, order) {
-         
+
         const [statel, agencyr, insurerr, headres, yearres, advocateres, departmentres] = await Promise.all([
             getStates(),
             getAgency(),
@@ -1548,7 +1549,7 @@
         const format = JSON.parse(result.model.tableFormat);
         const tableName = result.model.tableName.replace(/[^\w\s]/gi, '').split(" ").join("");
         const Border = result.model.border;
-        const tableOrder =order;
+        const tableOrder = order;
         const sectionTemplate = `
             <section class="templates d-flex flex-columns" id="${tableName}" style="order:${order}!important;">
                 <div class="container">
@@ -1748,15 +1749,15 @@
         }
 
         // Populate select options based on datatypes
-        populateSelectOptions(tableName,format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr);
+        populateSelectOptions(tableName, format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr);
 
         if (refId != "0") {
             await loadTemplateData(name, refId, format, tableName);
         }
 
     }
-    function populateSelectOptions(tableName,format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr) {
-        Object.keys(format).forEach((tblid,it) => {
+    function populateSelectOptions(tableName, format, statelist, headlist, advocatelist, yearlist, departmentlist, agencyr) {
+        Object.keys(format).forEach((tblid, it) => {
             format[tblid].forEach((row, i) => {
                 row.forEach((cell, j) => {
                     const dynid = `${tableName}${it}${i}${j}`;
@@ -1898,7 +1899,7 @@
     });
 
     $(document).on("blur", ".currencyField", function () {
-         
+
         let value = $(this).val();
         if (value === "") {
 
@@ -2061,6 +2062,21 @@
                             for (var j = 0; j < format[tblid][i].length; j++) {
                                 no_cols.push(format[tblid][i].length);
                                 var calid = tblname + it + i + j;
+                                var cell = format[tblid][i][j];
+                                var colCount = "" + it + i + j;
+                                var height = cell.height && cell.height != "null" && cell.height != "undefined" ? cell.height : 2;
+                                var commonStyles = `
+                                            font-style:${cell.fontstyle};
+                                            text-decoration:${cell.underline};
+                                            font-size:${cell.fontsize}px;
+                                            color:${cell.color};
+                                            background-color:${cell.backgroundcolor};
+                                            font-weight:${cell.fontweight};
+                                            vertical-align:${cell.verticalalign};
+                                            text-align:${cell.textalign};
+                                            font-family:${cell.fontfamily};
+                                            height:${height}em;
+                                            border-color:${cell.cellbordercolor}`;
                                 if (cell.datatype == '0') {
                                     table_body += `<td class=""  id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%" style="${cell.cellborder}:1px solid; border-color:"${cell.cellbordercolor}";margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
                                     table_body += `<input ${cell.staticcol} from="${cell.fromtemp}" to="${cell.totemp}" type="text" id="calc${calid}" rowNo="${i}" colNo="${j}" style='${commonStyles}' value="${cell.value}" class="form-control"> `;
@@ -2087,17 +2103,17 @@
                                     table_body += `<input ${cell.staticcol} type="number" id="calc${calid}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control"> `;
                                     if (row_no == rowcount) {
                                         table_body += `<input ${cell.staticcol} type="checkbox" class="checksum" calNo="${calNo}">`
-                                        if (result.model.billType == "0") {
-                                            table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
-                                        <option value="select" disabled selected>Select Category</option>
-                                        <option value="0">Verified</option>
-                                        <option value="1">Part of Final Bill/ Duplicate</option>
-                                        <option value="2">Paid by TPA</option>
-                                        <option value="3">Denided to Verify</option>
-                                        <option value="4">Shop Closed/ Shifted</option>
-                                        <option value="5">Total Bill</option>
-                                        </select>`
-                                        }
+                                        //if (result.model.billType == "0") {
+                                        //    table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
+                                        //<option value="select" disabled selected>Select Category</option>
+                                        //<option value="0">Verified</option>
+                                        //<option value="1">Part of Final Bill/ Duplicate</option>
+                                        //<option value="2">Paid by TPA</option>
+                                        //<option value="3">Denided to Verify</option>
+                                        //<option value="4">Shop Closed/ Shifted</option>
+                                        //<option value="5">Total Bill</option>
+                                        //</select>`
+                                        //}
 
                                     }
                                     table_body += '</td>';
@@ -2121,29 +2137,64 @@
                                     if (row_no == rowcount) {
                                         table_body += `<input  type="checkbox" calNo="${calNo}" class="checksum">`
                                     }
-                                    if (result.model.billType == "0") {
-                                        table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
-                                        <option value="select" disabled selected>Select Category</option>
-                                        <option value="0">Verified</option>
-                                        <option value="1">Part of Final Bill/ Duplicate</option>
-                                        <option value="2">Paid by TPA</option>
-                                        <option value="3">Denided to Verify</option>
-                                        <option value="4">Shop Closed/ Shifted</option>
-                                        <option value="5">Total Bill</option>
-                                        </select>`
-                                    }
+                                    //if (result.model.billType == "0") {
+                                    //    table_body += `  <select ${cell.staticcol} aria-label="Server" class="form-control" id="calcCategory">
+                                    //    <option value="select" disabled selected>Select Category</option>
+                                    //    <option value="0">Verified</option>
+                                    //    <option value="1">Part of Final Bill/ Duplicate</option>
+                                    //    <option value="2">Paid by TPA</option>
+                                    //    <option value="3">Denided to Verify</option>
+                                    //    <option value="4">Shop Closed/ Shifted</option>
+                                    //    <option value="5">Total Bill</option>
+                                    //    </select>`
+                                    //}
                                     table_body += '</td>';
                                 }
+                                //if (cell.datatype == 8) {
+                                //    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%"  style="${cell.cellborder};border-color:${cell.cellbordercolor};margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                //    table_body += `<p>`
+                                //    for (var kt = 0; kt < conclusionStes.length; kt++) {
+                                //        table_body += `${conclusionStes[kt].Name} <input type="checkbox" name="${conclusionStes[kt].Name}" Id="" class="setChecks">  `
+                                //    }
+                                //    table_body += `</p>`
+                                //    table_body += `<textarea ${cell.staticcol} type="text" id="calc${dynid}" list="con${dynid}" style="${commonStyles}"  value="${cell.value}" class="form-control">${cell.value}</textara>
+                                //               <select ${cell.staticcol} id="con${dynid}" class="form-control selectTextarea" style="${commonStyles}">
+                                //        </select>`;
+                                //    table_body += '</td>';
+                                //}
+
                                 if (cell.datatype == 8) {
-                                    table_body += `<td class="" id="" colspan="${cell.colspan}" rowspan="${cell.rowspan}" width="${cell.width}%"  style="${cell.cellborder};border-color:${cell.cellbordercolor};margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
-                                    table_body += `<p>`
-                                    for (var kt = 0; kt < conclusionStes.length; kt++) {
-                                        table_body += `${conclusionStes[kt].Name} <input type="checkbox" name="${conclusionStes[kt].Name}" Id="" class="setChecks">  `
-                                    }
-                                    table_body += `</p>`
-                                    table_body += `<textarea ${cell.staticcol} type="text" id="calc${dynid}" list="con${dynid}" style="${commonStyles}"  value="${cell.value}" class="form-control">${cell.value}</textara>
-                                               <select ${cell.staticcol} id="con${dynid}" class="form-control selectTextarea" style="${commonStyles}">
-                                        </select>`;
+                                    table_body += `<td class="" id="" colspan="${cell.colspan} rowspan="${cell.rowspan} width="${cell.width}%" style="${cell.cellborder}:1px solid black;margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<select ${cell.staticcol}  id="calc${calid}" tbl="${tblname}" tblId="${colCount}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control calcRemark">
+                                    <option value="-1">Select remark</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="5">Payment</option>
+                                    <option value="6">Denied to Verify</option>
+                                    <option value="7">Shop Closed</option>
+                                    <option value="8">Not Existed</option>
+                                    <option value="9">Not Issued/Fake</option>
+                                    </select>`;
+                                    table_body += '</td>';
+                                }
+                                if (cell.datatype == 9) {
+                                    table_body += `<td class="" id="" colspan="${cell.colspan} rowspan="${cell.rowspan} width="${cell.width}%" style="${cell.cellborder}:1px solid black;margin-top:${cell.margintop};margin-bottom:${cell.marginbottom};">`;
+                                    table_body += `<input ${cell.staticcol} type="text" name="currency-field"  pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$"  data-type="currency" placeholder="₹ 10,00,000.00"  id="calc${calid}" colNo="${j}" style="${commonStyles}"  value="${cell.value}" class="form-control currencyField"> `;
+                                    table_body += `<select ${cell.staticcol}  id="calcSelect${calid}" tbl="${tblname}" tblId="${colCount}" colNo="${j}" style='${commonStyles}'  value="${cell.value}" class="form-control fetchRemark">
+                                    <option value="-1">Select Type</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="5">Payment</option>
+                                    <option value="6">Denied to Verify</option>
+                                    <option value="7">Shop Closed</option>
+                                    <option value="8">Not Existed</option>
+                                    <option value="9">Not Issued/Fake</option>
+                                    <option value="10">Toatl of bill</option>
+                                    </select>`;
                                     table_body += '</td>';
                                 }
                             }
@@ -2691,7 +2742,6 @@
     });
 
     //Copy Temp Data
-
     $(document).on("focus", ".copyTempData", function () {
 
         var from = $(this).attr("from");
@@ -2813,6 +2863,93 @@
         }
 
 
+    });
+
+    //remark caluclations
+    var totalofBills = 0, finalBill = 0, duplicate = 0, paidByTpa = 0, finalBillPart = 0, payment = 0, deniedToVerify = 0, shopClosed = 0, notIssued = 0, notExisted = 0;
+    $(document).on("change", '.calcRemark', function () {
+        var tblName = $(this).attr('tbl');
+        var tblId = $(this).attr('tblId');
+        let num = parseInt(tblId);
+        let newNum = num - 1;
+        let paddedNum = String(newNum).padStart(tblId.length, '0');
+        var targetId = "calc" + tblName + paddedNum;
+        console.log(tblId, targetId);
+        var targetValue = $(`#${targetId}`).val();
+        var value = $(this).val();
+        if (targetValue == "" || targetValue == "undefined" || typeof targetValue === "undefined") targetValue = 0;
+        else {
+            targetValue = targetValue.replace(/₹/g, '');
+            targetValue = targetValue.replace(/,/g, '');
+        }
+        console.log(targetValue, value);
+        totalofBills = totalofBills + parseInt(targetValue);
+        switch (value) {
+            case '1': finalBill = finalBill + parseInt(targetValue);
+                localStorage.setItem('FinalBill', finalBill);
+                break;
+            case '2': duplicate = duplicate + parseInt(targetValue);
+                localStorage.setItem('Duplicate', duplicate);
+                break;
+            case '3': paidByTpa = paidByTpa + parseInt(targetValue);
+                localStorage.setItem('PaidByTpa', paidByTpa);
+                break;
+            case '4': finalBillPart = finalBillPart + parseInt(targetValue);
+                localStorage.setItem('FinalBillPart', finalBillPart);
+                break;
+            case '5': payment = payment + parseInt(targetValue);
+                localStorage.setItem('Payment', payment);
+                break;
+            case '6': deniedToVerify = deniedToVerify + parseInt(targetValue);
+                localStorage.setItem('DeniedToVerify', deniedToVerify);
+                break;
+            case '7': shopClosed = shopClosed + parseInt(targetValue);
+                localStorage.setItem('ShopClosed', shopClosed);
+                break;
+            case '8': notExisted = notExisted + parseInt(targetValue);
+                localStorage.setItem('NotExisted', notExisted);
+                break;
+            case '9': notIssued = notIssued + parseInt(targetValue);
+                localStorage.setItem('NotIssued', notIssued);
+                break;
+        }
+        localStorage.setItem('TotalOfBills', totalofBills);
+    });
+
+    $(document).on("change", '.fetchRemark', function () {
+        var value = $(this).val();
+        switch (value) {
+            case '1': var targetValue = localStorage.getItem('FinalBill');
+                $(this).prev().val(targetValue);
+                break;
+            case '2': var targetValue = localStorage.getItem('Duplicate');
+                $(this).prev().val(targetValue);
+                break;
+            case '3': var targetValue = localStorage.getItem('PaidByTpa');
+                $(this).prev().val(targetValue);
+                break;
+            case '4': var targetValue = localStorage.getItem('FinalBillPart');
+                $(this).prev().val(targetValue);
+                break;
+            case '5':var targetValue = localStorage.getItem('Payment');
+                $(this).prev().val(targetValue);
+                break;
+            case '6':var targetValue = localStorage.getItem('DeniedToVerify');
+                $(this).prev().val(targetValue);
+                break;
+            case '7':var targetValue = localStorage.getItem('ShopClosed');
+                $(this).prev().val(targetValue);
+                break;
+            case '8':var targetValue = localStorage.getItem('NotExisted');
+                $(this).prev().val(targetValue);
+                break;
+            case '9':var targetValue = localStorage.getItem('NotIssued');
+                $(this).prev().val(targetValue);
+                break;
+            case '10': var targetValue = localStorage.getItem('TotalOfBills');
+                $(this).prev().val(targetValue);
+                break;
+        }
     });
 });
 

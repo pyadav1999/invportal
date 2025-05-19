@@ -3386,7 +3386,6 @@ $(document).ready(function () {
         }
     }
     $(document).on("click", "#createCalcTable", function () {
-        ;
         $('.modalCalcBody').empty();
         var number_of_rows_calc = $('#calcrows').val();
         createCalcTable1(number_of_rows_calc);
@@ -3438,6 +3437,8 @@ $(document).ready(function () {
                                             <option value="5">Dropdown</option>
                                             <option value="6">File Upload</option>
                                             <option value="7">Currency</option>
+                                            <option value="8">RemarkDropDown</option>
+                                            <option value="9">RemarkInput</option>
                                         </select>
 </div>
 <div class="col-6">
@@ -3645,7 +3646,6 @@ $(document).ready(function () {
         return table_body;
     }
     $(document).on("click", "#createcalctable", function () {
-        ;
         calccols = [];
 
         $('#calc-table-datatype').empty();
@@ -3820,12 +3820,45 @@ $(document).ready(function () {
                     table_body += `<input id="inp${calinp}" type="text" name="currency-field" pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$" data-type="currency" placeholder="₹ 1,00,000.00" style="font-style:${colChoices[i][fontstyle]}; text-decoration:${colChoices[i][underline]}; font-size:${colChoices[i][fontsize]}; color:${colChoices[i][colorId]}; background-color:${colChoices[i][bgcolorId]}; font-weight:${colChoices[i][fontWeight]}; vertical-align:${colChoices[i][verticalId]}; text-align:${colChoices[i][horizontalId]}; font-family:${colChoices[i][fontFamily]}; height:${colChoices[i][height]}em;" value="" class="form-control currencyField"> `;
                     table_body += '</td>';
                 }
-                if (colChoices[i][colId] == 8) {
-                    table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
-                    table_body += `<input id="inp${calinp}" type="text" list="con${calinp}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
-                                        <datalist id="con${calinp}">
-                                        </datalist>`;
+                //if (colChoices[i][colId] == 8) {
+                //    table_body += `<td class="${id}" id="${inpId}" colspan="${colChoices[i][widthId]}" width="${colChoices[i][size]}%" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                //    table_body += `<input id="inp${calinp}" type="text" list="con${calinp}" style='font-style:${colChoices[i][fontstyle]};text-decoration:${colChoices[i][underline]};font-size:${colChoices[i][fontsize]};color:${colChoices[i][colorId]};background-color:${colChoices[i][bgcolorId]};font-weight:${colChoices[i][fontWeight]};vertical-align:${colChoices[i][verticalId]};text-align:${colChoices[i][horizontalId]};font-family:${colChoices[i][fontFamily]};height:${colChoices[i][height]}em;'  value="" class="form-control">
+                //                        <datalist id="con${calinp}">
+                //                        </datalist>`;
 
+                //    table_body += '</td>';
+                //}
+                if (colChoices[i][colId] == 8) {
+                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<select id="inp${calinp}" type="text" style="font-style:${colChoices[i][fontstyle]}; text-decoration:${colChoices[i][underline]}; font-size:${colChoices[i][fontsize]}; color:${colChoices[i][colorId]}; background-color:${colChoices[i][bgcolorId]}; font-weight:${colChoices[i][fontWeight]}; vertical-align:${colChoices[i][verticalId]}; text-align:${colChoices[i][horizontalId]}; font-family:${colChoices[i][fontFamily]}; height:${colChoices[i][height]}em;" value="" class="form-control">
+                                    <option value="-1">Select remark</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="5">Payment</option>
+                                    <option value="6">Denied to Verify</option>
+                                    <option value="7">Shop Closed</option>
+                                    <option value="8">Not Existed</option>
+                                    <option value="9">Not Issued/Fake</option>
+                    </select>`;
+                    table_body += '</td>';
+                }
+                if (colChoices[i][colId] == 9) {
+                    table_body += `<td class="${id}"  id="${inpId}" colspan="${colChoices[i][widthId]}" style="${colChoices[i][cellborder]};border-color:${colChoices[i][cellbordercolor]};margin-top:${colChoices[i][margintop]}em;margin-bottom:${colChoices[i][marginbottom]}em">`;
+                    table_body += `<input id="inp${calinp}" type="text" name="currency-field" pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$" data-type="currency" placeholder="₹ 1,00,000.00" style="font-style:${colChoices[i][fontstyle]}; text-decoration:${colChoices[i][underline]}; font-size:${colChoices[i][fontsize]}; color:${colChoices[i][colorId]}; background-color:${colChoices[i][bgcolorId]}; font-weight:${colChoices[i][fontWeight]}; vertical-align:${colChoices[i][verticalId]}; text-align:${colChoices[i][horizontalId]}; font-family:${colChoices[i][fontFamily]}; height:${colChoices[i][height]}em;" value="" class="form-control currencyField"> `;
+                    table_body += `<select id="select${calinp}" type="text" style="font-style:${colChoices[i][fontstyle]}; text-decoration:${colChoices[i][underline]}; font-size:${colChoices[i][fontsize]}; color:${colChoices[i][colorId]}; background-color:${colChoices[i][bgcolorId]}; font-weight:${colChoices[i][fontWeight]}; vertical-align:${colChoices[i][verticalId]}; text-align:${colChoices[i][horizontalId]}; font-family:${colChoices[i][fontFamily]}; height:${colChoices[i][height]}em;" value="" class="form-control">
+                                    <option value="-1">Select remark</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="5">Payment</option>
+                                    <option value="6">Denied to Verify</option>
+                                    <option value="7">Shop Closed</option>
+                                    <option value="8">Not Existed</option>
+                                    <option value="9">Not Issued/Fake</option>
+                    </select>`;
                     table_body += '</td>';
                 }
                 calinp++;
@@ -5698,15 +5731,50 @@ $(document).ready(function () {
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
+                                //if (format[tblid][i][j].datatype == 8) {
+                                //    table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                //    table_body += `<input type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">
+                                //               <datalist id="con${dynid}">
+                                //        </datalist>`;
+                                //    table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
+                                //    table_body += '</td>';
+                                //}
                                 if (format[tblid][i][j].datatype == 8) {
                                     table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
-                                    table_body += `<input type="text" id="calc${dynid}" list="con${dynid}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control">
-                                               <datalist id="con${dynid}">
-                                        </datalist>`;
+                                    table_body += `<select  id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> 
+                                    <option value="-1">Select remark</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="4">Payment</option>
+                                    <option value="4">Denied to Verify</option>
+                                    <option value="4">Shop Closed</option>
+                                    <option value="4">Not Existed</option>
+                                    <option value="4">Not Issued/Fake</option>
+                                    </select>`;
                                     table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
                                     table_body += '</td>';
                                 }
 
+                            }
+                            if (format[tblid][i][j].datatype == 9) {
+                                table_body += `<td class="" id="" colspan="${format[tblid][i][j].colspan}" rowspan="${format[tblid][i][j].rowspan}" width="${format[tblid][i][j].width}%" style="${format[tblid][i][j].cellborder};border-color:${format[tblid][i][j].cellbordercolor};margin-top:${format[tblid][i][j].margintop};margin-bottom:${format[tblid][i][j].marginbottom};">`;
+                                table_body += `<input type="text" name="currency-field"  pattern="^₹\s?(\d{1,3}(,\d{2,3})*(\.\d{2})?|\d{1,})(,\d{2})?$"  data-type="currency" placeholder="₹ 10,00,000.00"  id="calc${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control currencyField"> `;
+                                table_body += `<select  id="calcSelect${calid}" colNo="${j}" style='font-style:${format[tblid][i][j].fontstyle};text-decoration:${format[tblid][i][j].underline};font-size:${format[tblid][i][j].fontsize}px;color:${format[tblid][i][j].color};background-color:${format[tblid][i][j].backgroundcolor};font-weight:${format[tblid][i][j].fontweight};vertical-align:${format[tblid][i][j].verticalalign};text-align:${format[tblid][i][j].textalign};font-family:${format[tblid][i][j].fontfamily};height:${format[tblid][i][j].height}em;'  value="${format[tblid][i][j].value}" class="form-control"> 
+                                    <option value="-1">Select remark</option>
+                                    <option value="1">Final Bill</option>
+                                    <option value="2">Duplicate</option>
+                                    <option value="3">Paid by TPA</option>
+                                    <option value="4">Final Bill Part</option>
+                                    <option value="4">Payment</option>
+                                    <option value="4">Denied to Verify</option>
+                                    <option value="4">Shop Closed</option>
+                                    <option value="4">Not Existed</option>
+                                    <option value="4">Not Issued/Fake</option>
+                                    </select>`;
+                                table_body += `<span class="editDynCol" col="${j}" row="${i}" tbl="${tblid}"><img src="/images/icons8-edit.svg" /></span>`
+                                table_body += '</td>';
                             }
                             table_body += '<td><a href="javascript:void(0)" class="deletecalcrow">X</a></td>'
                             table_body += '</tr>';
